@@ -1,0 +1,86 @@
+\anexo{Matriz de consistencia}
+\label{anx:matriz}
+
+\begin{table}[H]
+\centering
+\caption{Matriz de consistencia.}
+\label{tab:consistencia}
+\begingroup\singlespacing\footnotesize
+\begin{tabular}{@{}p{3.4cm}p{3.7cm}p{3.7cm}p{3.3cm}@{}}
+\toprule
+\textbf{Problema} & \textbf{Objetivo} & \textbf{Hipótesis} & \textbf{Técnica} \\
+\midrule
+General: ¿cuáles son los patrones de distribución espacial y temporal de las ocurrencias del extracto SIPCOP Municipal de San Sebastián, del 1/1 al 29/8 de 2025? & Analizar la distribución espacial y temporal del extracto mediante técnicas de agrupamiento y procedimientos estadísticos & H\textsubscript{G} (sección~\ref{sec:hipotesis}) & Agrupamiento espacial y análisis temporal \\
+\addlinespace
+PE1: proporción de ocurrencias utilizables, resolución espacial y convención de georreferenciación & OE1: evaluar la calidad y cobertura de los registros del SIPCOP-M y caracterizar la resolución de las coordenadas & Descriptivo (sin hipótesis) & Depuración, diagnóstico y georreferenciación \\
+\addlinespace
+PE2: concentraciones espaciales, cuáles superan el azar y coincidencia con HDBSCAN & OE2: identificar y contrastar las concentraciones con DBSCAN y compararlas con HDBSCAN & H\textsubscript{1} & DBSCAN ($\varepsilon$ de 150 a 300 m), HDBSCAN, ARI y prueba Monte Carlo con dos modelos nulos (CSR y área urbanizada) \\
+\addlinespace
+PE3: distribución temporal de los \textit{hotspots} frente al resto del distrito (y, como análisis secundario, frente a la exposición calendario) & OE3: analizar la distribución temporal de los \textit{hotspots} & H\textsubscript{2} & Chi-cuadrado de homogeneidad o permutación, V de Cramér, Holm y análisis de sensibilidad \\
+\bottomrule
+\end{tabular}
+\endgroup
+\fuente{Elaboración propia.}
+\end{table}
+
+\anexo{Ficha de estructura de datos del SIPCOP-M}
+\label{anx:ficha}
+
+\begingroup\singlespacing\footnotesize
+\begin{longtable}{@{}p{4.0cm}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{5.3cm}>{\raggedright\arraybackslash}p{3.0cm}@{}}
+\caption{Campos del archivo CSV SIPCOP Municipal (19 columnas).}\label{tab:ficha}\\
+\toprule
+\textbf{Campo del CSV} & \textbf{Tipo} & \textbf{Descripción observada} & \textbf{Uso previsto} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo del CSV} & \textbf{Tipo} & \textbf{Descripción observada} & \textbf{Uso previsto} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\texttt{fechaalerta} & Texto (fecha) & Fecha de alerta en español (``agosto 23, 2025''); semántica por confirmar & Día de semana, mes; conversión a fecha \\
+\texttt{turno} & Categórica & Mañana, tarde, noche & Análisis temporal \\
+\texttt{especifico} & Categórica & 8 categorías (vida, cuerpo y salud; patrimonio; etc.) & Descripción, conjuntos por tipo \\
+\texttt{modalidad} & Categórica & Modalidad presunta (por ejemplo, exposición a peligro o abandono, robo a personas) & Conjunto de presuntos delitos \\
+\texttt{generico} & Categórica & Valor único: alertas tempranas en apoyo a la PNP & Delimita el extracto \\
+\texttt{origen} & Categórica & Patrullaje, teléfono, alarma, WhatsApp, cámara, operativo, otros & Sensibilidad por origen \\
+\texttt{naturalezadelpersonal} & Categórica & Patrullaje Local Integrado o Patrullaje Municipal -- Serenazgo & Descripción y terminología \\
+\texttt{formapatrullaje} & Categórica & Motorizado, a pie, bicicleta, otros & Descripción \\
+\texttt{lugarocurrencia} & Categórica & Vía pública, inmueble particular, otros; 22\,\% faltante & Calidad de datos \\
+\texttt{resultadoocurrencia} & Categórica & Consumado o frustrado; 67\,\% faltante & Calidad de datos \\
+\texttt{consecuencia} & Categórica & Ninguno, materiales, lesiones, etc.; 10\,\% faltante & Calidad de datos \\
+\texttt{medioutilizado} & Categórica & 32\,\% faltante y 64\,\% ``OTROS'' & Calidad de datos \\
+\texttt{tipovia} & Categórica & Calle, avenida, pasaje, jirón; 175 ``SIN DATO'' & Descripción \\
+\texttt{direccion} & Texto libre & Dirección o punto de referencia; 5 ``SIN DATO'' & Contraste con coordenadas \\
+\texttt{estado}, \texttt{estadoocurrencia} & Categórica & \texttt{estado} constante (activo); casi todos cerrados & Verificación \\
+\texttt{id\_dist} & Código & 080105 en todo el extracto & Verificación del ámbito \\
+\texttt{x} & Numérica (texto) & Longitud en grados decimales, 3 decimales (unos 108 m) & Análisis espacial tras validar \\
+\texttt{y} & Numérica (texto) & Latitud en grados decimales, 3 decimales (unos 111 m) & Análisis espacial tras validar \\
+\end{longtable}
+\endgroup
+\fuente{Campos observados en el CSV disponible (separador \texttt{;}, codificación UTF-8 con BOM, saltos de línea CRLF, coordenadas entre comillas). La definición de categorías, el significado de la fecha de alerta y el sistema de referencia se confirmarán con la entidad responsable.}
+
+\anexo{Registro de depuración de datos}
+\label{anx:depuracion}
+
+\begin{table}[H]
+\centering
+\caption{Registro de depuración preliminar.}
+\label{tab:depuracion}
+\begingroup\singlespacing\footnotesize
+\begin{tabular}{@{}p{7.0cm}p{3.0cm}p{3.0cm}@{}}
+\toprule
+\textbf{Etapa} & \textbf{Registros restantes} & \textbf{Registros excluidos} \\
+\midrule
+Registros del CSV disponible (1/1--29/8/2025) & 996 & --- \\
+Tras eliminar duplicados exactos & 986 & 10 \\
+Con \texttt{fechaalerta} y turno válidos & 986 & 0 \\
+Con coordenadas presentes y parseables & 986 & 0 \\
+Con CRS validado y ubicación dentro del distrito & Por completar & Por completar \\
+\textbf{Registros utilizables para el análisis} & Por completar (máximo 986) & Por completar \\
+\bottomrule
+\end{tabular}
+\endgroup
+\fuente{Conteos del diagnóstico preliminar. Los 70 registros con igual fecha, turno y coordenadas no se excluyen (ver sección~3.3.2). Falta verificar la ubicación frente al polígono distrital.}
+\end{table}

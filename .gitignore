@@ -1,0 +1,26 @@
+# Archivos auxiliares generados por LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.loe
+*.loa
+*.loan
+*.synctex.gz
+
+# Datos incidentales georreferenciados y descargas locales
+Tesis/datos/sipcop_san_sebastian_2025.csv
+Tesis/datos/sidpol_cusco.csv
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Archivo temporal producido por una ejecución desde la carpeta incorrecta
+texput.log

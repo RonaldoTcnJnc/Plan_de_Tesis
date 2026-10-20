@@ -1,0 +1,31 @@
+\chapter{Estudio de factibilidad}
+
+\section{Enfoque adoptado}
+
+El proyecto se apoya en datos que la municipalidad ya produce y en herramientas de código abierto, sin entrenar modelos complejos ni requerir equipamiento especializado. La factibilidad se analiza en sus dimensiones técnica, económica y operativa.
+
+\section{Factibilidad técnica}
+
+\subsection{Hardware y cómputo}
+
+El volumen disponible (996 registros de un distrito para enero-agosto de 2025) es manejable en un computador personal de gama media. DBSCAN y la simulación Monte Carlo (999 repeticiones) son ejecutables en ese equipo en tiempos razonables.
+
+\subsection{Datos}
+
+El CSV SIPCOP Municipal ya está disponible y se realizó un diagnóstico preliminar (Tabla~\ref{tab:diagnostico}): los 996 registros no tienen valores nulos en fecha, turno, tipo ni coordenadas, las coordenadas están en grados decimales con resolución de unos 110 m (412 ubicaciones distintas) y el volumen de registro varía de 2,0 a 7,5 por día entre meses. Los riesgos principales son la interpretación de \texttt{fechaalerta}, la ausencia de un diccionario que defina el sistema de referencia de \texttt{x} e \texttt{y}, la definición de las categorías y el cambio de clasificación entre meses. Se mitigarán documentando la fuente, consultando a la entidad responsable en las primeras semanas (de lo que dependen la rejilla de $\varepsilon$ y la referencia temporal) y tratando la evaluación de calidad como primer resultado (objetivo específico~1). Si no se confirma la referencia espacial, se limitará el análisis a los resultados que no dependan de distancias.
+
+\subsection{Herramientas y software}
+
+Se emplearán Python y sus bibliotecas de ciencia de datos (\textit{pandas}, \textit{scikit-learn}, \textit{hdbscan}, \textit{SciPy}), un sistema de información geográfica de código abierto para los mapas y \LaTeX{} para la redacción. Todas son de uso libre.
+
+\section{Factibilidad económica}
+
+El presupuesto estimado (Tabla~\ref{tab:presupuesto}) asciende a S/~1\,220,00, compuesto por gastos de servicios, materiales y trámites; al no requerir hardware ni licencias adicionales, es asumible con recursos propios.
+
+\section{Factibilidad operativa}
+
+El extracto público permite iniciar el análisis sin esperar una nueva entrega de datos. Se procurará la colaboración de la Municipalidad Distrital de San Sebastián para validar las definiciones de los campos, los horarios de turno y, de ser posible, interpretar los \textit{hotspots}; también se verificarán las condiciones de reutilización y difusión. El estudio no implica intervención sobre personas ni trabajo de campo extenso.
+
+\section{Viabilidad y sostenibilidad}
+
+El procedimiento (depuración, agrupamiento, contraste temporal) es replicable sobre nuevos periodos de datos y en otros distritos, y el uso de herramientas libres favorece que la municipalidad lo mantenga. La principal condición de continuidad es que el registro conserve coordenadas válidas.

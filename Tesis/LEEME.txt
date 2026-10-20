@@ -1,0 +1,5 @@
+Tesis - plan de investigación (SIPCOP San Sebastián, ene-ago 2025)
+Compilar:   latexmk -pdf main.tex        (presentación: cd presentacion && latexmk -pdf presentacion.tex)
+Requiere:   TeX Live con babel-spanish, natbib, tocloft, titlesec, algorithm/tikz.
+Figuras del diagnóstico:  cd datos && python figuras_diagnostico.py   (escribe en figures/)
+Cifras del diagnóstico:   cd datos && python diagnostico_preliminar.py

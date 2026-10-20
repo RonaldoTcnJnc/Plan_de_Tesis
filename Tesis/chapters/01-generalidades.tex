@@ -1,0 +1,103 @@
+\chapter{Generalidades}
+
+\section{Planteamiento del problema}
+
+\subsection{Descripción del problema}
+
+La región Cusco enfrenta un incremento sostenido en la percepción de inseguridad ciudadana y en la ocurrencia de hechos delictivos. Según registros de la Policía Nacional del Perú, las denuncias por homicidio en el departamento de Cusco aumentaron de 36 casos en 2022 a 60 casos en 2024 (enero-noviembre) \citep{pnp2024homicidios}. Asimismo, la Encuesta Nacional de Programas Presupuestales (ENAPRES) ubicó a Cusco entre los departamentos con mayor porcentaje de percepción de inseguridad del país, con un 92,3\,\% durante el periodo noviembre 2022-abril 2023 \citep{inei2023enapres}.
+
+La literatura criminológica documenta que el delito no se reparte al azar: una proporción reducida de lugares concentra una parte desproporcionada de los hechos \citep{sherman1989,weisburd2015}. Por ello, los gobiernos locales, que participan en el Sistema Nacional de Seguridad Ciudadana a través de los comités distritales \citep{ley27933}, necesitan saber en qué zonas y en qué momentos se concentran los incidentes para orientar el patrullaje.
+
+El Mapa del Delito Georreferenciado del Ministerio del Interior publica una capa denominada SIPCOP Municipal con registros de ocurrencias del patrullaje municipal e integrado (serenazgo y patrullaje local integrado). El extracto disponible para el distrito de San Sebastián contiene 996 registros entre el 1 de enero y el 29 de agosto de 2025, con categoría, turno y coordenadas. Aún no se ha documentado un análisis local que caracterice su distribución espacial y temporal. El campo temporal disponible es la fecha de alerta; no se cuenta con hora individual en el archivo descargado. Las coordenadas están en grados decimales con tres decimales (unos 110 m), de modo que los 996 registros se reducen a 412 ubicaciones distintas.
+
+\subsection{Identificación del problema}
+
+La principal dificultad es que el extracto público de SIPCOP Municipal aún no se ha transformado en información espacial y temporal útil para la gestión local. Se requiere evaluar la calidad de sus 996 registros y establecer si existen concentraciones espaciales y diferencias de recurrencia por turno, día de la semana y mes. El periodo disponible cubre enero-agosto de 2025 y no representa los años 2022-2024 ni los últimos meses de 2025.
+
+\subsection{Formulación del problema}
+
+\subsubsection{Problema general}
+
+¿Cuáles son los patrones de distribución espacial y temporal de las ocurrencias registradas en la capa SIPCOP Municipal para el distrito de San Sebastián, Cusco, entre el 1 de enero y el 29 de agosto de 2025?
+
+\subsubsection{Problemas específicos}
+
+\begin{enumerate}[label=PE\arabic*.]
+    \item ¿Qué proporción de las ocurrencias registradas en el SIPCOP-M cuenta con ubicación, fecha y tipo de ocurrencia utilizables, y con qué resolución espacial y convención de georreferenciación están registradas?
+    \item ¿Qué concentraciones espaciales de ocurrencias se detectan con DBSCAN, cuáles de ellas superan lo esperado por azar y en qué medida coincide HDBSCAN?
+    \item ¿Cómo se distribuyen en el tiempo (turno, día de la semana, mes) las ocurrencias de las concentraciones significativas y difiere esa distribución de la esperada por exposición?
+\end{enumerate}
+
+\section{Objetivos de la investigación}
+\label{sec:objetivos}
+
+\subsection{Objetivo general}
+
+Analizar la distribución espacial y temporal de las ocurrencias registradas en la capa SIPCOP Municipal para el distrito de San Sebastián, Cusco, entre el 1 de enero y el 29 de agosto de 2025, mediante técnicas de agrupamiento espacial y procedimientos estadísticos, considerando la calidad y las limitaciones del extracto disponible.
+
+\subsection{Objetivos específicos}
+
+\begin{enumerate}[label=OE\arabic*.]
+    \item Evaluar la calidad y cobertura de los registros del SIPCOP-M, determinar la proporción de ocurrencias utilizables y caracterizar la resolución espacial y la convención de georreferenciación de las coordenadas.
+    \item Identificar y caracterizar las concentraciones espaciales de ocurrencias mediante DBSCAN, contrastarlas frente a la aleatoriedad espacial y comparar sus resultados con HDBSCAN.
+    \item Analizar la distribución temporal (turno, día de la semana y mes) de las ocurrencias de las concentraciones significativas, mediante procedimientos estadísticos adecuados.
+\end{enumerate}
+
+\section{Hipótesis de la investigación}
+\label{sec:hipotesis}
+
+\subsection{Hipótesis general}
+
+\textbf{H\textsubscript{G}:} Las ocurrencias registradas en SIPCOP Municipal para San Sebastián entre el 1 de enero y el 29 de agosto de 2025 presentan (a) concentraciones espaciales que superan la aleatoriedad espacial completa (H\textsubscript{1}) y (b) en esas concentraciones, una distribución por turno, día de la semana o mes distinta de la del resto del distrito (H\textsubscript{2}). Cada componente se contrasta y se informa por separado, aunque el otro no se sostenga.
+
+\subsection{Hipótesis específicas}
+
+\begin{enumerate}[label=H\textsubscript{\arabic*}:]
+    \item Al menos un grupo espacial detectado con DBSCAN concentra más ocurrencias que las esperadas bajo aleatoriedad espacial completa (objetivo específico~2). Los grupos que superan este contraste se denominan \textit{hotspots}.
+    \item En los \textit{hotspots}, la distribución de las ocurrencias por turno, día de la semana o mes difiere de la del resto del distrito (objetivo específico~3). La hipótesis nula establece que ambas distribuciones coinciden; $\alpha = 0{,}05$. La esperada por exposición calendario se usa como contraste secundario.
+\end{enumerate}
+
+\noindent El objetivo específico~1 es descriptivo y no se contrasta con una hipótesis.
+
+\section{Justificación de la investigación}
+\label{sec:justificacion}
+
+\textbf{Justificación científica.} La investigación aportará evidencia empírica sobre la distribución espacial y temporal de las ocurrencias de seguridad en un distrito de la región Cusco, contrastando si estas se concentran en determinados lugares y momentos o se distribuyen al azar.
+
+\textbf{Justificación metodológica.} El estudio establece un procedimiento reproducible que integra la depuración y georreferenciación de registros, el agrupamiento espacial con parámetros justificados y el contraste estadístico de la recurrencia temporal, con criterios explícitos de calidad y de significancia.
+
+\textbf{Justificación tecnológica.} Los resultados permitirán conocer las capacidades y limitaciones de DBSCAN y de HDBSCAN aplicados a registros del SIPCOP-M y convertir datos tabulares en información geoespacial útil para el patrullaje municipal.
+
+\textbf{Justificación social y práctica.} La Municipalidad Distrital dispondrá de información sobre zonas críticas y momentos de mayor recurrencia para focalizar el patrullaje y la prevención del serenazgo. El estudio no mide el efecto de ninguna intervención sobre la reducción del delito.
+
+\section{Alcances y limitaciones}
+
+\subsection{Alcances}
+
+\textbf{Alcance espacial.} Distrito de San Sebastián, provincia y departamento de Cusco.
+
+\textbf{Alcance temporal.} Registros con fecha de alerta entre el 1 de enero y el 29 de agosto de 2025, según el extracto disponible al preparar el estudio.
+
+\textbf{Alcance tecnológico.} Depuración y georreferenciación de los registros del SIPCOP-M; agrupamiento con DBSCAN y comparación con HDBSCAN; contraste frente a aleatoriedad espacial; estimación de densidad kernel solo como visualización; contraste temporal mediante chi-cuadrado.
+
+\textbf{Alcance disciplinar.} Ciencia de datos y análisis geoespacial, dentro de la Ingeniería Informática y de Sistemas.
+
+\subsection{Limitaciones}
+
+\textbf{Calidad y cobertura del registro.} El análisis se limita a 996 filas del extracto público descargado. Se evaluarán coordenadas, categorías, duplicados y otros problemas de calidad; los resultados no cubren registros no incluidos en ese extracto. El archivo no trae un identificador único de ocurrencia, por lo que los duplicados no pueden confirmarse, y todos los registros pertenecen a un mismo genérico (alertas tempranas en apoyo a la PNP), por lo que el extracto parece ser un subconjunto de la actividad total.
+
+\textbf{Resolución espacial.} Las coordenadas tienen tres decimales (unos 110 m): hay 412 ubicaciones distintas y el 77\,\% de los registros comparte coordenada exacta con otro. Es probable que parte de las ubicaciones proceda de una geocodificación por puntos de referencia (por ejemplo, paraderos o el cementerio) y no de la posición real del hecho; los resultados no se interpretarán a escalas menores que esa resolución.
+
+\textbf{Estabilidad del registro en el tiempo.} Los registros por día varían de 2,0 (junio) a 7,5 (agosto); hay 26 de 241 días sin ningún registro (no se sabe si hubo cero eventos o falta de reporte) y la modalidad de ``exposición a peligro o abandono de personas'' pasa del 57\,\% de los registros en enero a 9--17\,\% de junio a agosto, lo que sugiere un cambio de clasificación o de práctica de registro. Las diferencias entre meses pueden reflejar el registro y no el fenómeno.
+
+\textbf{Cobertura temporal.} El conjunto disponible abarca del 1 de enero al 29 de agosto de 2025. No permite describir 2022-2024, el último cuatrimestre de 2025 ni inferir un patrón anual completo.
+
+\textbf{Resolución temporal.} El archivo contiene fecha de alerta y turno, pero no hora individual de ocurrencia; por ello no se analizarán patrones horarios y la fecha de alerta puede no coincidir exactamente con la del hecho.
+
+\textbf{Registro de lo atendido, no de lo ocurrido.} La capa SIPCOP Municipal documenta ocurrencias registradas por el patrullaje municipal e integrado (el 51\,\% de los registros proviene de Patrullaje Local Integrado), que incluyen hechos de seguridad que no son necesariamente delitos (el 34\,\% corresponde a exposición a peligro o abandono de personas); no incluye los hechos no reportados ni los denunciados solo ante la Policía Nacional. Los patrones describen lo registrado en la capa y no la totalidad del delito ni necesariamente todos los servicios atendidos.
+
+\textbf{Precisión de la ubicación.} La exactitud de las coordenadas depende del modo de registro y condiciona la elección del radio $\varepsilon$.
+
+\textbf{Sensibilidad a los parámetros.} Los grupos obtenidos con DBSCAN dependen de $\varepsilon$ y MinPts; se documentará un análisis de sensibilidad.
+
+\textbf{Alcance inferencial.} El diseño es observacional: los resultados describen patrones y no establecen causas ni son generalizables a otros distritos. El registro refleja también dónde y cuándo se patrulla: el 76\,\% de los registros nace del patrullaje y solo 232 proceden de llamadas ciudadanas, alarmas o mensajería, lo que puede inflar la presencia de ocurrencias en zonas y turnos con mayor cobertura. Este sesgo se mide con un análisis de sensibilidad por origen del registro.

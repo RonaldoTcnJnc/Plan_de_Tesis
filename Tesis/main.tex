@@ -1,0 +1,153 @@
+\documentclass[12pt,oneside]{book}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[a4paper,left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{csquotes}
+\usepackage[round,authoryear]{natbib}
+\usepackage{titlesec}
+\usepackage[titles]{tocloft}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{chngcntr}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------------
+% Documento en blanco y negro: sin colores en títulos, texto, tablas ni figuras.
+% ---------------------------------------------------------------------------
+\pagestyle{plain}
+
+% Numeración continua de figuras, tablas y ecuaciones (formato APA)
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{equation}{chapter}
+
+\newcounter{algoritmo}
+\renewcommand{\thealgoritmo}{\arabic{algoritmo}}
+
+% --- Títulos en español para las listas ---
+\addto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\listtablename}{Índice de tablas}%
+  \renewcommand{\listfigurename}{Índice de figuras}%
+  \renewcommand{\bibname}{Referencias}%
+  \renewcommand{\contentsname}{Índice general}%
+}
+% --- Listas de ecuaciones y de algoritmos (tocloft) ---
+\newlistof{equations}{loe}{Índice de ecuaciones}
+\newcommand{\eqtitulo}[1]{\addcontentsline{loe}{equations}{\protect\numberline{\theequation}#1}}
+\newlistof{algorithms}{loa}{Índice de algoritmos}
+\newcommand{\algtitulo}[1]{\refstepcounter{algoritmo}\addcontentsline{loa}{algorithms}{\protect\numberline{\thealgoritmo}#1}}
+
+\newcommand{\tituloPlan}{%
+  {\bfseries\fontsize{14}{18}\selectfont Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana mediante técnicas de agrupamiento espacial en el distrito de San Sebastián, Cusco, periodo enero-agosto de 2025\par}}
+
+% --- Anexos: capítulos sin numeración automática, con entrada en el índice ---
+\newcounter{anexo}
+\newcommand{\anexo}[1]{%
+  \refstepcounter{anexo}%
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Anexo \theanexo. #1}%
+  \addcontentsline{loan}{anexos}{\protect\numberline{\theanexo}#1}%
+  \begingroup\centering\normalfont\large\bfseries Anexo \theanexo\par\vspace{0.3\baselineskip}#1\par\endgroup
+  \vspace{1.2\baselineskip}}
+\newlistof{anexos}{loan}{Índice de anexos}
+
+% --- Índices ---
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cfttoctitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforechapskip}{0.4em}
+\renewcommand{\cftloftitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cftloetitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterloetitle}{\hfill}
+\renewcommand{\cftloatitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterloatitle}{\hfill}
+\renewcommand{\cftloantitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterloantitle}{\hfill}
+\renewcommand{\cftfigpresnum}{Figura }
+\renewcommand{\cfttabpresnum}{Tabla }
+\renewcommand{\cftfigaftersnum}{.}
+\renewcommand{\cfttabaftersnum}{.}
+\setlength{\cftfignumwidth}{5.5em}
+\setlength{\cfttabnumwidth}{5em}
+\setlength{\cftequationsnumwidth}{3em}
+\setlength{\cftalgorithmsnumwidth}{3em}
+\setlength{\cftanexosnumwidth}{3em}
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\renewcommand{\cftchappresnum}{Capítulo }
+\setlength{\cftchapnumwidth}{5.5em}
+
+% --- Formato de títulos (negro, estilo APA/UNSAAC) ---
+\titleformat{\chapter}[display]
+  {\normalfont\large\bfseries\centering}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}{0.3em}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{-10pt}{1.2\baselineskip}
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\large\bfseries\centering}{}{0pt}{\MakeUppercase}
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\itshape}{\thesubsubsection.}{0.5em}{}
+
+% --- Tablas y figuras ---
+\captionsetup{justification=centering,labelfont=bf,textfont=it,labelsep=period}
+\captionsetup[table]{position=top}
+\newcommand{\fuente}[1]{\par\vspace{2pt}{\singlespacing\footnotesize\textit{Nota.} #1\par}}
+
+\doublespacing
+\emergencystretch=3em
+\sloppy
+\renewcommand{\arraystretch}{1.15}
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}
+\setlist{nosep}
+
+\begin{document}
+
+\frontmatter
+\include{frontmatter/portada}
+\include{frontmatter/resumen}
+\include{frontmatter/agradecimientos}
+\include{frontmatter/indices}
+\include{frontmatter/introduccion}
+
+\mainmatter
+\include{chapters/01-generalidades}
+\include{chapters/02-marco-teorico}
+\include{chapters/03-metodologia}
+\include{chapters/04-factibilidad}
+\include{chapters/05-administrativos}
+
+\backmatter
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Referencias}
+\bibliographystyle{bibliography/apalike-es}
+\bibliography{bibliography/references}
+
+\include{chapters/anexos}
+
+\end{document}

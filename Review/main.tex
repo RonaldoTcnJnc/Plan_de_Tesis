@@ -1,0 +1,207 @@
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{cite}
+
+\graphicspath{{figures/}}
+
+\begin{document}
+
+\title{Técnicas de agrupamiento espacial y análisis espacio-temporal para la detección de \textit{hotspots} de incidentes delictivos y de seguridad: una revisión sistemática de la literatura}
+
+\titlerunning{Hotspots de incidentes delictivos y de seguridad: una RSL}
+
+\author{Ronaldo Ticona Jancco}
+
+\authorrunning{R. Ticona Jancco}
+
+\institute{Escuela Profesional de Ingeniería Informática y de Sistemas,\\
+Universidad Nacional de San Antonio Abad del Cusco (UNSAAC), Cusco, Perú}
+
+\maketitle
+
+\begin{abstract}
+La detección de concentraciones espaciales de incidentes (\textit{hotspots}) a partir de registros policiales o municipales ha pasado de la densidad kernel y el mapeo por áreas a los algoritmos de agrupamiento por densidad (DBSCAN, HDBSCAN, OPTICS) y a los contrastes estadísticos de significancia. Siguiendo las guías de Kitchenham y PRISMA, esta revisión sistemática examina 17 estudios primarios (2008--2026) y los analiza según cuatro preguntas: las técnicas empleadas, la forma de evaluar la significancia y la robustez de los grupos, el tratamiento de la dimensión temporal y los sesgos de los datos reportados. Se propone una taxonomía de cinco familias de técnicas. La síntesis muestra que el agrupamiento por densidad es la familia más frecuente (8 de 17), pero que pocos estudios contrastan sus grupos frente a la aleatoriedad espacial, que ninguno prueba estadísticamente la distribución por turno, día o mes dentro de los grupos, y que solo uno cuantifica el sesgo de los datos policiales. Los hallazgos delimitan la brecha que aborda el plan de tesis sobre los registros del SIPCOP Municipal en San Sebastián, Cusco.
+
+\keywords{Revisión sistemática de literatura \and Hotspots \and Agrupamiento espacial \and DBSCAN \and Análisis espacio-temporal \and Seguridad ciudadana}
+\end{abstract}
+
+\section{Introducción}
+
+La literatura criminológica ha documentado que el delito no se reparte al azar: una fracción pequeña de lugares reúne una parte desproporcionada de los hechos y esa concentración es relativamente estable en el tiempo \cite{weisburd2015}. Para los gobiernos locales, esta regularidad justifica identificar \textit{hotspots} y los momentos en que se activan, con el fin de orientar el patrullaje y la prevención. Los registros administrativos con coordenadas y fecha, como los de la policía o del serenazgo municipal, son la materia prima habitual de este análisis.
+
+Las técnicas disponibles son diversas. La densidad kernel (KDE) y el mapeo por áreas fueron las primeras en compararse por su valor predictivo \cite{chainey2008}; después se incorporaron estadísticos de escaneo y de autocorrelación local, y más recientemente los algoritmos de agrupamiento por densidad, que delimitan grupos discretos sin fijar su número de antemano. Existen dos revisiones previas cercanas: una revisión sistemática sobre detección y predicción de \textit{hotspots} espacio-temporales centrada en predicción \cite{butt2020} y una encuesta sobre técnicas de agrupamiento estadísticamente robustas para \textit{hotspots} \cite{xie2022}. Hasta donde se pudo verificar en sus resúmenes, ninguna se orienta a los algoritmos de densidad aplicados a registros operativos locales, a la recurrencia de los grupos por turno, día o mes, ni a los sesgos de esos datos, y ninguna aborda el contexto de los registros del serenazgo en ciudades peruanas.
+
+Esta revisión llena ese vacío y sirve de base al plan de tesis sobre los patrones espaciales y temporales de las ocurrencias del SIPCOP Municipal en el distrito de San Sebastián (Cusco). Las preguntas de investigación son:
+
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \textbf{RQ1.} ¿Qué técnicas de análisis espacial y de agrupamiento se emplean para detectar concentraciones de incidentes delictivos o de seguridad?
+\item \textbf{RQ2.} ¿Cómo se evalúan la significancia, la calidad y la robustez de las concentraciones detectadas?
+\item \textbf{RQ3.} ¿Cómo se analiza la dimensión temporal de las concentraciones (turno, día de la semana, mes)?
+\item \textbf{RQ4.} ¿Qué sesgos y limitaciones de los datos (resolución, geocodificación, subregistro, patrullaje) se reportan, y qué evidencia existe en el contexto peruano y latinoamericano?
+\end{itemize}
+
+\section{Metodología de la revisión sistemática}
+
+La revisión sigue el protocolo de Kitchenham y Charters \cite{kitchenham2007} para planificar, ejecutar y reportar la búsqueda, y las recomendaciones de PRISMA 2020 \cite{page2021} para informar la selección de estudios.
+
+\subsection{Estrategia de búsqueda}
+
+La búsqueda se ejecutó el 19 de octubre de 2026 en buscadores académicos y repositorios abiertos (arXiv, DOAJ, repositorios institucionales y de actas de congresos), en inglés, español y portugués. Se combinaron cuatro cadenas, adaptadas a la sintaxis de cada fuente:
+
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \textbf{S1:} (crime OR incident*) AND (hotspot* OR ``hot spot*'') AND (DBSCAN OR HDBSCAN OR OPTICS OR clustering OR ``kernel density'')
+\item \textbf{S2:} (delito OR delincuencia OR ``seguridad ciudadana'') AND (``hot spots'' OR ``puntos calientes'' OR ``agrupamiento espacial'' OR DBSCAN)
+\item \textbf{S3:} crime AND (``space-time'' OR spatio-temporal) AND (cluster* OR ``scan statistic'')
+\item \textbf{S4:} crime AND (``data bias'' OR geocoding OR underreporting) AND hotspot
+\end{itemize}
+
+Se añadió una búsqueda hacia atrás en la bibliografía del plan de tesis, que aportó tres registros adicionales. La Tabla~\ref{tab:criterios} resume los criterios de selección.
+
+\begin{table}[H]
+\centering
+\caption{Criterios de inclusión (IC) y exclusión (EC).}
+\label{tab:criterios}
+\begingroup\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.6cm}p{11.2cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Criterio} \\
+\midrule
+IC1 & Analiza la distribución espacial o espacio-temporal de incidentes delictivos o de seguridad. \\
+IC2 & Aplica al menos una técnica de detección de concentraciones: densidad, agrupamiento, estadística espacial o modelos espaciales. \\
+IC3 & Usa o evalúa datos empíricos o simulados calibrados con datos reales. \\
+IC4 & Publicado entre 2008 y 2026, en inglés, español o portugués. \\
+IC5 & Artículo de revista, acta de congreso o \textit{preprint} con texto completo accesible. \\
+\midrule
+EC1 & Estudio secundario (revisión o encuesta): se usa como trabajo relacionado, no como estudio primario. \\
+EC2 & Tesis de grado o documento sin revisión por pares ni arbitraje editorial. \\
+EC3 & Sin texto completo accesible. \\
+EC4 & Estudio exclusivamente predictivo, sin detección espacial de concentraciones. \\
+\bottomrule
+\end{tabular}
+\endgroup
+\end{table}
+
+\subsection{Selección de estudios}
+
+Se evaluaron a texto completo 21 registros: 18 provenientes de la búsqueda y 3 de la búsqueda hacia atrás. Se excluyeron 4: dos estudios secundarios \cite{butt2020,xie2022} (EC1, usados en la Introducción), una tesis de grado sin arbitraje (EC2) y un artículo sin texto completo accesible (EC3). Quedaron \textbf{17 estudios primarios}, identificados como P1--P17 y ordenados por año. Los resultados descartados por título o resumen no se contabilizaron, por lo que no se presenta un diagrama PRISMA completo; esta limitación se discute en la Sección~\ref{sec:amenazas}.
+
+\subsection{Extracción de datos}
+
+De cada estudio se extrajeron: el contexto y los datos (fuente, periodo, tamaño), la técnica espacial, los parámetros reportados, el método de validación o de contraste de significancia, el tratamiento temporal y las limitaciones declaradas. La calidad se valoró de forma descriptiva sobre cuatro aspectos: descripción de los datos, parámetros reportados, validación o significancia y limitaciones declaradas.
+
+\section{Resultados y taxonomía de técnicas}
+
+\subsection{Panorama del corpus}
+
+La Tabla~\ref{tab:corpus} sintetiza los 17 estudios. La producción se concentra en los últimos años: 8 de los 17 estudios se publicaron desde 2022 y 5 desde 2025, lo que indica un interés creciente en los algoritmos de densidad. Seis estudios provienen de Latinoamérica (P2, P3, P10, P13, P15 y P17) y el resto de Estados Unidos, Canadá, Reino Unido, Serbia y China (P1 no indica la ciudad); en el Perú se identificaron tres (P2, P3 y P13), todos en Lima y Callao.
+
+\begin{table}[H]
+\centering
+\caption{Síntesis de los estudios primarios. KDE: densidad kernel; CSR: aleatoriedad espacial completa; PAI: índice de precisión predictiva; HR: tasa de acierto.}
+\label{tab:corpus}
+\begingroup\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}p{0.5cm}p{0.9cm}p{2.9cm}p{2.7cm}p{2.7cm}p{1.3cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Ref.} & \textbf{Datos} & \textbf{Técnica espacial} & \textbf{Validación / significancia} & \textbf{Tiempo} \\
+\midrule
+P1 & \cite{chainey2008} & Robo a domicilio, delito callejero y robo de/en vehículos & Mapeo temático, elipses, grilla y KDE & Precisión predictiva (PAI) & Predicción \\
+P2 & \cite{quispe2017} & 1\,082 robos en Lima, 2013--2014 (reportes por aplicación web) & Proceso puntual de Poisson, KDE gaussiano, funciones $g$, $L$, $F$, $G$, $J$ & Contraste de CSR ($\chi^2$ por cuadrantes y K-S espacial) & No \\
+P3 & \cite{caparo2017} & Delitos por distrito en Lima y Callao, 2014--2015 & $I$ de Moran global; rezago y error espacial & Significancia de $I$; inconsistencias en el conteo de distritos & Dos cortes anuales \\
+P4 & \cite{hu2018} & Robos domiciliarios en Baton Rouge, 2011 & KDE espacio-temporal & Prueba de significancia para falsos positivos; PAI & Sí (kernel temporal) \\
+P5 & \cite{kalinic2018} & Registros abiertos de San Francisco & KDE y $G_i^*$ en hexágonos & Confianza de 90, 95 y 99\,\% & No \\
+P6 & \cite{milic2019} & 140 robos en Belgrado (2008--2010) validados con 2011--2013 & KDE con cuatro anchos y cuatro clasificaciones & HR, PAI y RRI & Validación prospectiva \\
+P7 & \cite{chen2019} & 7\,802 hurtos en Pekín, 2014 & ST-DBSCAN (500 m, 7 días, MinPts = 3) & Índices de entropía de los infractores & Sí (umbral de 7 días) \\
+P8 & \cite{chen2020} & 3\,270 robos domiciliarios en Vancouver, 2010 & ST-DBSCAN y ST-OPTICS & Davies--Bouldin; barrido de escalas & Sí (3--30 días) \\
+P9 & \cite{butt2021} & Delitos de Nueva York, 2008--2017 & HDBSCAN (referencia: DBSCAN) + SARIMA & MAE de 11,47 frente a 27,03 & Sí (series) \\
+P10 & \cite{carrasco2022} & 17\,794 delitos sexuales en CDMX, 2019--2021 & OPTICS y envolvente convexa & Razón $\alpha/\beta$; sensibilidad de $\xi$; sin métrica formal & Comparación anual \\
+P11 & \cite{he2022} & Datos sintéticos y robos en Filadelfia, 2016 (622 celdas de 1 km) & SaTScan, $G_i^*$, $I$ local de Moran y AMOEBA & Monte Carlo (999 réplicas), $p=0{,}05$; HR, PAI, F1 & No \\
+P12 & \cite{builgil2022} & Población sintética de Manchester calibrada con encuesta y registros & Simulación de sesgo de datos policiales en cuatro escalas & Sesgo relativo por escala & No \\
+P13 & \cite{cutid2025} & Denuncias en Callao, febrero de 2024 & KDE y DBSCAN ($\varepsilon$ por $k$-distancias) & Sin contraste formal; $\varepsilon$ y MinPts no reportados & Un mes \\
+P14 & \cite{moews2025} & Incidentes de Chicago, 2001--2022 & Agrupamiento de densidad variable y autocorrelación & Autocorrelación por radios & Sí (veinte años) \\
+P15 & \cite{salcedo2025} & Delitos procesados por municipio en Colombia, 2018--2023 & ACP ponderado geográfica y temporalmente & Comparación de kernels y anchos de banda & Sí (ponderación) \\
+P16 & \cite{rangkuti2026} & Tiroteos en Nueva York & DBSCAN ($\varepsilon=0{,}003$, MinPts = 4) + \textit{random forest} & Exactitud de 88,28\,\% sobre etiquetas del propio DBSCAN & Mes, día y hora como atributos \\
+P17 & \cite{santos2026} & 19\,146 hurtos de cable en Belo Horizonte & K-Means, K-Medoids, HAC, DBSCAN y HDBSCAN & Validación estadística; decaimiento predictivo & Sí (decaimiento) \\
+\bottomrule
+\end{tabular}
+\endgroup
+\end{table}
+
+\subsection{RQ1: técnicas y taxonomía}
+
+Los estudios se agrupan en cinco familias de técnicas (Tabla~\ref{tab:taxonomia}); un mismo estudio puede pertenecer a más de una. El agrupamiento por densidad es la más frecuente (8 estudios) y la única que delimita grupos discretos sin fijar su número. La densidad kernel aparece en 6 estudios, casi siempre como visualización o base predictiva, y la estadística espacial inferencial en 4. La comparación directa entre familias es escasa: P11 compara estadísticos de escaneo y autocorrelación local, P5 contrasta KDE con $G_i^*$, y P17 es el que compara más algoritmos de agrupamiento (cinco, entre ellos DBSCAN y HDBSCAN), con HDBSCAN produciendo las zonas más concentradas y estables.
+
+\begin{table}[H]
+\centering
+\caption{Taxonomía de técnicas del corpus.}
+\label{tab:taxonomia}
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{3.2cm}p{4.0cm}p{3.9cm}p{0.6cm}@{}}
+\toprule
+\textbf{Familia} & \textbf{Técnicas} & \textbf{Estudios} & \textbf{n} \\
+\midrule
+A. Densidad continua & KDE, KDE espacio-temporal & P1, P2, P4, P5, P6, P13 & 6 \\
+B. Agrupamiento por densidad & DBSCAN, HDBSCAN, OPTICS, ST-DBSCAN, ST-OPTICS, densidad variable & P7, P8, P9, P10, P13, P14, P16, P17 & 8 \\
+C. Agrupamiento por partición o jerarquía & K-Means, K-Medoids, HAC & P17 & 1 \\
+D. Estadística espacial inferencial & $G_i^*$, $I$ de Moran, SaTScan, AMOEBA, procesos puntuales & P2, P3, P5, P11 & 4 \\
+E. Modelos multivariados y econométricos & Rezago y error espacial, ACP geográficamente ponderado & P3, P15 & 2 \\
+\bottomrule
+\end{tabular}
+\endgroup
+\end{table}
+
+\subsection{RQ2: significancia, calidad y robustez}
+
+Cinco estudios incorporan un contraste formal de significancia: P11 con una prueba Monte Carlo de 999 réplicas, P5 con los niveles de confianza de $G_i^*$, P2 con la prueba de CSR, P3 con el $I$ de Moran y P4 con un filtro de falsos positivos sobre la densidad. En ninguno de ellos el contraste se aplica a los grupos devueltos por un algoritmo de densidad: P2 contrasta la CSR sobre el patrón completo, P3, P11 y P5 trabajan con datos agregados por distrito, celda u hexágono, y P4 con superficies kernel. Entre los ocho estudios de agrupamiento por densidad, la validación se limita a índices internos (Davies--Bouldin en P8), a errores de predicción (P9), a razones de densidad sin contraste (P10) o a una exactitud circular: en P16 el clasificador se entrena con etiquetas generadas por el propio DBSCAN. P13 menciona grupos ``estadísticamente significativos'' en el resumen, pero su metodología no describe ninguna prueba y no reporta los valores de $\varepsilon$ ni de MinPts. P7, P8, P10 y P16 informan sus parámetros (en P9, P14 y P17 no se pudieron verificar en las fuentes consultadas), y P8 y P10 realizan un análisis de sensibilidad, de escala y de $\xi$ y \textit{min\_samples} respectivamente. P6 muestra que la clasificación de los valores de la superficie kernel altera tanto la tasa de acierto como el PAI, y P5, que la densidad kernel cambia con el ancho de banda sin indicar si los grupos son significativos.
+
+\subsection{RQ3: dimensión temporal}
+
+Siete estudios incorporan el tiempo: de forma explícita con agrupamiento espacio-temporal (P7, P8), kernel temporal (P4), series de tiempo por región (P9), ponderación temporal (P15), seguimiento de la composición de los grupos a lo largo de veinte años (P14) y análisis del decaimiento predictivo de los mapas (P17). P8 muestra que el resultado depende de las escalas elegidas: la mejor configuración (500 m y 3 días) generó 233 grupos pequeños y efímeros, de unos 4 incidentes de media. P16 usa mes, día de la semana y hora solo como atributos de un clasificador, y P13 se titula ``espacio-temporal'' pero analiza un solo mes. No se identificó ningún estudio que contraste, con una prueba estadística (por ejemplo $\chi^2$ con una medida de tamaño del efecto), si la distribución por turno, día o mes de los incidentes de un \textit{hotspot} difiere de la del resto del área.
+
+\subsection{RQ4: sesgos y contexto peruano}
+
+Solo P12 cuantifica el sesgo de los datos policiales: en su simulación, alrededor del 62\,\% de los delitos no llega a conocimiento de la policía y la variación entre áreas crece a medida que disminuye la escala, de modo que el análisis a escala de microlugar es el más expuesto. Otros estudios reconocen el subregistro como limitación (P10 menciona que cerca del 93\,\% de los delitos no se denuncia en el ámbito nacional; P13 solo incluye denuncias; P14 señala los sesgos de datos como riesgo). En el corpus no se identificó ningún estudio que trate la cuantización de las coordenadas ni la geocodificación por puntos de referencia, ni uno que considere que el patrullaje condiciona dónde y cuándo se registran los hechos. En el contexto peruano, P2 modela robos en Lima con datos reportados por la ciudadanía y rechaza la CSR (los robos se agrupan a menos de unos 400 m), P3 detecta autocorrelación espacial a escala distrital solo en uno de los años y P13 aplica KDE y DBSCAN a denuncias del Callao en un único mes. Ningún estudio del corpus analiza registros de serenazgo, la capa SIPCOP Municipal o la ciudad del Cusco.
+
+\section{Discusión y desafíos abiertos}
+
+\subsection{Brechas identificadas}
+
+La síntesis permite plantear cuatro brechas.
+
+\begin{enumerate}[label=\textbf{G\arabic*.},leftmargin=*,itemsep=1pt]
+\item \textbf{Contraste de los grupos frente al azar.} El agrupamiento por densidad predomina, pero los grupos rara vez se contrastan frente a un modelo nulo; sin ese paso, un grupo no demuestra por sí solo una concentración mayor que la esperable por azar, y esto es más crítico cuando los datos están cuantizados o repetidos en pocas ubicaciones.
+\item \textbf{Contraste de la recurrencia temporal.} La dimensión temporal se trata mediante agrupamiento espacio-temporal o predicción, pero no mediante la comparación estadística de la distribución por turno, día o mes dentro de cada \textit{hotspot}.
+\item \textbf{Calidad y resolución de los datos.} La resolución de las coordenadas, la geocodificación por puntos de referencia y el efecto del patrullaje sobre el registro casi no se evalúan; solo P12 cuantifica el sesgo policial, y lo hace de forma simulada.
+\item \textbf{Cobertura geográfica e institucional.} La evidencia peruana se limita a Lima y Callao con denuncias o reportes ciudadanos; no hay estudios con registros de serenazgo ni en la región Cusco.
+\end{enumerate}
+
+\subsection{Implicaciones para el plan de tesis}
+
+Las brechas respaldan las decisiones del plan: aplicar DBSCAN y comparar con HDBSCAN, como en P17; elegir $\varepsilon$ con el gráfico de $k$-distancias, como en P13, pero justificándolo frente a la resolución de las coordenadas y reportándolo junto con MinPts, a diferencia de P13; contrastar cada grupo frente a la aleatoriedad espacial mediante simulación Monte Carlo, como hace P11 con otra técnica; contrastar la distribución por turno, día de la semana y mes de cada \textit{hotspot} mediante $\chi^2$ con V de Cramér, con corrección por comparaciones múltiples; y repetir los resultados en variantes de sensibilidad por origen del registro, por exclusión de casi duplicados y por perturbación de las coordenadas. Estas decisiones responden a G1--G3. El plan responde a G4 al analizar por primera vez, hasta donde alcanza esta revisión, los registros del SIPCOP Municipal en San Sebastián, con las limitaciones del extracto (enero a agosto de 2025, 996 registros, coordenadas con tres decimales y ausencia de hora individual).
+
+\subsection{Amenazas a la validez}
+\label{sec:amenazas}
+
+La búsqueda se realizó en buscadores académicos y repositorios abiertos y no en bases como Scopus, Web of Science o IEEE Xplore, por lo que el corpus no es exhaustivo; los resultados descartados por título no se contabilizaron y no se presenta un diagrama PRISMA completo. La extracción se hizo con una sola persona revisora, sin concordancia entre revisores, y parte de la información se obtuvo de resúmenes y páginas de los repositorios. El corpus incluye un \textit{preprint} (P14) y actas de congreso sin arbitraje uniforme, y los enunciados de ausencia (``no se identificó ningún estudio'') se refieren solo a este corpus. Para la versión final del plan se recomienda repetir S1--S4 en Scopus, Web of Science e IEEE Xplore, completar el diagrama PRISMA y duplicar el cribado.
+
+\section{Conclusiones y trabajo futuro}
+
+Esta revisión sintetizó 17 estudios primarios y propuso una taxonomía de cinco familias de técnicas para detectar \textit{hotspots} de incidentes delictivos y de seguridad. El agrupamiento por densidad es la familia dominante, pero los grupos se contrastan pocas veces frente al azar, la recurrencia temporal por turno, día o mes no se prueba estadísticamente, la calidad de las coordenadas y el sesgo del patrullaje casi no se evalúan, y no existe evidencia con registros de serenazgo ni en la región Cusco.
+
+Como trabajo futuro se propone ampliar la búsqueda a bases bibliográficas indexadas, completar el diagrama PRISMA con doble cribado, y actualizar el marco teórico y el estado del arte del plan de tesis con esta síntesis, de modo que los antecedentes sean resultado de una búsqueda sistemática y no una revisión preliminar.
+
+\bibliographystyle{splncs04}
+\bibliography{bibliography/references}
+
+\end{document}

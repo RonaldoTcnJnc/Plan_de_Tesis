@@ -1,0 +1,81 @@
+\chapter{Aspectos administrativos}
+
+\section{Cronograma de actividades}
+
+El proyecto se ejecuta en 16 semanas, entre el 19 de octubre de 2026 y el 7 de febrero de 2027. La Tabla~\ref{tab:cronograma} presenta el diagrama de Gantt.
+
+\begin{table}[H]
+\centering
+\caption{Cronograma de actividades por semanas (octubre 2026 -- febrero 2027).}
+\label{tab:cronograma}
+\begingroup\singlespacing\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\newcommand{\x}{$\blacksquare$}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.2cm}*{16}{c}@{}}
+\toprule
+ & \multicolumn{2}{c}{Oct} & \multicolumn{5}{c}{Nov} & \multicolumn{4}{c}{Dic} & \multicolumn{4}{c}{Ene} & Feb \\
+\textbf{Actividad} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+\midrule
+Aprobación del plan de tesis & \x & \x & & & & & & & & & & & & & & \\
+Solicitud de autorización y acceso a datos & \x & \x & \x & \x & & & & & & & & & & & & \\
+Reunión con la municipalidad (CRS, fecha de alerta, turnos, categorías) & \x & \x & & & & & & & & & & & & & & \\
+Revisión del estado del arte & \x & \x & \x & \x & & & & & & & & & & & & \\
+Depuración y georreferenciación & & & \x & \x & \x & & & & & & & & & & & \\
+Control de calidad y ajuste del diseño (rejilla de $\varepsilon$, referencia temporal) & & & & & \x & \x & & & & & & & & & & \\
+Análisis exploratorio & & & & & & \x & \x & & & & & & & & & \\
+Agrupamiento espacial (DBSCAN/HDBSCAN) & & & & & & & \x & \x & \x & & & & & & & \\
+Prueba Monte Carlo y contrastes temporales & & & & & & & & \x & \x & \x & \x & & & & & \\
+Mapas y validación con el patrullaje municipal & & & & & & & & & & \x & \x & \x & & & & \\
+Redacción del informe final & & & & & & & & & & & \x & \x & \x & \x & \x & \\
+Sustentación & & & & & & & & & & & & & & & \x & \x \\
+\bottomrule
+\end{tabular}
+\endgroup
+\fuente{Elaboración propia. Cada columna es una semana; la semana 1 inicia el 19 de octubre de 2026.}
+\end{table}
+
+\section{Presupuesto y financiamiento}
+
+La Tabla~\ref{tab:presupuesto} resume los recursos estimados, que serán financiados con recursos propios del tesista.
+
+\begin{table}[H]
+\centering
+\caption{Presupuesto estimado del proyecto (soles).}
+\label{tab:presupuesto}
+\begingroup\singlespacing\footnotesize
+\begin{tabular}{@{}p{3.0cm}p{7.6cm}r@{}}
+\toprule
+\textbf{Rubro} & \textbf{Descripción} & \textbf{Costo (S/)} \\
+\midrule
+Servicios & Acceso a Internet durante cuatro meses & 240,00 \\
+Materiales & Papel, impresiones y anillado de ejemplares & 300,00 \\
+Trámites & Inscripción, derechos y trámites administrativos de la tesis & 400,00 \\
+Movilidad & Traslados a la Municipalidad Distrital y a reuniones con el asesor & 180,00 \\
+Imprevistos & Gastos no previstos & 100,00 \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{Total}} & \textbf{1\,220,00} \\
+\bottomrule
+\end{tabular}
+\endgroup
+\fuente{Elaboración propia. Los montos son estimaciones y se actualizarán con las tarifas vigentes.}
+\end{table}
+
+\section{Equipo de investigación}
+
+\begin{table}[H]
+\centering
+\caption{Equipo de investigación.}
+\label{tab:equipo}
+\begingroup\singlespacing\footnotesize
+\begin{tabular}{@{}p{2.6cm}p{11.5cm}@{}}
+\toprule
+\textbf{Rol} & \textbf{Responsable y función} \\
+\midrule
+Tesista & Br. Ronaldo Ticona Jancco: diseño, ejecución del análisis y redacción. \\
+Asesor & Por designar: orientación metodológica y técnica. \\
+Colaboradores & Personal de la Municipalidad Distrital de San Sebastián (acceso a datos y validación de los \textit{hotspots}). \\
+\bottomrule
+\end{tabular}
+\endgroup
+\fuente{Elaboración propia.}
+\end{table}

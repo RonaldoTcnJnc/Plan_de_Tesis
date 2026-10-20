@@ -1,0 +1,583 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage[most]{tcolorbox}
+\graphicspath{{../figures/}}
+
+\usetheme{Boadilla}
+\usefonttheme{professionalfonts}
+\definecolor{TesisVerde}{RGB}{20,76,70}
+\definecolor{TesisTurquesa}{RGB}{0,126,120}
+\definecolor{TesisDorado}{RGB}{204,145,48}
+\definecolor{TesisTinta}{RGB}{38,49,48}
+\definecolor{TesisClaro}{RGB}{239,245,243}
+\definecolor{TesisGris}{RGB}{238,240,240}
+\definecolor{TesisGrisTexto}{RGB}{120,128,126}
+\tcbset{tarjetaestilo/.style={enhanced,colback=TesisGris,colframe=TesisGris,boxrule=0pt,arc=3pt,
+  left=7pt,right=7pt,top=5pt,bottom=5pt,borderline west={2.5pt}{0pt}{TesisDorado}}}
+\newtcolorbox{tarjeta}[1][]{tarjetaestilo,fontupper=\small,#1}
+% tarjeta con número grande (Big Stat Card): #1 valor, #2 etiqueta
+\newcommand{\bigstat}[3][2.3cm]{\begin{tcolorbox}[tarjetaestilo,height=#1,valign=center,halign=center]
+  {\fontsize{30}{32}\selectfont\bfseries\color{TesisVerde}#2}\par\vspace{3pt}{\small\color{TesisTinta}#3}\end{tcolorbox}}
+\newcommand{\minstat}[2]{\begin{tcolorbox}[tarjetaestilo,height=1.45cm,valign=center,halign=center,left=3pt,right=3pt]
+  {\fontsize{18}{20}\selectfont\bfseries\color{TesisVerde}#1}\par{\scriptsize\color{TesisTinta}#2}\end{tcolorbox}}
+% iconos vectoriales monocromáticos
+\newcommand{\iconAlerta}{\begin{tikzpicture}[scale=.62,line width=1.3pt,TesisVerde,line cap=round,line join=round]
+  \draw[rounded corners=3pt] (0,0)--(1.4,0)--(.7,1.2)--cycle;
+  \draw (.7,.38)--(.7,.72); \fill (.7,.19) circle (.05);\end{tikzpicture}}
+\newcommand{\iconCluster}{\begin{tikzpicture}[scale=.8,TesisVerde]
+  \draw[line width=1pt,dashed] (.65,.6) ellipse (.62 and .5);
+  \foreach \x/\y in {.35/.55,.62/.8,.85/.5,.6/.38,.45/.3,.88/.75}{\fill (\x,\y) circle (.07);}
+  \foreach \x/\y in {1.5/1.0,-.2/.15,1.45/.1}{\fill[TesisVerde!45] (\x,\y) circle (.05);}\end{tikzpicture}}
+\newcommand{\iconHotspot}{\begin{tikzpicture}[scale=.62,TesisVerde]
+  \fill (.7,0) .. controls (.15,0) and (0,.5) .. (.3,.9) .. controls (.35,.7) and (.45,.6) .. (.55,.55)
+    .. controls (.5,.9) and (.75,1.1) .. (.7,1.4) .. controls (1.2,1.05) and (1.45,.55) .. (1.15,.25)
+    .. controls (1.05,.08) and (.9,0) .. (.7,0);
+  \fill[white] (.7,.08) .. controls (.45,.1) and (.45,.35) .. (.6,.5) .. controls (.8,.4) and (.95,.3) .. (.9,.18)
+    .. controls (.85,.1) and (.78,.08) .. (.7,.08);\end{tikzpicture}}
+\newcommand{\chev}[5]{%
+    \pgfmathsetmacro{\xo}{#1*2.68}%
+    \fill[#2] (\xo,0)--(\xo+2.58,0)--(\xo+2.9,.62)--(\xo+2.58,1.24)--(\xo,1.24)--(\xo+.32,.62)--cycle;
+    \node[text=white,font=\footnotesize\bfseries,align=center,text width=2.0cm] at (\xo+1.5,.62) {#3};
+    \node[anchor=north,fill=TesisGris,rounded corners=3pt,inner sep=5pt] at (\xo+1.45,-.2)
+      {\parbox[t][1.9cm][t]{2.4cm}{\raggedright\footnotesize #4}};}
+\setbeamercolor{structure}{fg=TesisTurquesa}
+\setbeamercolor{frametitle}{fg=white,bg=TesisVerde}
+\setbeamercolor{title}{fg=TesisVerde}
+\setbeamercolor{block title}{fg=white,bg=TesisVerde}
+\setbeamercolor{block body}{fg=TesisTinta,bg=TesisClaro}
+\setbeamercolor{alerted text}{fg=TesisDorado}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\color{TesisDorado}\small$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{TesisTurquesa}\scriptsize$\bullet$}
+\setbeamercolor{footline box}{fg=TesisGrisTexto,bg=TesisClaro}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.82\paperwidth,ht=2.6ex,dp=1ex,leftskip=.4cm]{footline box}%
+      \fontsize{8}{9}\selectfont\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.18\paperwidth,ht=2.6ex,dp=1ex,rightskip=.4cm plus1fil]{footline box}%
+      \fontsize{8}{9}\selectfont\hfill\insertframenumber/21
+    \end{beamercolorbox}%
+  }%
+}
+
+\title[Patrones espacio-temporales en San Sebastián]{Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana mediante técnicas de agrupamiento espacial}
+\subtitle{Distrito de San Sebastián, Cusco, enero-agosto de 2025}
+\author{Br. Ronaldo Ticona Jancco}
+\institute{Universidad Nacional de San Antonio Abad del Cusco\\Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica\\Escuela Profesional de Ingeniería Informática y de Sistemas}
+\date{Plan de tesis -- 2026}
+
+\begin{document}
+
+% 1
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[TesisVerde] (current page.north west) rectangle ([yshift=-.16\paperheight]current page.north east);
+    \fill[TesisDorado] ([yshift=-.16\paperheight]current page.north west) rectangle ([yshift=-.175\paperheight]current page.north east);
+  \end{tikzpicture}
+  \vspace{.35cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{.19\textwidth}
+      \includegraphics[width=2.25cm]{LogoUnsaac.jpg}
+    \column{.79\textwidth}
+      {\color{white}\small\bfseries UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO\\[-1pt]
+      \scriptsize Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica\\
+      \scriptsize Escuela Profesional de Ingeniería Informática y de Sistemas}
+  \end{columns}
+  \vspace{.9cm}
+  {\color{TesisDorado}\small PLAN DE TESIS}\par
+  \vspace{.15cm}
+  {\color{TesisVerde}\LARGE\bfseries Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana}\par
+  \vspace{.25cm}
+  {\large mediante técnicas de agrupamiento espacial}\par
+  \vspace{.2cm}
+  {\normalsize Distrito de San Sebastián, Cusco, enero-agosto de 2025}\par
+  \vfill
+  \begin{columns}[b,onlytextwidth]
+    \column{.55\textwidth}
+      \small\textbf{Tesista:} Br. Ronaldo Ticona Jancco\\
+      \small\textbf{Asesor:} Por designar
+    \column{.4\textwidth}
+      \raggedleft\small Cusco -- Perú\\2026
+  \end{columns}
+\end{frame}
+
+% 2
+\begin{frame}{Ruta de la exposición}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{block}{Problema y propósito}
+        \begin{itemize}
+          \item Contexto y brecha local
+          \item Pregunta, objetivos e hipótesis
+          \item Aporte esperado
+        \end{itemize}
+      \end{block}
+    \column{.48\textwidth}
+      \begin{block}{Diseño y ejecución}
+        \begin{itemize}
+          \item Datos y procedimiento
+          \item Agrupamiento y contrastes
+          \item Ética, factibilidad y cronograma
+        \end{itemize}
+      \end{block}
+  \end{columns}
+  \vspace{.35cm}
+  \centering\large\color{TesisVerde}\textbf{La presentación describe una propuesta y un diagnóstico preliminar de los datos; todavía no reporta resultados de agrupamiento.}
+\end{frame}
+
+% 3
+\begin{frame}{Contexto: seguridad ciudadana en Cusco}
+  \begin{columns}[T,onlytextwidth]
+    \column{.40\textwidth}
+      \bigstat[2.2cm]{92,3\,\%}{percepción de inseguridad en Cusco\\{\scriptsize ENAPRES, nov. 2022--abr. 2023}}
+      \vspace{.15cm}
+      \bigstat[2.2cm]{36 $\rightarrow$ 60}{denuncias por homicidio en Cusco\\{\scriptsize 2022 $\rightarrow$ ene.--nov. 2024}}
+    \column{.56\textwidth}
+      \begin{tarjeta}[height=4.55cm,valign=center]
+        {\large\bfseries\color{TesisVerde} Por qué importa el lugar}\par\vspace{5pt}
+        \begin{itemize}
+          \item Los hechos \textbf{no se distribuyen de manera uniforme}.
+          \item Identificar la \textbf{concentración espacial y temporal} puede orientar el patrullaje.
+          \item Los indicadores departamentales \textbf{no describen} los patrones dentro de San Sebastián.
+        \end{itemize}
+      \end{tarjeta}
+  \end{columns}
+  \vspace{.2cm}
+  {\scriptsize\color{TesisGrisTexto} Fuentes citadas en el plan: PNP (2024); INEI--ENAPRES (2023); Sherman et al. (1989); Weisburd (2015).}
+\end{frame}
+
+% 4
+\begin{frame}{Problema de investigación}
+  \begin{tarjeta}[borderline west={4pt}{0pt}{TesisVerde},fontupper=\normalsize]
+    El SIPCOP-M registra ocurrencias atendidas por el patrullaje municipal e integrado, pero \textbf{no se han analizado integralmente en sus dimensiones espacial y temporal} para reconocer concentraciones y recurrencias.
+  \end{tarjeta}
+  \vspace{.05cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{tarjeta}[height=2.3cm]
+        {\bfseries\color{TesisVerde} Brecha de información}
+        \begin{itemize}\footnotesize
+          \item Datos tabulares \textbf{sin análisis geoespacial} documentado.
+          \item \textbf{Calidad y cobertura} de fecha, tipo y ubicación por verificar.
+        \end{itemize}
+      \end{tarjeta}
+    \column{.48\textwidth}
+      \begin{tarjeta}[height=2.3cm]
+        {\bfseries\color{TesisVerde} Consecuencia para la gestión}
+        \begin{itemize}\footnotesize
+          \item Es difícil identificar \textbf{zonas y momentos} de mayor recurrencia.
+          \item Se limita la \textbf{focalización del patrullaje} con evidencia local.
+        \end{itemize}
+      \end{tarjeta}
+  \end{columns}
+  \vspace{.05cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{.31\textwidth}\minstat{996}{registros en el extracto SIPCOP-M}
+    \column{.31\textwidth}\minstat{1 ene--29 ago}{de 2025 (\texttt{fechaalerta}, por validar)}
+    \column{.31\textwidth}\minstat{${\sim}110$ m}{resolución de las coordenadas}
+  \end{columns}
+  \end{frame}
+
+% 5
+\begin{frame}{Pregunta de investigación}
+  \vspace{.45cm}
+  \begin{block}{Pregunta general}
+    \centering\large
+    ¿Cuáles son los patrones de distribución espacial y temporal de las ocurrencias del extracto SIPCOP Municipal para San Sebastián, del 1 de enero al 29 de agosto de 2025?
+  \end{block}
+  \vspace{.3cm}
+  \begin{itemize}
+    \item ¿Qué proporción de los registros tiene ubicación, fecha y tipo utilizables?
+    \item ¿Qué grupos detecta DBSCAN, cuáles superan lo esperado por azar y cuánto coincide HDBSCAN?
+        \item ¿Cómo se distribuyen temporalmente las ocurrencias de los grupos significativos frente a la exposición? (fecha de alerta)
+  \end{itemize}
+\end{frame}
+
+% 6
+\begin{frame}{Objetivos e hipótesis}
+  \begin{columns}[T,onlytextwidth]
+    \column{.52\textwidth}
+      \begin{block}{Objetivo general}
+        Analizar la distribución espacial y temporal considerando la calidad y las limitaciones de los registros disponibles.
+      \end{block}
+      \textbf{Objetivos específicos}
+      \begin{enumerate}
+        \item Evaluar calidad y cobertura.
+        \item Detectar y contrastar concentraciones con DBSCAN; comparar con HDBSCAN.
+        \item Analizar la distribución temporal de las concentraciones significativas.
+      \end{enumerate}
+    \column{.44\textwidth}
+      \begin{block}{Hipótesis de trabajo}
+        \textbf{H1:} al menos un grupo espacial concentra más ocurrencias que las esperadas bajo aleatoriedad espacial completa.
+
+        \medskip
+        \textbf{H2:} en los grupos significativos, la distribución temporal difiere de la del resto del distrito.
+      \end{block}
+      \footnotesize El objetivo de calidad de datos es descriptivo y no requiere hipótesis.
+  \end{columns}
+\end{frame}
+
+% 7
+\begin{frame}{Justificación y delimitación}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{block}{Aporte}
+        \begin{itemize}
+          \item Evidencia empírica local sobre ocurrencias atendidas.
+          \item Procedimiento reproducible de depuración, agrupamiento y contraste.
+          \item Información que puede apoyar la prevención y la planificación del patrullaje municipal.
+        \end{itemize}
+      \end{block}
+    \column{.48\textwidth}
+      \begin{block}{Alcance}
+        \begin{itemize}
+          \item Distrito de San Sebastián, Cusco.
+          \item Extracto disponible: 1/1/2025 al 29/8/2025 (996 registros).
+          \item Análisis observacional, descriptivo e inferencial.
+          \item No evalúa el efecto causal de una intervención.
+        \end{itemize}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 8
+\begin{frame}{Antecedentes y conceptos clave}
+  \begin{columns}[T,onlytextwidth]
+    \column{.49\textwidth}
+      \begin{block}{Antecedentes}
+        \begin{itemize}
+          \item Sherman et al. (1989): concentración de hechos en pocos lugares.
+          \item Weisburd (2015): regularidad de la concentración en microlugares.
+          \item Cutid-Aguero et al. (2025): aplicación peruana de densidad kernel y DBSCAN.
+        \end{itemize}
+      \end{block}
+    \column{.47\textwidth}
+      \begin{block}{Brecha local}
+        No se identificó, en la revisión preliminar, un análisis documentado que combine registros del patrullaje municipal de San Sebastián, agrupamiento espacial y contraste de recurrencia temporal.
+      \end{block}
+      \footnotesize La búsqueda de antecedentes locales debe completarse antes de la sustentación.
+  \end{columns}
+\end{frame}
+
+% 9
+\begin{frame}{¿Qué se va a identificar?}
+  \begin{columns}[T,onlytextwidth]
+    \column{.31\textwidth}
+      \begin{tarjeta}[height=5.0cm]
+        \parbox[c][1.05cm][c]{\linewidth}{\centering\iconAlerta}\par\vspace{3pt}{\centering\bfseries\large\color{TesisVerde} Ocurrencia\par}\vspace{3pt}
+        \raggedright Hecho \textbf{atendido y registrado} por el patrullaje municipal e integrado. No necesariamente es un delito (34\,\% es exposición a peligro o abandono) ni representa todos los hechos ocurridos.
+      \end{tarjeta}
+    \column{.31\textwidth}
+      \begin{tarjeta}[height=5.0cm]
+        \parbox[c][1.05cm][c]{\linewidth}{\centering\iconCluster}\par\vspace{3pt}{\centering\bfseries\large\color{TesisVerde} Clúster\par}\vspace{3pt}
+        \raggedright Grupo de puntos que el \textbf{algoritmo} reúne por \textbf{densidad espacial}.
+      \end{tarjeta}
+    \column{.31\textwidth}
+      \begin{tarjeta}[height=5.0cm]
+        \parbox[c][1.05cm][c]{\linewidth}{\centering\iconHotspot}\par\vspace{3pt}{\centering\bfseries\large\color{TesisVerde} Hotspot\par}\vspace{3pt}
+        \raggedright Clúster cuya concentración \textbf{supera el patrón esperado} bajo el modelo nulo definido.
+      \end{tarjeta}
+  \end{columns}
+  \vspace{.3cm}
+  \centering\large\color{TesisVerde}\textbf{Un clúster algorítmico no es automáticamente un hotspot estadístico.}
+\end{frame}
+
+% 10
+\begin{frame}{Métodos de agrupamiento espacial}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{block}{DBSCAN: método principal}
+        \begin{itemize}
+          \item Agrupa \textbf{puntos densos} dentro de un radio $\varepsilon$.
+          \item \textbf{Parámetros:} $\varepsilon$ y MinPts.
+          \item Permite grupos de formas diversas y puntos aislados como \textbf{ruido}.
+        \end{itemize}
+      \end{block}
+    \column{.48\textwidth}
+      \begin{block}{HDBSCAN: comparación}
+        \begin{itemize}
+          \item Explora \textbf{jerarquías de densidad}.
+          \item No requiere un \textbf{único $\varepsilon$ fijo}.
+          \item Se compararán asignaciones, ruido y estabilidad.
+        \end{itemize}
+      \end{block}
+  \end{columns}
+  \vspace{.2cm}
+  \footnotesize La densidad kernel se empleará solo como visualización complementaria, no como prueba de significancia. (Ester et al., 1996; Campello et al., 2013; McInnes et al., 2017.)
+\end{frame}
+
+% 11
+\begin{frame}{Diseño metodológico}
+  \begin{columns}[T,onlytextwidth]
+    \column{.31\textwidth}
+      \begin{block}{Enfoque y tipo}
+        \textbf{Cuantitativo}; aplicado; alcance \textbf{descriptivo e inferencial}.
+      \end{block}
+    \column{.31\textwidth}
+      \begin{block}{Diseño}
+        \textbf{No experimental y retrospectivo}, con fechas de alerta del 1/1 al 29/8 de 2025.
+      \end{block}
+    \column{.31\textwidth}
+      \begin{block}{Proceso}
+        Fases de \textbf{CRISP-DM}: comprensión, preparación, modelado, evaluación y comunicación.
+      \end{block}
+  \end{columns}
+  \vspace{.45cm}
+  \centering\large\color{TesisVerde}\textbf{Unidad de análisis: una ocurrencia registrada por el patrullaje municipal e integrado.}
+\end{frame}
+
+% 12
+\begin{frame}{Datos requeridos y población}
+  \begin{columns}[T,onlytextwidth]
+    \column{.52\textwidth}
+      \begin{block}{Población y selección}
+        \begin{itemize}
+          \item \textbf{Censo} de los \textbf{996 registros} del extracto SIPCOP Municipal disponible para el distrito.
+          \item Fechas de alerta: 1/1/2025 al 29/8/2025; el extracto no representa otros periodos.
+          \item Se validarán definiciones de campos y condiciones de reutilización.
+        \end{itemize}
+      \end{block}
+    \column{.44\textwidth}
+      \begin{block}{Campos por ocurrencia}
+        19 columnas. Analíticas: \texttt{fechaalerta}, \texttt{turno}, \texttt{especifico}, \texttt{modalidad}, \texttt{x}, \texttt{y}; de apoyo: \texttt{origen}, \texttt{naturalezadelpersonal}, \texttt{direccion}. Sin hora individual ni identificador único.
+      \end{block}
+      \begin{block}{Apoyos solicitados}
+        Diccionario de datos, horarios de turnos, polígono distrital y, si existe, cobertura de patrullaje.
+      \end{block}
+  \end{columns}
+  \vspace{.12cm}
+  \footnotesize Solicitar también registros incompletos para medir calidad. No se requieren nombres, DNI ni teléfonos.
+\end{frame}
+
+% 12b
+\begin{frame}{Diagnóstico preliminar del extracto}
+  \begin{columns}[T,onlytextwidth]
+    \column{.5\textwidth}
+      \begin{tcolorbox}[enhanced,colback=white,colframe=TesisGris!70!TesisGrisTexto,boxrule=.6pt,arc=4pt,
+          left=6pt,right=6pt,top=5pt,bottom=4pt,drop fuzzy shadow=TesisGris!60!black]
+        {\small\bfseries\color{TesisVerde} Registros por día, según mes de 2025}\par\vspace{2pt}
+        \centering
+        \begin{tikzpicture}[x=.82cm,y=.36cm]
+          \foreach \m/\v/\l/\c [count=\i from 0] in {Ene/4.9/{4,9}/TesisTurquesa,Feb/5.0/{5,0}/TesisTurquesa,Mar/3.1/{3,1}/TesisTurquesa,Abr/4.2/{4,2}/TesisTurquesa,May/3.1/{3,1}/TesisTurquesa,Jun/2.0/{2,0}/TesisTurquesa,Jul/3.5/{3,5}/TesisTurquesa,Ago/7.5/{7,5}/TesisDorado}{
+            \fill[\c] (\i,0) rectangle (\i+.7,\v);
+            \node[below,font=\scriptsize] at (\i+.35,0) {\m};
+            \node[above,font=\scriptsize\bfseries] at (\i+.35,\v) {\l};
+          }
+          \draw[TesisTinta] (-.15,0) -- (8,0);
+          \node[anchor=east,align=right,font=\scriptsize\bfseries,text=TesisDorado!75!black] (call) at (6.7,6.2) {Pico; posible cambio\\de reporte (por confirmar)};
+          \draw[-{Stealth[length=4pt]},TesisDorado,line width=.9pt] (call.east) -- (6.95,6.2);
+        \end{tikzpicture}\par
+        {\scriptsize\color{TesisGrisTexto} Agosto cubre hasta el 29. El volumen mensual cambia hasta 3,7 veces.}
+      \end{tcolorbox}
+    \column{.47\textwidth}
+      \begin{itemize}\small
+        \item \textbf{996 registros}; 215 de 241 días con registro.
+        \item Coordenadas a 0,001° (${\sim}110$ m): \textbf{412 ubicaciones}; 77\,\% comparte punto con otro registro.
+        \item ``Exposición a peligro o abandono'': \textbf{34\,\%} del total; 57\,\% en enero y 9--17\,\% de junio a agosto.
+        \item 76\,\% nace del patrullaje; 232 de llamadas, alarmas o mensajería.
+        \item 51\,\% es Patrullaje Local Integrado.
+        \item \textbf{10 duplicados exactos} y 70 casi duplicados.
+      \end{itemize}
+  \end{columns}
+  \vspace{.05cm}
+  \begin{tarjeta}
+    \small\textbf{Implicación para el diseño:} $\varepsilon$ parte de \textbf{150 m} y la referencia temporal es el perfil del resto del distrito.
+  \end{tarjeta}
+\end{frame}
+
+% 13
+\begin{frame}{Calidad de datos y criterios}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{block}{Inclusión en el análisis espacial}
+        \begin{itemize}
+          \item \textbf{Fecha y tipo} utilizables.
+          \item \textbf{Coordenadas válidas} dentro del distrito.
+          \item \textbf{Sistema de referencia} espacial conocido.
+        \end{itemize}
+      \end{block}
+    \column{.48\textwidth}
+      \begin{block}{Control de calidad}
+        \begin{itemize}
+          \item \textbf{Duplicados} y \textbf{campos faltantes}.
+          \item \textbf{Fechas fuera del periodo} y \textbf{puntos fuera del polígono}.
+          \item \textbf{Resolución de coordenadas} (0,001°), \textbf{dirección frente a coordenadas} y polígono distrital; \textbf{cambio de categorías} entre meses.
+        \end{itemize}
+      \end{block}
+  \end{columns}
+  \vspace{.3cm}
+  \centering\textbf{Se informará \textbf{cuántos registros se excluyen y por qué}.}
+\end{frame}
+
+% 14
+\begin{frame}{Procedimiento de análisis}
+  \centering
+  \begin{tikzpicture}
+    \chev{0}{TesisVerde}{1\\Recolección y depuración}{\textbf{Documentar} el CSV y validar definiciones.\\Depurar y describir los datos.}{}
+    \chev{1}{TesisVerde!65!TesisTurquesa}{2\\Validación espacial}{\textbf{Validar} el sistema de referencia y las coordenadas.\\Delimitar el área distrital.}{}
+    \chev{2}{TesisTurquesa}{3\\Agrupamiento}{Ajustar \textbf{DBSCAN} y ejecutar HDBSCAN como comparación.}{}
+    \chev{3}{TesisTurquesa!55!TesisDorado}{4\\Contraste Monte Carlo}{\textbf{Simulación Monte Carlo} para los hotspots y análisis temporal.}{}
+    \chev{4}{TesisDorado}{5\\Mapas y resultados}{\textbf{Comunicar} mapas y resultados agregados.}{}
+  \end{tikzpicture}
+  \vspace{.35cm}
+  \begin{tarjeta}[halign=center]
+    \small\textbf{Herramientas previstas:} Python (pandas, scikit-learn, hdbscan, SciPy) y un SIG de código abierto.
+  \end{tarjeta}
+\end{frame}
+
+% 15
+\begin{frame}{Parámetros y evaluación de DBSCAN}
+  \begin{block}{Búsqueda inicial definida en el plan}
+    \centering $\varepsilon \in \{150,200,250,300\}\ \text{m},\qquad \mathrm{MinPts}\in\{10,20,30\}$
+  \end{block}
+  \begin{itemize}
+    \item Con coordenadas a 0,001° (${\sim}110$ m), \textbf{$\varepsilon=50$ y $100$ m dan la misma partición}; por eso la rejilla parte de \textbf{150 m}. Los puntos coincidentes cuentan por separado para MinPts.
+    \item Se registrarán \textbf{número de grupos, porcentaje de ruido y silueta} (con cautela por los puntos coincidentes).
+    \item La configuración se elegirá por \textbf{estabilidad} (ARI promedio frente a configuraciones vecinas) entre soluciones admisibles: al menos 2 grupos, menos de 60\,\% de ruido y ningún grupo con más de 25\,\% de los registros ni 1 km de diámetro.
+    \item Se reportará \textbf{sensibilidad} a las demás configuraciones y \textbf{comparación con HDBSCAN}.
+  \end{itemize}
+  \vspace{.15cm}
+  \footnotesize La regla se fijará antes de interpretar los resultados.
+\end{frame}
+
+% 16
+\begin{frame}{Contraste espacial: ¿más concentración que por azar?}
+  \begin{columns}[T,onlytextwidth]
+    \column{.5\textwidth}
+      \begin{block}{Modelo nulo}
+        \textbf{Aleatoriedad espacial completa (CSR)}: $n$ puntos uniformes e independientes dentro del polígono distrital.
+        \begin{itemize}
+          \item \textbf{Simulación Monte Carlo:} $B=999$ simulaciones.
+          \item Se repite el agrupamiento con los parámetros elegidos, redondeando los puntos simulados a la rejilla de 0,001°.
+          \item \textbf{Segundo nulo:} área urbanizada (manzanas o vías). La CSR es solo la referencia mínima.
+        \end{itemize}
+      \end{block}
+    \column{.46\textwidth}
+      \begin{block}{Decisión por grupo $j$}
+        Se compara el tamaño observado $m_j$ con el mayor grupo simulado $M_b$:
+        \[
+        p_j=\frac{1+\#\{b:M_b\geq m_j\}}{1+B}.
+        \]
+        Los grupos que superen el contraste se denominarán \textbf{\textit{hotspots}}.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 17
+\begin{frame}{Análisis temporal}
+  \begin{block}{Qué se comparará}
+    Distribución de cada hotspot por \textbf{turno, día de la semana y mes} frente al resto del distrito (\textbf{chi-cuadrado de homogeneidad} o permutación).
+  \end{block}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \textbf{Análisis secundario: exposición calendario}
+      \begin{itemize}
+        \item Turno: horas de operación de cada turno.
+        \item Día: cantidad de cada día en el periodo.
+        \item Mes: número de días de cada mes. Se rechazará casi siempre: la tasa mensual va de 2,0 a 7,5 registros por día.
+      \end{itemize}
+    \column{.48\textwidth}
+      \textbf{Pruebas y reporte}
+      \begin{itemize}
+        \item \textbf{Homogeneidad o permutación} como referencia principal; bondad de ajuste como secundaria.
+        \item \textbf{Ajuste de Holm} por comparaciones múltiples.
+        \item \textbf{V de Cramér} como tamaño del efecto.
+      \end{itemize}
+  \end{columns}
+  \vspace{.15cm}
+  \footnotesize Sensibilidad: solo registros ciudadanos (232), sin exposición a peligro o abandono, sin casi duplicados y con desplazamiento de $\pm55$ m. Los contrastes no prueban causalidad.
+\end{frame}
+
+% 18
+\begin{frame}{Ética, límites y resultados esperados}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{block}{Ética y límites}
+        \begin{itemize}
+          \item Usar solo campos necesarios, con datos anonimizados.
+          \item Presentar mapas agregados; evitar identificar domicilios.
+          \item El registro describe lo atendido, no todo lo ocurrido.
+          \item El 76\,\% nace del patrullaje: se medirá el sesgo con los registros ciudadanos. Además, resolución de ${\sim}110$ m, 26 días sin registro y cambio de clasificación entre meses.
+        \end{itemize}
+      \end{block}
+    \column{.48\textwidth}
+      \begin{block}{Productos esperados}
+        \begin{itemize}
+          \item Diagnóstico de calidad de la base.
+          \item Mapas y caracterización de grupos espaciales.
+          \item Comparación DBSCAN/HDBSCAN y análisis temporal.
+          \item Procedimiento y scripts reproducibles.
+        \end{itemize}
+      \end{block}
+  \end{columns}
+  \vspace{.12cm}
+  \centering\textbf{Los resultados se obtendrán durante la ejecución; no se anticipan aquí.}
+\end{frame}
+
+% 19
+\begin{frame}{Factibilidad y cronograma}
+  \begin{columns}[T,onlytextwidth]
+    \column{.52\textwidth}
+      \begin{block}{Factibilidad}
+        \begin{itemize}
+          \item Equipo personal y software libre.
+          \item El volumen previsto es manejable.
+          \item Condición crítica: reunión temprana con la municipalidad (CRS, fecha de alerta, turnos).
+          \item Presupuesto estimado: S/ 1\,220,00.
+        \end{itemize}
+      \end{block}
+    \column{.44\textwidth}
+      \begin{block}{16 semanas: oct. 2026--feb. 2027}
+        \scriptsize
+        \begin{tabular}{@{}p{2.1cm}p{2.2cm}@{}}
+          \toprule
+          Actividad & Periodo previsto\\
+          \midrule
+          Reunión municipal y autorización & Sem. 1--4\\
+          Depuración y exploración & Sem. 3--7\\
+          Agrupamiento y contrastes & Sem. 7--11\\
+          Mapas y validación & Sem. 10--13\\
+          Informe y sustentación & Sem. 11--16\\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+% 20
+\begin{frame}{Referencias clave y preguntas}
+  \begin{columns}[T,onlytextwidth]
+    \column{.58\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item Campello, R. et al. (2013). Density-based clustering based on hierarchical density estimates.
+        \item Chapman, P. et al. (2000). \textit{CRISP-DM 1.0: Step-by-step data mining guide}.
+        \item Ester, M. et al. (1996). A density-based algorithm for discovering clusters in large spatial databases with noise.
+        \item McInnes, L. et al. (2017). \textit{hdbscan: Hierarchical density based clustering}.
+        \item Sherman, L. et al. (1989). Hot spots of predatory crime.
+        \item Weisburd, D. (2015). The law of crime concentration and the criminology of place.
+      \end{itemize}
+      \vspace{.1cm}
+      \scriptsize También se consultarán PNP, INEI--ENAPRES, MININTER--OBNASEC y la normativa peruana citada en el plan.
+    \column{.38\textwidth}
+      \begin{beamercolorbox}[rounded=true,sep=1em,center,wd=\textwidth]{block body}
+        {\color{TesisVerde}\Large\bfseries Gracias}\\[.35cm]
+        {\large Preguntas y comentarios}
+      \end{beamercolorbox}
+      \vspace{.3cm}
+      \centering\small Br. Ronaldo Ticona Jancco
+  \end{columns}
+\end{frame}
+
+\end{document}

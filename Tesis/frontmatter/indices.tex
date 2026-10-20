@@ -1,0 +1,108 @@
+\cleardoublepage
+\phantomsection
+\tableofcontents
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice de figuras}
+\listoffigures
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice de tablas}
+\listoftables
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice de algoritmos}
+\listofalgorithms
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice de ecuaciones}
+\listofequations
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice de anexos}
+\listofanexos
+
+% ---------------- Lista de abreviaturas y siglas ----------------
+\clearpage
+\chapter*{Índice de abreviaturas}
+\addcontentsline{toc}{chapter}{Índice de abreviaturas}
+\begingroup\singlespacing\small
+\begin{longtable}{@{}p{3.3cm}p{11.5cm}@{}}
+ARI & \textit{Adjusted Rand Index} (índice de Rand ajustado). \\
+CRISP-DM & \textit{Cross-Industry Standard Process for Data Mining}. \\
+CSR & \textit{Complete Spatial Randomness} (aleatoriedad espacial completa). \\
+DBSCAN & \textit{Density-Based Spatial Clustering of Applications with Noise}. \\
+ENAPRES & Encuesta Nacional de Programas Presupuestales. \\
+GIS & \textit{Geographic Information System} (equivalente en inglés de SIG). \\
+HDBSCAN & \textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise}. \\
+INEI & Instituto Nacional de Estadística e Informática. \\
+KDE & \textit{Kernel Density Estimation} (estimación de densidad kernel). \\
+PNP & Policía Nacional del Perú. \\
+SIG & Sistema de Información Geográfica. \\
+SIPCOP-M & Sistema de registro de las ocurrencias de seguridad atendidas por el serenazgo de la Municipalidad Distrital de San Sebastián. \\
+UNSAAC & Universidad Nacional de San Antonio Abad del Cusco. \\
+UTM & \textit{Universal Transverse Mercator}. \\
+WGS84 & \textit{World Geodetic System 1984}. \\
+\end{longtable}
+\endgroup
+
+% ---------------- Lista de símbolos ----------------
+\clearpage
+\chapter*{Índice de símbolos}
+\addcontentsline{toc}{chapter}{Índice de símbolos}
+\begingroup\singlespacing\small
+\begin{longtable}{@{}p{3.3cm}p{11.5cm}@{}}
+$\varepsilon$ & Radio de vecindad de DBSCAN (distancia máxima entre dos puntos vecinos). \\
+$\mathrm{MinPts}$ & Número mínimo de puntos dentro del radio $\varepsilon$ para considerar un punto como núcleo. \\
+$N_{\varepsilon}(p)$ & Conjunto de puntos a distancia menor o igual que $\varepsilon$ del punto $p$. \\
+$d(p,q)$ & Distancia entre los puntos $p$ y $q$. \\
+$R$ & Radio medio de la Tierra (aprox. 6371 km). \\
+$\varphi,\ \lambda$ & Latitud y longitud, respectivamente, expresadas en radianes. \\
+$h$ & Ancho de banda (\textit{bandwidth}) del estimador de densidad kernel. \\
+$K(\cdot)$ & Función kernel. \\
+$\hat{f}(x)$ & Densidad estimada de incidentes en la ubicación $x$. \\
+$\chi^{2}$ & Estadístico chi-cuadrado de Pearson. \\
+$O_i,\ E_i$ & Frecuencia observada y esperada de la categoría $i$. \\
+$H_0,\ H_1$ & Hipótesis nula y alterna. \\
+$\alpha$ & Nivel de significancia. \\
+$s(i)$ & Coeficiente de silueta del punto $i$. \\
+$a(i),\ b(i)$ & Distancia media del punto $i$ a los de su grupo y al grupo vecino más cercano. \\
+$V$ & Coeficiente V de Cramér (tamaño del efecto). \\
+$B$ & Número de simulaciones Monte Carlo. \\
+$m_j$ & Número de ocurrencias del grupo espacial $j$. \\
+$M_b$ & Tamaño del mayor grupo en la simulación $b$. \\
+$p_j$ & Valor $p$ Monte Carlo del grupo $j$. \\
+\end{longtable}
+\endgroup
+
+% ---------------- Glosario ----------------
+\clearpage
+\chapter*{Glosario de términos}
+\addcontentsline{toc}{chapter}{Glosario de términos}
+\begingroup\singlespacing\small
+\begin{longtable}{@{}p{3.3cm}p{11.5cm}@{}}
+\textbf{Agrupamiento espacial} & Técnica de análisis que reúne eventos geográficamente cercanos en grupos (\textit{clusters}) según un criterio de proximidad o densidad. \\
+\textbf{Densidad kernel} & Método que estima una superficie continua de intensidad de eventos a partir de puntos, ponderando cada evento según su distancia. \\
+\textbf{Epsilon ($\varepsilon$)} & Parámetro de DBSCAN que define el radio de búsqueda de vecinos alrededor de un punto. \\
+\textbf{Georreferenciación} & Asignación de coordenadas geográficas a un registro para ubicarlo en un sistema de referencia espacial. \\
+\textbf{Haversine} & Fórmula que calcula la distancia sobre una esfera entre dos puntos dados por latitud y longitud. \\
+\textbf{Grupo espacial (clúster)} & Conjunto de ocurrencias que un algoritmo de agrupamiento reúne por su proximidad o densidad. \\
+\textbf{Hotspot} & Grupo espacial cuyo número de ocurrencias supera lo esperado bajo aleatoriedad espacial completa, según un contraste estadístico. \\
+\textbf{Ocurrencia de seguridad ciudadana} & Hecho de seguridad atendido y registrado por el serenazgo; incluye hechos que no son necesariamente delitos. \\
+\textbf{Mapa de calor} & Representación cartográfica que usa gradientes de color para mostrar la intensidad de un fenómeno. \\
+\textbf{MinPts} & Parámetro de DBSCAN que fija el mínimo de puntos requeridos en la vecindad para formar un grupo. \\
+\textbf{Patrón espacio-temporal} & Regularidad en la distribución geográfica y en el momento de ocurrencia (turno, día, mes) de los eventos. \\
+\textbf{Ruido} & Puntos que DBSCAN no asigna a ningún grupo por estar en zonas de baja densidad. \\
+\textbf{Serenazgo} & Servicio municipal de seguridad ciudadana que realiza patrullaje y prevención en el distrito. \\
+\textbf{Turno} & Franja horaria de operación del serenazgo (por ejemplo, mañana, tarde o noche). \\
+\end{longtable}
+\endgroup
+
+% Los longtable de los índices incrementan el contador de tablas; se reinicia.
+\setcounter{table}{0}
+\clearpage

@@ -9,8 +9,13 @@
 \usepackage{setspace}
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
+\usepackage[acronym,nonumberlist]{glossaries}
 \usepackage{csquotes}
-\usepackage[round,authoryear]{natbib}
+\usepackage[backend=biber,style=apa,sortcites=true,sorting=nyt,language=spanish]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{bibliography/references.bib}
+\let\citep\parencite
+\let\citet\textcite
 \usepackage{titlesec}
 \usepackage[titles]{tocloft}
 \usepackage{booktabs}
@@ -22,6 +27,13 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \graphicspath{{figures/}}
+
+\newglossary[slg]{symbols}{syi}{syg}{Índice de símbolos}
+\makeglossaries
+\input{frontmatter/glossary-entries}
+
+\newcommand{\termref}[2]{\glslink{#1}{#2}}
+\newcommand{\symref}[2]{\glslink{#1}{#2}}
 
 % ---------------------------------------------------------------------------
 % Documento en blanco y negro: sin colores en títulos, texto, tablas ni figuras.
@@ -51,7 +63,7 @@
 \newcommand{\algtitulo}[1]{\refstepcounter{algoritmo}\addcontentsline{loa}{algorithms}{\protect\numberline{\thealgoritmo}#1}}
 
 \newcommand{\tituloPlan}{%
-  {\bfseries\fontsize{14}{18}\selectfont Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana mediante técnicas de agrupamiento espacial en el distrito de San Sebastián, Cusco, periodo enero-agosto de 2025\par}}
+  {\bfseries\fontsize{14}{18}\selectfont Arquitectura de clústeres espaciales para la caracterización de incidentes de seguridad ciudadana en San Sebastián, Cusco\par}}
 
 % --- Anexos: capítulos sin numeración automática, con entrada en el índice ---
 \newcounter{anexo}
@@ -145,8 +157,7 @@
 \clearpage
 \phantomsection
 \addcontentsline{toc}{chapter}{Referencias}
-\bibliographystyle{bibliography/apalike-es}
-\bibliography{bibliography/references}
+\printbibliography[title={Referencias}]
 
 \include{chapters/anexos}
 

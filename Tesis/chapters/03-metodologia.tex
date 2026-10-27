@@ -4,46 +4,56 @@
 
 \subsection{Enfoque de investigación}
 
-La investigación tiene un enfoque cuantitativo: analiza datos numéricos de ocurrencias (coordenadas, fecha, turno) mediante procedimientos computacionales y pruebas estadísticas \citep{hernandez2018}.
+La investigación tiene un enfoque cuantitativo y tecnológico: especifica una arquitectura analítica y la evalúa mediante una \termref{term-proof-of-concept}{prueba de concepto} que procesa datos numéricos de ocurrencias (coordenadas, fecha, turno) con procedimientos computacionales y pruebas estadísticas \citep{hernandez2018}.
 
 \subsection{Tipo y alcance de la investigación}
 
-Es de tipo aplicado, porque busca información útil para la gestión del serenazgo, y de alcance descriptivo e inferencial: describe la distribución espacial y temporal de las ocurrencias y contrasta si esa distribución difiere de la esperada por azar. No busca explicar causas.
+Es de tipo aplicado y de alcance tecnológico-descriptivo. El artefacto es una arquitectura analítica basada en clústeres espaciales, especificada mediante componentes, interfaces, flujo de datos y criterios de aceptación, junto con una prueba de concepto reproducible. El extracto SIPCOP-M funciona como caso de aplicación para verificar el flujo y caracterizar sus resultados; los contrastes estadísticos son parte de la arquitectura, no el único producto de la investigación. No se busca explicar causas ni desplegar un sistema institucional.
 
 \subsection{Diseño de investigación}
 
-El diseño es no experimental y retrospectivo, con observaciones fechadas entre el 1 de enero y el 29 de agosto de 2025. No se manipula ninguna variable. El proceso de trabajo se alinea con las fases de CRISP-DM \citep{chapman2000}: comprensión de los datos, preparación, modelado, evaluación y comunicación de resultados (Figura~\ref{fig:flujo}).
+El trabajo adopta un proceso de construcción y evaluación de un artefacto tecnológico, con un caso de aplicación retrospectivo y no experimental: se procesan registros fechados entre el 1 de enero y el 29 de agosto de 2025 sin manipular las variables del fenómeno. El proceso combina las fases de comprensión del problema y los datos, especificación de requisitos, diseño de la arquitectura, implementación de la prueba de concepto, evaluación y comunicación de resultados; el flujo analítico se apoya en las fases de \gls{crispdm} \citep{chapman2000} (Figura~\ref{fig:flujo}).
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance=0.35cm, every node/.style={font=\footnotesize},
-  caja/.style={draw, rounded corners, align=center, minimum width=2.0cm, minimum height=1.1cm},
+\begin{tikzpicture}[node distance=0.25cm, every node/.style={font=\scriptsize},
+  caja/.style={draw, rounded corners, align=center, text width=2.15cm, minimum height=1.15cm},
   flecha/.style={-{Stealth}, thick}]
-  \node[caja] (a) {Recolección\\de datos};
-  \node[caja, right=of a] (b) {Depuración y\\georreferenc.};
-  \node[caja, right=of b] (c) {Agrupamiento\\espacial};
-  \node[caja, right=of c] (d) {Contraste\\y análisis\\temporal};
-  \node[caja, right=of d] (e) {Mapas y\\validación};
-  \draw[flecha] (a)--(b); \draw[flecha] (b)--(c); \draw[flecha] (c)--(d); \draw[flecha] (d)--(e);
+  \node[caja] (a) {Fuente SIPCOP-M\\CSV y cartografía};
+  \node[caja, right=of a] (b) {Ingesta\\contrato de datos};
+  \node[caja, right=of b] (c) {Validación y\\preparación};
+  \node[caja, right=of c] (d) {Análisis espacial\\DBSCAN / HDBSCAN};
+  \node[caja, right=of d] (e) {Evaluación\\Monte Carlo y temporal};
+  \node[caja, right=of e] (f) {Salidas\\tablas y mapas};
+  \draw[flecha] (a)--(b); \draw[flecha] (b)--(c); \draw[flecha] (c)--(d);
+  \draw[flecha] (d)--(e); \draw[flecha] (e)--(f);
 \end{tikzpicture}
-\caption{Etapas del procedimiento metodológico.}
+\caption{Componentes y flujo de datos de la arquitectura analítica propuesta.}
 \label{fig:flujo}
-\fuente{Elaboración propia, a partir de las fases de CRISP-DM \citep{chapman2000}.}
+\fuente{Elaboración propia, con base en el flujo analítico de CRISP-DM \citep{chapman2000}.}
 \end{figure}
 
 \section{Definiciones y variables}
 
+\subsection{Artefacto de investigación}
+
+El artefacto será una \termref{term-architecture}{arquitectura analítica} lógica, independiente de una plataforma institucional específica, que describirá: (i) fuentes y recepción de datos; (ii) validación, normalización y registro de incidencias de calidad; (iii) almacenamiento de datos preparados y parámetros de ejecución; (iv) procesamiento espacial y temporal, con DBSCAN, comparación HDBSCAN y contrastes; y (v) presentación de tablas, indicadores y mapas. Para cada componente se documentarán propósito, entradas, salidas, dependencias, errores controlados y mecanismos de \termref{term-traceability}{trazabilidad}. La prueba de concepto implementará el flujo con archivos locales y herramientas de código abierto; no incluirá despliegue, autenticación multiusuario ni integración en producción con SIPCOP-M.
+
+La Figura~\ref{fig:flujo} representa el flujo principal y los límites de los componentes. La arquitectura conservará los datos originales sin modificación, generará una versión preparada y registrará parámetros y exclusiones junto con cada ejecución. El componente de análisis recibirá únicamente datos validados; sus resultados alimentarán los contrastes estadísticos y, finalmente, las salidas cartográficas y tabulares.
+
+La evaluación considerará una matriz de trazabilidad requisito-componente-prueba, casos funcionales con entradas válidas e inválidas, repetición del proceso con iguales datos y parámetros, verificación de resultados frente a cálculos de control y medición del tiempo de procesamiento en el extracto de estudio. Los criterios de aceptación serán: (i) el 100\,\% de los requisitos funcionales prioritarios estará vinculado al menos a un componente y a una prueba; (ii) el 100\,\% de las filas de entrada terminará como registro procesado o exclusión con motivo; (iii) todas las pruebas de control del flujo y de los algoritmos producirán el resultado esperado; y (iv) dos ejecuciones con los mismos datos, parámetros y semilla producirán asignaciones y tablas idénticas. El tiempo se medirá y reportará, sin fijar un umbral de rendimiento no justificado por la escala del caso. La revisión de un especialista podrá complementar, pero no sustituir, las pruebas reproducibles.
+
 \subsection{Definiciones operativas}
 
 \begin{description}[leftmargin=0pt,labelindent=0pt,font=\bfseries]
-\item[Ocurrencia de seguridad ciudadana:] hecho atendido y registrado por el patrullaje municipal e integrado (serenazgo y Patrullaje Local Integrado) en el SIPCOP-M. Incluye hechos de distinta naturaleza; no todos son delitos: el 34\,\% de los registros es ``exposición a peligro o abandono de personas'', que probablemente corresponde a asistencia. Se definen dos conjuntos de análisis: el \textbf{principal}, con todo el extracto depurado, y el de \textbf{presuntos delitos}, que excluye esa modalidad y conserva las ocurrencias presuntamente contra el patrimonio y contra la vida, el cuerpo y la salud (unos 430 de 996 registros). La clasificación de cada modalidad se confirmará con la municipalidad.
-\item[Grupo espacial (clúster):] conjunto de ocurrencias que DBSCAN o HDBSCAN agrupan por densidad. Es un resultado del algoritmo y, por sí solo, no implica que la concentración sea significativa.
-\item[Hotspot:] grupo espacial cuyo número de ocurrencias supera lo esperado bajo aleatoriedad espacial completa, según el contraste de la sección~\ref{sec:montecarlo}.
+\item[\termref{term-incident}{Incidente de seguridad ciudadana}:] término del título que, para esta investigación, se operacionaliza como una ocurrencia atendida y registrada por el patrullaje municipal e integrado (serenazgo y Patrullaje Local Integrado) en SIPCOP-M. Incluye hechos de distinta naturaleza; no todos son delitos: el 34\,\% de los registros es ``exposición a peligro o abandono de personas'', que probablemente corresponde a asistencia. Se definen dos conjuntos de análisis: el \textbf{principal}, con todo el extracto depurado, y el de \textbf{presuntos delitos}, que excluye esa modalidad y conserva las ocurrencias presuntamente contra el patrimonio y contra la vida, el cuerpo y la salud (unos 430 de 996 registros). La clasificación de cada modalidad se confirmará con la municipalidad.
+\item[\termref{term-spatial-cluster}{Grupo espacial (clúster)}:] conjunto de ocurrencias que DBSCAN o HDBSCAN agrupan por densidad. Es un resultado del algoritmo y, por sí solo, no implica que la concentración sea significativa.
+\item[\termref{term-hotspot}{Hotspot}:] grupo espacial cuyo número de ocurrencias supera lo esperado bajo aleatoriedad espacial completa, según el contraste de la sección~\ref{sec:montecarlo}.
 \end{description}
 
 \subsection{Variables y operacionalización}
 
-Se trata de un estudio observacional sin variable independiente ni dependiente en sentido experimental. Se miden cuatro grupos de resultados, uno por cada propósito del estudio (Tabla~\ref{tab:operacionalizacion}).
+Se trata de una investigación tecnológica cuyo artefacto es la arquitectura analítica y su prueba de concepto. No se plantea una relación experimental entre variables; los resultados de evaluación se organizan según los cuatro objetivos específicos (Tabla~\ref{tab:operacionalizacion}).
 
 \begin{table}[H]
 \centering
@@ -54,13 +64,13 @@ Se trata de un estudio observacional sin variable independiente ni dependiente e
 \toprule
 \textbf{Objetivo} & \textbf{Dimensión} & \textbf{Indicadores} & \textbf{Instrumento} \\
 \midrule
-OE1 & Calidad de los registros & Porcentaje de registros utilizables; duplicados; datos incompletos o fuera del distrito & Base del SIPCOP-M; registro de depuración \\
+OE1 & Requisitos y perfil de datos & Campos disponibles, calidad, restricciones, reglas de validación y requisitos priorizados & Perfilado del extracto; matriz de requisitos \\
 \addlinespace
-OE2 & Concentración espacial & Número y tamaño de los grupos; porcentaje de ruido; valor $p$ por grupo (Monte Carlo); silueta & DBSCAN; simulación en el polígono del distrito \\
+OE2 & Diseño arquitectónico & Componentes, interfaces, flujo de datos, dependencias y trazabilidad & Vistas arquitectónicas; matriz requisito-componente \\
 \addlinespace
-OE2 & Comparación de algoritmos & Índice de Rand ajustado entre asignaciones; número de grupos y ruido; estabilidad ante cambios de parámetros & DBSCAN y HDBSCAN \\
+OE3 & Funcionamiento de la prueba de concepto & Ejecución completa, registro de parámetros y exclusiones, tablas y mapas generados & Implementación local; casos funcionales \\
 \addlinespace
-OE3 & Comportamiento temporal & Frecuencias por turno, día de la semana y mes; $\chi^2$, valor $p$ ajustado y $V$ de Cramér & Base del SIPCOP-M; pruebas estadísticas \\
+OE4 & Calidad y reproducibilidad & Cumplimiento de requisitos, repetición con configuración constante, consistencia de salidas y tiempo de procesamiento & Matriz de aceptación; repetición controlada; medición de tiempo \\
 \bottomrule
 \end{tabular}
 \endgroup
@@ -147,21 +157,21 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
 \section{Procedimiento metodológico}
 
 \begin{enumerate}
-    \item \textbf{Obtención y documentación.} Preservación del CSV disponible (996 registros; \texttt{id\_dist=080105}) y registro de su procedencia. Se consultará el significado de \texttt{fechaalerta}, los horarios de turno, las definiciones de categoría y la confirmación del sistema de referencia (el diagnóstico indica longitud y latitud en grados decimales, WGS84); cualquier autorización o validación municipal necesaria se gestionará antes de difundir resultados.
-    \item \textbf{Depuración.} Revisión de duplicados, parseo de fechas, normalización de turnos y categorías, y comprobación de que las coordenadas correspondan al distrito. Se calculará la proporción de registros utilizables (objetivo específico~1) y se documentarán exclusiones.
-    \item \textbf{Validación espacial.} Se verificará que \texttt{x} sea longitud e \texttt{y} latitud y que el sistema de referencia sea WGS84. Además se revisarán tres aspectos: (i) la cuantización a 0,001° y los ceros finales omitidos (126 valores de \texttt{x} y 145 de \texttt{y} tienen solo dos decimales); (ii) el contraste entre \texttt{direccion} y las coordenadas, usando puntos de referencia reconocibles (paraderos, el cementerio, el centro de salud); y (iii) la superposición con el polígono oficial del distrito. Solo después se transformarán a un sistema proyectado métrico o se usará haversine; si no se logra confirmar la referencia, no se interpretarán distancias ni agrupamientos métricos.
-    \item \textbf{Análisis exploratorio.} Series por mes, día de la semana y turno dentro del periodo disponible; mapa de puntos y de densidad kernel (solo como visualización).
-    \item \textbf{Agrupamiento espacial.} Se aplica DBSCAN con distancia haversine (Algoritmo~\ref{alg:dbscan}) y se elige la configuración según la regla de la sección~\ref{sec:parametros}. HDBSCAN se ejecuta como comparación.
-    \item \textbf{Contraste de la concentración espacial.} Prueba Monte Carlo por grupo frente a aleatoriedad espacial completa (sección~\ref{sec:montecarlo}); los grupos significativos son los \textit{hotspots}.
-    \item \textbf{Análisis temporal de los \textit{hotspots}.} Contrastes chi-cuadrado por turno, día de la semana y mes (sección~\ref{sec:temporal}).
-    \item \textbf{Validación y presentación.} Revisión de los \textit{hotspots} con el personal del patrullaje municipal y elaboración de mapas.
+  \item \textbf{Especificación de requisitos.} Identificación de usuarios previstos, entradas, restricciones de datos y productos requeridos. Cada requisito funcional y de calidad se documentará con prioridad, criterio de aceptación y prueba asociada.
+  \item \textbf{Obtención y documentación.} Preservación del CSV disponible (996 registros; \texttt{id\_dist=080105}) y registro de procedencia. Se consultará el significado de \texttt{fechaalerta}, los horarios de turno, las categorías y el sistema de referencia; las condiciones de reutilización se confirmarán antes de difundir resultados.
+  \item \textbf{Perfilado y validación de datos.} Revisión de duplicados, fechas, turnos, categorías y coordenadas; comprobación de que \texttt{x} sea longitud y \texttt{y} latitud, de la cuantización a 0,001°, del contraste entre \texttt{direccion} y coordenadas, y de la superposición con el polígono distrital. Se registrará cada fila procesada o excluida y su motivo. Si no se confirma la referencia espacial, no se interpretarán distancias ni agrupamientos métricos.
+  \item \textbf{Diseño de la arquitectura.} Especificación de componentes, responsabilidades, interfaces, formatos de entrada y salida, dependencias, errores controlados y \termref{term-traceability}{trazabilidad}, representados en vistas y en una matriz requisito-componente-prueba.
+  \item \textbf{Implementación de la prueba de concepto.} Construcción local de los módulos de ingesta, validación, preparación, análisis espacial y temporal y generación de productos. Se conservarán separados el archivo original, los datos preparados y los resultados de cada ejecución.
+  \item \textbf{Ejecución del caso.} Análisis exploratorio; aplicación de DBSCAN con distancia haversine (Algoritmo~\ref{alg:dbscan}) y comparación con HDBSCAN; evaluación estadística de las concentraciones (sección~\ref{sec:montecarlo}); análisis temporal por turno, día de la semana y mes (sección~\ref{sec:temporal}); generación de tablas y mapas.
+  \item \textbf{Evaluación del artefacto.} Ejecución de casos de prueba válidos e inválidos, comprobación contra resultados de control, verificación de que ninguna fila quede sin estado documentado y repetición con datos, parámetros y semilla constantes. Los resultados se contrastarán con los criterios de aceptación fijados para la arquitectura.
+  \item \textbf{Revisión y comunicación.} Revisión de la interpretación de resultados con personal municipal si se obtiene su colaboración, documentación de limitaciones y presentación de la arquitectura, pruebas y resultados agregados.
 \end{enumerate}
 
 \algtitulo{DBSCAN aplicado a las ocurrencias georreferenciadas.}\label{alg:dbscan}
 \noindent\textbf{Algoritmo \thealgoritmo.} DBSCAN aplicado a las ocurrencias georreferenciadas.
 \begin{enumerate}
   \item Inicializar $C \gets 0$ y marcar todos los puntos como no visitados.
-  \item Para cada punto $p \in D$ no visitado: marcarlo como visitado y calcular su vecindario $N_{\varepsilon}(p)$ con la distancia $d$ (ecuación~\ref{eq:haversine}).
+  \item Para cada punto $p \in D$ no visitado: marcarlo como visitado y calcular su vecindario $\symref{sym-neighborhood}{N_{\varepsilon}(p)}$ con la distancia $\symref{sym-distance}{d}$ (ecuación~\ref{eq:haversine}).
   \item Si $|N_{\varepsilon}(p)| < \mathrm{MinPts}$, etiquetar $p$ como ruido.
   \item En caso contrario, crear un nuevo grupo $C$, asignar $p$ a dicho grupo y expandirlo con todos los puntos alcanzables dentro del radio $\varepsilon$.
   \item Repetir hasta que todos los puntos queden etiquetados como pertenecientes a un grupo o como ruido.
@@ -171,6 +181,9 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
 
 \subsection{Selección de parámetros y calidad del agrupamiento}
 \label{sec:parametros}
+
+En DBSCAN, \termref{term-epsilon}{épsilon} define el radio de vecindad y \termref{term-minpts}{MinPts} el mínimo de puntos requerido para formar una región densa.
+La estabilidad de las particiones se compara mediante el \gls{ari}.
 
 La regla de selección se fija antes de ver los resultados de los contrastes. Las coordenadas tienen resolución de 0,001° (unos 108--111 m): dos puntos de celdas distintas distan al menos ese paso, de modo que con $\varepsilon \leq 100$ m solo se agrupan registros con coordenada idéntica, y $\varepsilon = 50$ y $100$ m producen la misma partición (diagnóstico preliminar). Por ello se explora una rejilla de $\varepsilon \in \{150, 200, 250, 300\}$ m y $\mathrm{MinPts} \in \{10, 20, 30\}$, y el gráfico de $k$-distancias orienta el rango de $\varepsilon$. Los registros con coordenadas idénticas cuentan como puntos separados al evaluar MinPts. Para cada configuración se calculan el número de grupos, el porcentaje de ruido y la silueta media (ecuación~\ref{eq:silueta}) sobre los puntos asignados. Se elige la configuración con mayor estabilidad, medida como el índice de Rand ajustado promedio (ARI) \citep{hubert1985} entre sus asignaciones y las de las configuraciones vecinas de la rejilla, entre las que tengan al menos dos grupos, menos de 60\,\% de ruido y ningún grupo que reúna más de 25\,\% de los registros depurados o supere 1 km de diámetro, para que no domine un grupo único formado por encadenamiento. La silueta no decide la elección y se interpreta con cautela, porque los puntos coincidentes (distancia cero) y la malla de coordenadas la distorsionan. Se presentará además el análisis de sensibilidad con las demás configuraciones.
 
@@ -183,13 +196,13 @@ Se compararán las asignaciones de ambos algoritmos mediante el ARI, el número 
 
 El modelo nulo de referencia es la aleatoriedad espacial completa (CSR): $n$ puntos independientes y uniformes dentro del \textbf{polígono real del distrito}, con el mismo $n$ que los datos depurados. La CSR es la referencia mínima, no un contraste exigente: casi cualquier ciudad rechaza la uniformidad porque la población, las vías y el comercio no se reparten de manera uniforme. Por eso se añade un \textbf{segundo modelo nulo}: la simulación restringida al área urbanizada (manzanas o vías) y, para los análisis por tipo de ocurrencia, la simulación con intensidad proporcional a la densidad kernel de todas las ocurrencias del extracto (de modo que se pregunte si un tipo se concentra más que el conjunto). Se informan los resultados bajo ambos nulos.
 
-Se simulan $B = 999$ conjuntos y a cada uno se le aplica el agrupamiento con los parámetros ya elegidos para los datos reales, tras redondear las coordenadas simuladas a la misma rejilla de 0,001°; de lo contrario los datos reales parecerían más densos que el azar solo por la cuantización. El estadístico es el tamaño $m_j$ de cada grupo observado $j$. Su valor $p$ se calcula contra el tamaño del mayor grupo de cada simulación, $M_b$, lo que controla el error en las comparaciones entre grupos:
+Se simulan $\symref{sym-simulations}{B} = 999$ conjuntos y a cada uno se le aplica el agrupamiento con los parámetros ya elegidos para los datos reales, tras redondear las coordenadas simuladas a la misma rejilla de 0,001°; de lo contrario los datos reales parecerían más densos que el azar solo por la cuantización. El estadístico es el tamaño $\symref{sym-cluster-size}{m_j}$ de cada grupo observado $j$. Su valor $p$ se calcula contra el tamaño del mayor grupo de cada simulación, $\symref{sym-largest-cluster}{M_b}$, lo que controla el error en las comparaciones entre grupos:
 \begin{equation}
-p_{j} = \frac{1 + \#\{\, b : M_b \geq m_j \,\}}{1 + B}
+\symref{sym-pvalue}{p_{j}} = \frac{1 + \#\{\, b : \symref{sym-largest-cluster}{M_b} \geq \symref{sym-cluster-size}{m_j} \,\}}{1 + \symref{sym-simulations}{B}}
 \label{eq:montecarlo}
 \eqtitulo{Valor $p$ Monte Carlo de un grupo espacial.}
 \end{equation}
-Un grupo con $p_j < \alpha$ se considera un \textit{hotspot}. La comparación global (número de puntos en grupos frente a lo simulado) se informa como apoyo para $H_1$. Esta prueba se limita a comparar con una distribución uniforme: no distingue entre concentración por mayor actividad delictiva y concentración por mayor población, vías o presencia de patrullaje.
+Un grupo con $\symref{sym-pvalue}{p_j} < \symref{sym-alpha}{\alpha}$ se considera un \termref{term-hotspot}{\textit{hotspot}}. La comparación global (número de puntos en grupos frente a lo simulado) se informa como apoyo para $H_1$. Esta prueba se limita a comparar con una distribución uniforme: no distingue entre concentración por mayor actividad delictiva y concentración por mayor población, vías o presencia de patrullaje.
 
 \subsection{Distribución temporal de los \textit{hotspots}}
 \label{sec:temporal}

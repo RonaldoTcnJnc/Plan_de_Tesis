@@ -10,13 +10,15 @@
 \toprule
 \textbf{Problema} & \textbf{Objetivo} & \textbf{Hipótesis} & \textbf{Técnica} \\
 \midrule
-General: ¿cuáles son los patrones de distribución espacial y temporal de las ocurrencias del extracto SIPCOP Municipal de San Sebastián, del 1/1 al 29/8 de 2025? & Analizar la distribución espacial y temporal del extracto mediante técnicas de agrupamiento y procedimientos estadísticos & H\textsubscript{G} (sección~\ref{sec:hipotesis}) & Agrupamiento espacial y análisis temporal \\
+General: ¿cómo debe estructurarse y evaluarse una arquitectura basada en clústeres espaciales para caracterizar los incidentes registrados en SIPCOP-M? & Desarrollar y evaluar una arquitectura analítica mediante una prueba de concepto reproducible & H\textsubscript{G} (sección~\ref{sec:hipotesis}) & Especificación arquitectónica, pruebas funcionales y evaluación del caso \\
 \addlinespace
-PE1: proporción de ocurrencias utilizables, resolución espacial y convención de georreferenciación & OE1: evaluar la calidad y cobertura de los registros del SIPCOP-M y caracterizar la resolución de las coordenadas & Descriptivo (sin hipótesis) & Depuración, diagnóstico y georreferenciación \\
+PE1: requisitos funcionales, de datos y calidad requeridos por el extracto SIPCOP-M & OE1: analizar las características y calidad del extracto y especificar requisitos de arquitectura & H\textsubscript{1} & Perfilado de datos y trazabilidad de requisitos \\
 \addlinespace
-PE2: concentraciones espaciales, cuáles superan el azar y coincidencia con HDBSCAN & OE2: identificar y contrastar las concentraciones con DBSCAN y compararlas con HDBSCAN & H\textsubscript{1} & DBSCAN ($\varepsilon$ de 150 a 300 m), HDBSCAN, ARI y prueba Monte Carlo con dos modelos nulos (CSR y área urbanizada) \\
+PE2: componentes, interfaces y flujo para integrar procesamiento espacial y temporal & OE2: diseñar arquitectura, componentes, interfaces, flujo de datos y trazabilidad & H\textsubscript{2} & Modelado arquitectónico y matriz requisito-componente \\
 \addlinespace
-PE3: distribución temporal de los \textit{hotspots} frente al resto del distrito (y, como análisis secundario, frente a la exposición calendario) & OE3: analizar la distribución temporal de los \textit{hotspots} & H\textsubscript{2} & Chi-cuadrado de homogeneidad o permutación, V de Cramér, Holm y análisis de sensibilidad \\
+PE3: implementación reproducible del flujo arquitectónico y resultados generados & OE3: implementar una prueba de concepto con preparación de datos, DBSCAN/HDBSCAN, análisis y cartografía & H\textsubscript{3} & Casos de prueba y ejecución repetida \\
+\addlinespace
+PE4: cumplimiento de requisitos y criterios de calidad definidos & OE4: evaluar la arquitectura y la prueba de concepto & H\textsubscript{4} & Matriz de aceptación, pruebas funcionales, consistencia de salidas y tiempo de procesamiento \\
 \bottomrule
 \end{tabular}
 \endgroup

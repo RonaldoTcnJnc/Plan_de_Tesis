@@ -2,13 +2,17 @@
 
 \section{Antecedentes y estado del arte}
 
-La revisión que sigue es preliminar: agrupa los estudios por su alcance y establece la brecha que justifica el plan. Deberá actualizarse con una búsqueda sistemática antes de la sustentación.
+La revisión que sigue es preliminar: reúne fundamentos de análisis espacial y de arquitectura de software para justificar el diseño y evaluación del artefacto propuesto. Deberá actualizarse con una búsqueda sistemática antes de la sustentación.
 
 \subsection{Antecedentes internacionales}
 
 \citet{sherman1989} analizaron las llamadas a la policía en Minneapolis y mostraron que una fracción reducida de las direcciones concentraba una parte desproporcionada de los incidentes, lo que dio sustento empírico a la noción de \textit{hot spot}. \citet{weisburd2015} generalizó este resultado como la ``ley de la concentración del delito'': en distintas ciudades, un porcentaje pequeño de microlugares reúne cerca de la mitad de los hechos y esa concentración es estable en el tiempo. Ambos trabajos justifican analizar el delito por lugares y no solo por unidades administrativas amplias.
 
 En cuanto a los métodos, \citet{chainey2008} compararon técnicas de mapeo de \textit{hotspots} según su capacidad de anticipar la localización de delitos futuros y encontraron que la densidad kernel tuvo un desempeño predictivo competitivo frente a otras técnicas. \citet{hu2018} propusieron un marco de densidad kernel espacio-temporal para la elaboración de mapas predictivos de \textit{hotspots} y su evaluación, lo que muestra la utilidad de incorporar el tiempo junto con el espacio. Estos estudios sustentan el uso de la densidad kernel como visualización complementaria, pero no resuelven cómo delimitar grupos discretos de ocurrencias.
+
+Estudios recientes muestran la diversidad de escalas y técnicas usadas en cartografía delictiva. \citet{ristea2020crimegis} aplicaron sistemas de información geográfica al análisis urbano del delito; \citet{hajela2020hotspot} estudiaron la identificación de zonas críticas mediante agrupamiento; y \citet{masron2021crimehotspot} compararon la distribución de zonas críticas en dos distritos de Malasia. Para datos espaciotemporales, \citet{choi2021mdstdbscan} propusieron una variante de DBSCAN para clustering multidimensional, mientras que \citet{xie2021significantdbscan} incorporaron inferencia estadística al agrupamiento basado en densidad. Otros trabajos exploran clustering jerárquico y modelos difusos para cartografía y propagación de concentraciones delictivas \citep{gustriansyah2022crime,cardone2022fuzzyhotspot}. Estos antecedentes muestran que la selección del algoritmo debe responder al tipo de dato y que el resultado algorítmico debe distinguirse de la evidencia estadística.
+
+Como referencias metodológicas recientes, \citet{medinaariza2023points} presentan métodos de patrones puntuales para eventos delictivos y \citet{medinaariza2023time} discuten la dimensión temporal del mapeo del delito; \citet{medinaariza2023hotspots} abordan la detección de concentraciones y repeticiones. Estos aportes orientan la separación entre descripción cartográfica, análisis de patrones y evaluación de concentraciones.
 
 \subsection{Antecedentes nacionales}
 
@@ -18,11 +22,11 @@ En cuanto a los métodos, \citet{chainey2008} compararon técnicas de mapeo de \
 
 \subsection{Antecedentes locales}
 
-En la búsqueda preliminar no se identificaron estudios publicados que apliquen técnicas de agrupamiento espacial a registros de serenazgo del distrito de San Sebastián o de la ciudad del Cusco. Esta afirmación es provisional y se confirmará con una búsqueda en los repositorios institucionales (UNSAAC, ALICIA y RENATI).
+En la búsqueda preliminar no se identificaron estudios publicados que apliquen técnicas de agrupamiento espacial a registros de serenazgo del distrito de San Sebastián o de la ciudad del Cusco. Esta afirmación es provisional y se confirmará con una búsqueda en los repositorios institucionales (\gls{unsaac}, ALICIA y RENATI).
 
 \subsection{Síntesis y brecha de investigación}
 
-La Tabla~\ref{tab:estadoarte} resume los antecedentes. La literatura establece la concentración espacial del delito y dispone de técnicas para detectarla; en el Perú existe al menos un antecedente reciente con DBSCAN. Sin embargo, no se dispone de un análisis documentado de las ocurrencias del patrullaje municipal de San Sebastián que combine agrupamiento espacial con el contraste estadístico de su recurrencia temporal y que informe la calidad del agrupamiento y la sensibilidad a los parámetros. Esa es la brecha que este plan se propone abordar, sin presuponer que los patrones existan.
+La Tabla~\ref{tab:estadoarte} resume los antecedentes sobre concentración y análisis espacial. Estos métodos aportan algoritmos para detectar grupos, pero no especifican por sí mismos cómo integrar las fuentes, validaciones, transformaciones, parámetros, pruebas y productos en un flujo reproducible. La brecha que aborda este plan es la falta de una arquitectura analítica documentada y evaluada para caracterizar los incidentes registrados en SIPCOP-M de San Sebastián, considerando sus restricciones de calidad, resolución espacial y cobertura temporal. La existencia de grupos o concentraciones significativas no se presupone.
 
 \begin{table}[H]
 \centering
@@ -49,35 +53,35 @@ La Tabla~\ref{tab:estadoarte} resume los antecedentes. La literatura establece l
 
 \subsection{Seguridad ciudadana y concentración del delito}
 
-La seguridad ciudadana designa la protección de las personas frente a hechos que amenazan su integridad y sus bienes, y en el Perú se organiza como un sistema con participación de los gobiernos locales \citep{ley27933}. El serenazgo es el servicio municipal que realiza patrullaje y prevención en el distrito. La teoría de las actividades rutinarias sostiene que el delito se produce cuando coinciden en el espacio y el tiempo un ofensor motivado, un objetivo adecuado y la ausencia de guardianes \citep{cohen1979}; de ello se sigue que los incidentes tiendan a agruparse en ciertos lugares y horarios, y que esa regularidad pueda estudiarse mediante mapas y estadística \citep{eck2005mapping,weisburd2015}.
+La seguridad ciudadana designa la protección de las personas frente a hechos que amenazan su integridad y sus bienes, y en el Perú se organiza como un sistema con participación de los gobiernos locales \citep{ley27933}. El \termref{term-serenazgo}{serenazgo} es el servicio municipal que realiza patrullaje y prevención en el distrito. La teoría de las actividades rutinarias sostiene que el delito se produce cuando coinciden en el espacio y el tiempo un ofensor motivado, un objetivo adecuado y la ausencia de guardianes \citep{cohen1979}; de ello se sigue que los incidentes tiendan a agruparse en ciertos lugares y horarios, y que esa regularidad pueda estudiarse mediante mapas y estadística \citep{eck2005mapping,weisburd2015}.
 
 \subsection{Análisis espacial}
 
-El análisis espacial estudia la distribución geográfica de los eventos, su densidad y su agrupamiento \citep{chainey2005gis}. Una vez confirmado que las coordenadas del archivo pueden transformarse a coordenadas geográficas WGS84, la distancia entre dos ocurrencias se calculará con la fórmula haversine \citep{sinnott1984haversine}:
+El análisis espacial estudia la distribución geográfica de los eventos, su densidad y su \termref{term-spatial-clustering}{agrupamiento} \citep{chainey2005gis}. Una vez confirmada la \termref{term-georeferencing}{georreferenciación} y que las coordenadas del archivo pueden transformarse al sistema \gls{wgs84}, la distancia entre dos ocurrencias se calculará con la fórmula \termref{term-haversine}{haversine} \citep{sinnott1984haversine}:
 \begin{equation}
-d(p,q) = 2R \arcsin\sqrt{\sin^{2}\!\left(\frac{\varphi_q-\varphi_p}{2}\right) + \cos\varphi_p \cos\varphi_q \sin^{2}\!\left(\frac{\lambda_q-\lambda_p}{2}\right)}
+\symref{sym-distance}{d(p,q)} = 2\symref{sym-earth-radius}{R} \arcsin\sqrt{\sin^{2}\!\left(\frac{\symref{sym-latitude}{\varphi}_q-\symref{sym-latitude}{\varphi}_p}{2}\right) + \cos\symref{sym-latitude}{\varphi}_p \cos\symref{sym-latitude}{\varphi}_q \sin^{2}\!\left(\frac{\symref{sym-longitude}{\lambda}_q-\symref{sym-longitude}{\lambda}_p}{2}\right)}
 \label{eq:haversine}
 \eqtitulo{Distancia haversine entre dos ocurrencias.}
 \end{equation}
-donde $R$ es el radio medio de la Tierra, $\varphi$ la latitud y $\lambda$ la longitud, ambas en radianes.
+donde $\symref{sym-earth-radius}{R}$ es el radio medio de la Tierra, $\symref{sym-latitude}{\varphi}$ la latitud y $\symref{sym-longitude}{\lambda}$ la longitud, ambas en radianes.
 
-La densidad de eventos en una ubicación $x$ puede estimarse mediante densidad kernel \citep{silverman1986}:
+La densidad de eventos en una ubicación $x$ puede estimarse mediante \termref{term-kernel-density}{densidad kernel} \citep{silverman1986}:
 \begin{equation}
-\hat{f}(x) = \frac{1}{n h^{2}} \sum_{i=1}^{n} K\!\left(\frac{x - x_i}{h}\right)
+\symref{sym-density}{\hat{f}(x)} = \frac{1}{n \symref{sym-bandwidth}{h}^{2}} \sum_{i=1}^{n} \symref{sym-kernel}{K(\cdot)}\!\left(\frac{x - x_i}{\symref{sym-bandwidth}{h}}\right)
 \label{eq:kde}
 \eqtitulo{Estimador de densidad kernel.}
 \end{equation}
-donde $n$ es el número de ocurrencias, $h$ el ancho de banda y $K(\cdot)$ la función kernel. La densidad kernel produce una superficie continua apta para mapas de calor, pero no delimita grupos de ocurrencias; en este estudio se usa solo como visualización.
+donde $n$ es el número de ocurrencias, $\symref{sym-bandwidth}{h}$ el ancho de banda y $\symref{sym-kernel}{K(\cdot)}$ la función kernel. La densidad kernel produce una superficie continua apta para \termref{term-heatmap}{mapas de calor}, pero no delimita grupos de ocurrencias; en este estudio se usa solo como visualización.
 
 \subsection{Agrupamiento espacial por densidad}
 
-DBSCAN \citep{ester1996dbscan} agrupa los puntos según su densidad a partir de la vecindad de cada uno:
+\gls{dbscan} \citep{ester1996dbscan} agrupa los puntos según su densidad a partir de la vecindad de cada uno:
 \begin{equation}
-N_{\varepsilon}(p) = \{\, q \in D \mid d(p,q) \leq \varepsilon \,\}
+\symref{sym-neighborhood}{N_{\varepsilon}(p)} = \{\, q \in D \mid \symref{sym-distance}{d(p,q)} \leq \symref{sym-epsilon}{\varepsilon} \,\}
 \label{eq:vecindad}
 \eqtitulo{Vecindad $\varepsilon$ de un punto en DBSCAN.}
 \end{equation}
-Un punto es \emph{núcleo} si $|N_{\varepsilon}(p)| \geq \mathrm{MinPts}$; los puntos alcanzables desde un núcleo forman un grupo, y los restantes se etiquetan como ruido. El método no requiere fijar el número de grupos, admite formas arbitrarias y es sensible a $\varepsilon$ y MinPts \citep{schubert2017}. Una guía habitual para elegir $\varepsilon$ es el gráfico de $k$-distancias, donde se busca el ``codo'' de la curva ordenada de distancias al $k$-ésimo vecino. HDBSCAN \citep{campello2013hdbscan,mcinnes2017} extiende la idea a una jerarquía de densidades y no requiere fijar $\varepsilon$, aunque sí un tamaño mínimo de grupo.
+Un punto es \emph{núcleo} si $|\symref{sym-neighborhood}{N_{\varepsilon}(p)}| \geq \symref{sym-minpts}{\mathrm{MinPts}}$; los puntos alcanzables desde un núcleo forman un \termref{term-spatial-cluster}{grupo espacial}, y los restantes se etiquetan como \termref{term-noise}{ruido}. El método no requiere fijar el número de grupos, admite formas arbitrarias y es sensible a $\symref{sym-epsilon}{\varepsilon}$ y MinPts \citep{schubert2017}. Una guía habitual para elegir $\varepsilon$ es el gráfico de $k$-distancias, donde se busca el ``codo'' de la curva ordenada de distancias al $k$-ésimo vecino. \gls{hdbscan} \citep{campello2013hdbscan,mcinnes2017} extiende la idea a una jerarquía de densidades y no requiere fijar $\varepsilon$, aunque sí un tamaño mínimo de grupo.
 
 \subsection{Resolución y error de georreferenciación}
 
@@ -91,21 +95,31 @@ Un grupo devuelto por un algoritmo no demuestra por sí solo una concentración 
 
 El coeficiente de silueta \citep{rousseeuw1987} compara, para cada punto $i$, la distancia media a los puntos de su grupo, $a(i)$, con la distancia media al grupo vecino más cercano, $b(i)$:
 \begin{equation}
-s(i) = \frac{b(i) - a(i)}{\max\{a(i),\, b(i)\}}, \qquad -1 \leq s(i) \leq 1
+\symref{sym-silhouette}{s(i)} = \frac{\symref{sym-between}{b(i)} - \symref{sym-within}{a(i)}}{\max\{\symref{sym-within}{a(i)},\, \symref{sym-between}{b(i)}\}}, \qquad -1 \leq \symref{sym-silhouette}{s(i)} \leq 1
 \label{eq:silueta}
 \eqtitulo{Coeficiente de silueta.}
 \end{equation}
 Valores cercanos a 1 indican grupos compactos y bien separados. Como DBSCAN deja puntos sin grupo, la silueta se calcula sobre los puntos asignados y se informa junto con el porcentaje de ruido y el número de grupos.
 
+\subsection{Arquitectura analítica y evaluación del artefacto}
+
+Una arquitectura de software describe las estructuras relevantes de un sistema, sus elementos, relaciones y principios que orientan su evolución; no equivale únicamente a un diagrama ni a la implementación de una aplicación. La norma ISO/IEC/IEEE 42010 establece conceptos y requisitos para describir arquitecturas mediante interesados, preocupaciones, puntos de vista y vistas \citep{iso42010_2022}. Para este estudio, la arquitectura será lógica y analítica: especificará módulos, responsabilidades, interfaces, flujo de datos y decisiones de procesamiento, sin comprometer un despliegue institucional.
+
+La investigación en ciencia del diseño exige identificar explícitamente el artefacto y distinguirlo del problema y del método empleados para construirlo. \citet{weigand2021artifact} proponen una ontología para describir artefactos de investigación; \citet{weigand2023artifact} ofrecen criterios para identificar el artefacto en estudios de sistemas de información. Además, \citet{barata2023limitations} señalan la importancia de informar limitaciones en este tipo de investigación, y \citet{schaeffer2025evaluation} proponen seleccionar métodos de evaluación adecuados a los objetivos y al artefacto. Estos criterios respaldan que este plan describa la arquitectura, la prueba de concepto y sus límites como productos diferenciados.
+
+La calidad del artefacto se evaluará respecto de atributos observables y criterios definidos antes de las pruebas. ISO/IEC 25010 proporciona un modelo de calidad de producto que organiza características y subcaracterísticas para especificar y evaluar sistemas y productos de software \citep{iso25010_2023}; \citet{argotti2024quality} ejemplifican cómo operacionalizar modelos de calidad ISO 25000 para evaluar software. En esta investigación se seleccionarán los atributos pertinentes al alcance: adecuación funcional, confiabilidad de ejecución, mantenibilidad modular y reproducibilidad de resultados. La evaluación combinará trazabilidad entre requisitos y componentes, casos funcionales con entradas válidas e inválidas, repetición controlada del flujo y comprobación de los productos generados.
+
+El proceso de construcción seguirá una lógica de investigación en ciencia del diseño: identificar el problema, definir objetivos de solución, diseñar y desarrollar el artefacto, demostrar su uso y evaluarlo frente a los objetivos establecidos \citep{peffers2007}. El extracto SIPCOP-M servirá como caso demostrativo, mientras que los resultados de agrupamiento serán evidencia del funcionamiento de módulos analíticos y no una prueba autónoma de calidad arquitectónica.
+
 \subsection{Análisis temporal y pruebas estadísticas}
 
-Para contrastar si la frecuencia de ocurrencias por categoría temporal (turno, día de la semana, mes) difiere de la esperada se utiliza la prueba chi-cuadrado de Pearson \citep{pearson1900}:
+Para contrastar si la frecuencia de ocurrencias por categoría temporal (turno, día de la semana, mes) difiere de la esperada se utiliza la prueba chi-cuadrado de Pearson \citep{pearson1900}. En la prueba de homogeneidad, $\symref{sym-null}{H_0}$ establece que las distribuciones comparadas coinciden y $\symref{sym-alternative}{H_1}$ que difieren:
 \begin{equation}
-\chi^{2} = \sum_{i=1}^{k} \frac{(O_i - E_i)^{2}}{E_i}
+\symref{sym-chi-square}{\chi^{2}} = \sum_{i=1}^{k} \frac{(\symref{sym-observed}{O_i} - \symref{sym-expected}{E_i})^{2}}{\symref{sym-expected}{E_i}}
 \label{eq:chi2}
 \eqtitulo{Estadístico chi-cuadrado de Pearson.}
 \end{equation}
-donde $O_i$ y $E_i$ son las frecuencias observada y esperada de la categoría $i$. La prueba es fiable cuando las frecuencias esperadas no son demasiado pequeñas \citep{cochran1954}. Su magnitud depende del tamaño de muestra, por lo que se complementa con el coeficiente V de Cramér \citep{cramer1946} como medida del tamaño del efecto.
+donde $\symref{sym-observed}{O_i}$ y $\symref{sym-expected}{E_i}$ son las frecuencias observada y esperada de la categoría $i$. La prueba es fiable cuando las frecuencias esperadas no son demasiado pequeñas \citep{cochran1954}. Su magnitud depende del tamaño de muestra, por lo que se complementa con el coeficiente $\symref{sym-cramer}{V}$ de Cramér \citep{cramer1946} como medida del tamaño del efecto.
 
 \subsection{Visualización geoespacial}
 
@@ -114,11 +128,11 @@ Los mapas de calor, los mapas de puntos con grupos y los tableros permiten comun
 \section{Definición de términos básicos}
 
 \begin{description}[leftmargin=0pt,labelindent=0pt,font=\bfseries]
-\item[Ocurrencia de seguridad ciudadana:] hecho atendido y registrado por el patrullaje municipal e integrado (serenazgo y Patrullaje Local Integrado), con fecha, turno, tipo y ubicación; no todos son delitos.
-\item[Grupo espacial (clúster):] conjunto de ocurrencias agrupadas por un algoritmo según su densidad.
-\item[Hotspot:] grupo espacial cuya concentración de ocurrencias supera la esperada por azar según un contraste estadístico.
-\item[Georreferenciación:] asignación de coordenadas a un registro para ubicarlo en un sistema de referencia espacial.
-\item[Ruido:] punto que DBSCAN no asigna a ningún grupo por hallarse en una zona de baja densidad.
-\item[Turno:] franja horaria de operación del serenazgo (mañana, tarde y noche).
-\item[Aleatoriedad espacial completa (CSR):] modelo en el que los puntos se distribuyen de forma independiente y uniforme en el área de estudio; sirve de referencia nula mínima; no incorpora población, vías ni patrullaje.
+\item[\termref{term-incident}{Ocurrencia de seguridad ciudadana}:] hecho atendido y registrado por el patrullaje municipal e integrado (serenazgo y Patrullaje Local Integrado), con fecha, turno, tipo y ubicación; no todos son delitos.
+\item[\termref{term-spatial-cluster}{Grupo espacial (clúster)}:] conjunto de ocurrencias agrupadas por un algoritmo según su densidad.
+\item[\termref{term-hotspot}{Hotspot}:] grupo espacial cuya concentración de ocurrencias supera la esperada por azar según un contraste estadístico.
+\item[\termref{term-georeferencing}{Georreferenciación}:] asignación de coordenadas a un registro para ubicarlo en un sistema de referencia espacial.
+\item[\termref{term-noise}{Ruido}:] punto que DBSCAN no asigna a ningún grupo por hallarse en una zona de baja densidad.
+\item[\termref{term-shift}{Turno}:] franja horaria de operación del serenazgo (mañana, tarde y noche).
+\item[Aleatoriedad espacial completa (\gls{csr}):] modelo en el que los puntos se distribuyen de forma independiente y uniforme en el área de estudio; sirve de referencia nula mínima; no incorpora población, vías ni patrullaje.
 \end{description}

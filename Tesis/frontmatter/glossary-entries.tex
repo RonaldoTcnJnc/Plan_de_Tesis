@@ -1,0 +1,57 @@
+% Abbreviations: entries are printed only when referenced in the document.
+\newacronym{ari}{ARI}{índice de Rand ajustado (\textit{Adjusted Rand Index})}
+\newacronym{crispdm}{CRISP-DM}{proceso estándar para minería de datos (\textit{Cross-Industry Standard Process for Data Mining})}
+\newacronym{csr}{CSR}{aleatoriedad espacial completa (\textit{complete spatial randomness})}
+\newacronym{dbscan}{DBSCAN}{agrupamiento espacial basado en densidad con ruido (\textit{Density-Based Spatial Clustering of Applications with Noise})}
+\newacronym{enapres}{ENAPRES}{Encuesta Nacional de Programas Presupuestales}
+\newacronym{hdbscan}{HDBSCAN}{agrupamiento jerárquico basado en densidad (\textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise})}
+\newacronym{inei}{INEI}{Instituto Nacional de Estadística e Informática}
+\newacronym{pnp}{PNP}{Policía Nacional del Perú}
+\newacronym{sipcopm}{SIPCOP-M}{sistema de registros de ocurrencias de seguridad atendidas por el serenazgo de la Municipalidad Distrital de San Sebastián}
+\newacronym{unsaac}{UNSAAC}{Universidad Nacional de San Antonio Abad del Cusco}
+\newacronym{wgs84}{WGS84}{Sistema Geodésico Mundial 1984 (\textit{World Geodetic System 1984})}
+
+% Mathematical symbols.
+\newglossaryentry{sym-epsilon}{type=symbols,name={\ensuremath{\varepsilon}},sort=epsilon,description={Radio de vecindad de DBSCAN, distancia máxima entre dos puntos vecinos}}
+\newglossaryentry{sym-minpts}{type=symbols,name={\ensuremath{\mathrm{MinPts}}},sort=minpts,description={Número mínimo de puntos dentro del radio epsilon para considerar un punto como núcleo}}
+\newglossaryentry{sym-neighborhood}{type=symbols,name={\ensuremath{N_{\varepsilon}(p)}},sort=neighborhood,description={Conjunto de puntos a distancia menor o igual que epsilon del punto p}}
+\newglossaryentry{sym-distance}{type=symbols,name={\ensuremath{d(p,q)}},sort=distance,description={Distancia entre los puntos p y q}}
+\newglossaryentry{sym-earth-radius}{type=symbols,name={\ensuremath{R}},sort=earthradius,description={Radio medio de la Tierra, aproximadamente 6371 km}}
+\newglossaryentry{sym-latitude}{type=symbols,name={\ensuremath{\varphi}},sort=latitude,description={Latitud expresada en radianes}}
+\newglossaryentry{sym-longitude}{type=symbols,name={\ensuremath{\lambda}},sort=longitude,description={Longitud expresada en radianes}}
+\newglossaryentry{sym-bandwidth}{type=symbols,name={\ensuremath{h}},sort=bandwidth,description={Ancho de banda del estimador de densidad kernel}}
+\newglossaryentry{sym-kernel}{type=symbols,name={\ensuremath{K(\cdot)}},sort=kernel,description={Función kernel}}
+\newglossaryentry{sym-density}{type=symbols,name={\ensuremath{\hat{f}(x)}},sort=density,description={Densidad estimada de incidentes en la ubicación x}}
+\newglossaryentry{sym-chi-square}{type=symbols,name={\ensuremath{\chi^{2}}},sort=chisquare,description={Estadístico chi-cuadrado de Pearson}}
+\newglossaryentry{sym-observed}{type=symbols,name={\ensuremath{O_i}},sort=observed,description={Frecuencia observada de la categoría i}}
+\newglossaryentry{sym-expected}{type=symbols,name={\ensuremath{E_i}},sort=expected,description={Frecuencia esperada de la categoría i}}
+\newglossaryentry{sym-null}{type=symbols,name={\ensuremath{H_0}},sort=nullhypothesis,description={Hipótesis nula}}
+\newglossaryentry{sym-alternative}{type=symbols,name={\ensuremath{H_1}},sort=alternativehypothesis,description={Hipótesis alterna}}
+\newglossaryentry{sym-alpha}{type=symbols,name={\ensuremath{\alpha}},sort=alpha,description={Nivel de significancia}}
+\newglossaryentry{sym-silhouette}{type=symbols,name={\ensuremath{s(i)}},sort=silhouette,description={Coeficiente de silueta del punto i}}
+\newglossaryentry{sym-within}{type=symbols,name={\ensuremath{a(i)}},sort=within,description={Distancia media del punto i a los puntos de su grupo}}
+\newglossaryentry{sym-between}{type=symbols,name={\ensuremath{b(i)}},sort=between,description={Distancia media del punto i al grupo vecino más cercano}}
+\newglossaryentry{sym-cramer}{type=symbols,name={\ensuremath{V}},sort=cramerv,description={Coeficiente V de Cramér, medida del tamaño del efecto}}
+\newglossaryentry{sym-simulations}{type=symbols,name={\ensuremath{B}},sort=simulations,description={Número de simulaciones Monte Carlo}}
+\newglossaryentry{sym-cluster-size}{type=symbols,name={\ensuremath{m_j}},sort=clustersize,description={Número de ocurrencias del grupo espacial j}}
+\newglossaryentry{sym-largest-cluster}{type=symbols,name={\ensuremath{M_b}},sort=largestcluster,description={Tamaño del mayor grupo en la simulación b}}
+\newglossaryentry{sym-pvalue}{type=symbols,name={\ensuremath{p_j}},sort=pvalue,description={Valor p Monte Carlo del grupo j}}
+
+% Terms used in the thesis.
+\newglossaryentry{term-architecture}{name={Arquitectura analítica},description={Estructura lógica de componentes, responsabilidades, interfaces y flujos que organiza el procesamiento y la generación de resultados}}
+\newglossaryentry{term-spatial-clustering}{name={Agrupamiento espacial},description={Técnica que reúne eventos geográficamente cercanos según criterios de proximidad o densidad}}
+\newglossaryentry{term-kernel-density}{name={Densidad kernel},description={Método que estima una superficie continua de intensidad a partir de puntos, ponderando cada evento según su distancia}}
+\newglossaryentry{term-epsilon}{name={Épsilon ($\varepsilon$)},description={Parámetro de DBSCAN que define el radio de búsqueda de vecinos alrededor de un punto}}
+\newglossaryentry{term-georeferencing}{name={Georreferenciación},description={Asignación de coordenadas geográficas a un registro para ubicarlo en un sistema de referencia espacial}}
+\newglossaryentry{term-haversine}{name={Haversine},description={Fórmula para calcular la distancia sobre una esfera entre dos puntos dados por latitud y longitud}}
+\newglossaryentry{term-spatial-cluster}{name={Grupo espacial (clúster)},description={Conjunto de ocurrencias que un algoritmo de agrupamiento reúne por proximidad o densidad}}
+\newglossaryentry{term-hotspot}{name={Hotspot},description={Grupo espacial cuya cantidad de ocurrencias supera lo esperado bajo el modelo nulo estadístico definido}}
+\newglossaryentry{term-incident}{name={Incidente de seguridad ciudadana},description={En esta investigación, ocurrencia de seguridad atendida y registrada por el patrullaje municipal e integrado; no necesariamente constituye un delito}}
+\newglossaryentry{term-heatmap}{name={Mapa de calor},description={Representación cartográfica mediante gradientes de color para mostrar la intensidad de un fenómeno}}
+\newglossaryentry{term-minpts}{name={MinPts},description={Parámetro de DBSCAN que fija el mínimo de puntos requeridos en la vecindad para formar un grupo}}
+\newglossaryentry{term-spatiotemporal-pattern}{name={Patrón espacio-temporal},description={Regularidad en la distribución geográfica y temporal de los eventos}}
+\newglossaryentry{term-noise}{name={Ruido},description={Puntos que DBSCAN no asigna a ningún grupo por estar en zonas de baja densidad}}
+\newglossaryentry{term-serenazgo}{name={Serenazgo},description={Servicio municipal de seguridad ciudadana que realiza patrullaje y prevención en el distrito}}
+\newglossaryentry{term-shift}{name={Turno},description={Franja horaria de operación del serenazgo, por ejemplo mañana, tarde o noche}}
+\newglossaryentry{term-proof-of-concept}{name={Prueba de concepto},description={Implementación acotada que demuestra y permite evaluar el funcionamiento de los componentes esenciales de la arquitectura}}
+\newglossaryentry{term-traceability}{name={Trazabilidad},description={Capacidad de relacionar requisitos, componentes, transformaciones, parámetros, pruebas y resultados de cada ejecución}}

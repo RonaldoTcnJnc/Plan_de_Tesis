@@ -71,8 +71,8 @@
   }%
 }
 
-\title[Patrones espacio-temporales en San Sebastián]{Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana mediante técnicas de agrupamiento espacial}
-\subtitle{Distrito de San Sebastián, Cusco, enero-agosto de 2025}
+\title[Arquitectura de clústeres espaciales]{Arquitectura de clústeres espaciales para la caracterización de incidentes de seguridad ciudadana en San Sebastián, Cusco}
+\subtitle{Prueba de concepto con registros SIPCOP Municipal}
 \author{Br. Ronaldo Ticona Jancco}
 \institute{Universidad Nacional de San Antonio Abad del Cusco\\Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica\\Escuela Profesional de Ingeniería Informática y de Sistemas}
 \date{Plan de tesis -- 2026}
@@ -97,9 +97,9 @@
   \vspace{.9cm}
   {\color{TesisDorado}\small PLAN DE TESIS}\par
   \vspace{.15cm}
-  {\color{TesisVerde}\LARGE\bfseries Análisis de patrones espacio-temporales de las ocurrencias de seguridad ciudadana}\par
-  {\color{TesisVerde}\LARGE\bfseries mediante técnicas de agrupamiento espacial}\par
-  {\color{TesisVerde}\LARGE\bfseries Distrito de San Sebastián, Cusco, enero-agosto de 2025}\par
+  {\color{TesisVerde}\LARGE\bfseries Arquitectura de clústeres espaciales}\par
+  {\color{TesisVerde}\Large\bfseries para la caracterización de incidentes de seguridad ciudadana}\par
+  {\color{TesisVerde}\Large\bfseries en San Sebastián, Cusco}\par
   \vfill
   \begin{columns}[b,onlytextwidth]
     \column{.55\textwidth}
@@ -192,13 +192,13 @@
   \vspace{.45cm}
   \begin{block}{Pregunta general}
     \centering\large
-    ¿Cuáles son los patrones de distribución espacial y temporal de las ocurrencias del extracto SIPCOP Municipal para San Sebastián, del 1 de enero al 29 de agosto de 2025?
+    ¿Cómo debe estructurarse y evaluarse una arquitectura basada en clústeres espaciales para caracterizar los incidentes registrados en SIPCOP-M?
   \end{block}
   \vspace{.3cm}
   \begin{itemize}
-    \item ¿Qué proporción de los registros tiene ubicación, fecha y tipo utilizables?
-    \item ¿Qué grupos detecta DBSCAN, cuáles superan lo esperado por azar y cuánto coincide HDBSCAN?
-        \item ¿Cómo se distribuyen temporalmente las ocurrencias de los grupos significativos frente a la exposición? (fecha de alerta)
+    \item ¿Qué requisitos funcionales, de datos y de calidad debe atender la arquitectura?
+    \item ¿Qué componentes, interfaces y flujo integran el procesamiento espacial y temporal?
+    \item ¿Cómo implementar una prueba de concepto reproducible y evaluar su cumplimiento?
   \end{itemize}
 \end{frame}
 
@@ -207,22 +207,23 @@
   \begin{columns}[T,onlytextwidth]
     \column{.52\textwidth}
       \begin{block}{Objetivo general}
-        Analizar la distribución espacial y temporal considerando la calidad y las limitaciones de los registros disponibles.
+        Desarrollar y evaluar una arquitectura analítica basada en clústeres espaciales mediante una prueba de concepto reproducible.
       \end{block}
       \textbf{Objetivos específicos}
       \begin{enumerate}
-        \item Evaluar calidad y cobertura.
-        \item Detectar y contrastar concentraciones con DBSCAN; comparar con HDBSCAN.
-        \item Analizar la distribución temporal de las concentraciones significativas.
+        \item Especificar requisitos a partir del extracto SIPCOP-M.
+        \item Diseñar componentes, interfaces, flujo y trazabilidad.
+        \item Implementar la prueba de concepto con DBSCAN/HDBSCAN, análisis y cartografía.
+        \item Evaluar requisitos, reproducibilidad y calidad de resultados.
       \end{enumerate}
     \column{.44\textwidth}
       \begin{block}{Hipótesis de trabajo}
-        \textbf{H1:} al menos un grupo espacial concentra más ocurrencias que las esperadas bajo aleatoriedad espacial completa.
+        \textbf{HG:} la arquitectura permitirá ejecutar un flujo trazable y reproducible conforme a requisitos y criterios de aceptación.
 
         \medskip
-        \textbf{H2:} en los grupos significativos, la distribución temporal difiere de la del resto del distrito.
+        \textbf{H1--H4:} requisitos trazables, componentes completos, ejecución reproducible y cumplimiento de criterios.
       \end{block}
-      \footnotesize El objetivo de calidad de datos es descriptivo y no requiere hipótesis.
+      \footnotesize Las concentraciones significativas son resultados del caso, no condición de éxito de la arquitectura.
   \end{columns}
 \end{frame}
 
@@ -232,9 +233,9 @@
     \column{.48\textwidth}
       \begin{block}{Aporte}
         \begin{itemize}
-          \item Evidencia empírica local sobre ocurrencias atendidas.
-          \item Procedimiento reproducible de depuración, agrupamiento y contraste.
-          \item Información que puede apoyar la prevención y la planificación del patrullaje municipal.
+          \item Arquitectura lógica con componentes, interfaces y trazabilidad.
+          \item Prueba de concepto reproducible con validación y análisis espacial.
+          \item Criterios de aceptación para evaluar funcionamiento y calidad.
         \end{itemize}
       \end{block}
     \column{.48\textwidth}
@@ -242,8 +243,8 @@
         \begin{itemize}
           \item Distrito de San Sebastián, Cusco.
           \item Extracto disponible: 1/1/2025 al 29/8/2025 (996 registros).
-          \item Análisis observacional, descriptivo e inferencial.
-          \item No evalúa el efecto causal de una intervención.
+          \item Artefacto local; no es una plataforma municipal en producción.
+          \item El caso usa ocurrencias registradas, no todos los incidentes ocurridos.
         \end{itemize}
       \end{block}
   \end{columns}
@@ -262,9 +263,9 @@
       \end{block}
     \column{.47\textwidth}
       \begin{block}{Brecha local}
-        No se identificó, en la revisión preliminar, un análisis documentado que combine registros del patrullaje municipal de San Sebastián, agrupamiento espacial y contraste de recurrencia temporal.
+        La revisión preliminar no identificó una arquitectura documentada que integre validación de datos SIPCOP-M, agrupamiento espacial, evaluación estadística, análisis temporal y resultados reproducibles para San Sebastián.
       \end{block}
-      \footnotesize La búsqueda de antecedentes locales debe completarse antes de la sustentación.
+      \footnotesize La búsqueda de antecedentes sobre arquitectura y estudios locales debe completarse antes de la sustentación.
   \end{columns}
 \end{frame}
 
@@ -320,19 +321,19 @@
   \begin{columns}[T,onlytextwidth]
     \column{.31\textwidth}
       \begin{block}{Enfoque y tipo}
-        \textbf{Cuantitativo}; aplicado; alcance \textbf{descriptivo e inferencial}.
+        \textbf{Cuantitativo y tecnológico}; investigación aplicada con construcción y evaluación de un artefacto.
       \end{block}
     \column{.31\textwidth}
       \begin{block}{Diseño}
-        \textbf{No experimental y retrospectivo}, con fechas de alerta del 1/1 al 29/8 de 2025.
+        \textbf{Construcción y evaluación de artefacto}; caso de aplicación retrospectivo con fechas de alerta del 1/1 al 29/8 de 2025.
       \end{block}
     \column{.31\textwidth}
       \begin{block}{Proceso}
-        Fases de \textbf{CRISP-DM}: comprensión, preparación, modelado, evaluación y comunicación.
+        Requisitos, arquitectura, prueba de concepto, pruebas funcionales y evaluación; análisis de datos basado en CRISP-DM.
       \end{block}
   \end{columns}
   \vspace{.45cm}
-  \centering\large\color{TesisVerde}\textbf{Unidad de análisis: una ocurrencia registrada por el patrullaje municipal e integrado.}
+  \centering\large\color{TesisVerde}\textbf{Unidad del caso: cada ocurrencia registrada por el patrullaje municipal e integrado.}
 \end{frame}
 
 % 12
@@ -419,18 +420,18 @@
 \end{frame}
 
 % 14
-\begin{frame}{Procedimiento de análisis}
+\begin{frame}{Construcción y evaluación de la arquitectura}
   \centering
   \begin{tikzpicture}
-    \chev{0}{TesisVerde}{1\\Recolección y depuración}{\textbf{Documentar} el CSV y validar definiciones.\\Depurar y describir los datos.}{}
-    \chev{1}{TesisVerde!65!TesisTurquesa}{2\\Validación espacial}{\textbf{Validar} el sistema de referencia y las coordenadas.\\Delimitar el área distrital.}{}
-    \chev{2}{TesisTurquesa}{3\\Agrupamiento}{Ajustar \textbf{DBSCAN} y ejecutar HDBSCAN como comparación.}{}
-    \chev{3}{TesisTurquesa!55!TesisDorado}{4\\Contraste Monte Carlo}{\textbf{Simulación Monte Carlo} para los hotspots y análisis temporal.}{}
-    \chev{4}{TesisDorado}{5\\Mapas y resultados}{\textbf{Comunicar} mapas y resultados agregados.}{}
+    \chev{0}{TesisVerde}{1\\Requisitos}{\textbf{Perfilar} el extracto y priorizar requisitos verificables.}{}
+    \chev{1}{TesisVerde!65!TesisTurquesa}{2\\Arquitectura}{\textbf{Especificar} componentes, interfaces y trazabilidad.}{}
+    \chev{2}{TesisTurquesa}{3\\Prototipo}{\textbf{Implementar} el flujo local de validación y agrupamiento.}{}
+    \chev{3}{TesisTurquesa!55!TesisDorado}{4\\Análisis}{\textbf{Ejecutar} contrastes espaciales y caracterización temporal.}{}
+    \chev{4}{TesisDorado}{5\\Evaluación}{\textbf{Verificar} aceptación, repetibilidad y productos generados.}{}
   \end{tikzpicture}
   \vspace{.35cm}
   \begin{tarjeta}[halign=center]
-    \small\textbf{Herramientas previstas:} Python (pandas, scikit-learn, hdbscan, SciPy) y un SIG de código abierto.
+    \small\textbf{Herramientas previstas:} Python (pandas, scikit-learn, hdbscan, SciPy) y un SIG de código abierto; prototipo no desplegado en producción.
   \end{tarjeta}
 \end{frame}
 

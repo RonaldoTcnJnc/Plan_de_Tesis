@@ -1,12 +1,15 @@
-\documentclass[12pt,oneside]{book}
+\documentclass[12pt,letterpaper,oneside]{book}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx}
-\usepackage[a4paper,left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{tgtermes}
+\usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage[acronym,nonumberlist]{glossaries}
@@ -35,10 +38,13 @@
 \newcommand{\termref}[2]{\glslink{#1}{#2}}
 \newcommand{\symref}[2]{\glslink{#1}{#2}}
 
-% ---------------------------------------------------------------------------
-% Documento en blanco y negro: sin colores en títulos, texto, tablas ni figuras.
-% ---------------------------------------------------------------------------
-\pagestyle{plain}
+% APA 7 student paper page numbering: page number in the upper-right corner.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\setlength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\thepage}\renewcommand{\headrulewidth}{0pt}}
 
 % Numeración continua de figuras, tablas y ecuaciones (formato APA)
 \counterwithout{figure}{chapter}
@@ -63,7 +69,13 @@
 \newcommand{\algtitulo}[1]{\refstepcounter{algoritmo}\addcontentsline{loa}{algorithms}{\protect\numberline{\thealgoritmo}#1}}
 
 \newcommand{\tituloPlan}{%
-  {\bfseries\fontsize{14}{18}\selectfont Arquitectura de clústeres espaciales para la caracterización de incidentes de seguridad ciudadana en San Sebastián, Cusco\par}}
+  {\bfseries\fontsize{14}{18}\selectfont
+  \textcolor[HTML]{9A7420}{Caracterización} mediante una
+  \textcolor[HTML]{426B8A}{arquitectura de clústeres espaciales} de los
+  \textcolor[HTML]{A34F3F}{incidentes de seguridad ciudadana en San Sebastián, Cusco}\par}}
+\newcommand{\parteTecnologia}[1]{\textcolor[HTML]{426B8A}{#1}}
+\newcommand{\parteProceso}[1]{\textcolor[HTML]{9A7420}{#1}}
+\newcommand{\parteContexto}[1]{\textcolor[HTML]{A34F3F}{#1}}
 
 % --- Anexos: capítulos sin numeración automática, con entrada en el índice ---
 \newcounter{anexo}
@@ -81,18 +93,18 @@
 \renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftchapfont}{\bfseries}
 \renewcommand{\cftchappagefont}{\bfseries}
-\renewcommand{\cfttoctitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cfttoctitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \setlength{\cftbeforechapskip}{0.4em}
-\renewcommand{\cftloftitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftloftitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftafterloftitle}{\hfill}
-\renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftlottitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\cftloetitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftloetitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftafterloetitle}{\hfill}
-\renewcommand{\cftloatitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftloatitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftafterloatitle}{\hfill}
-\renewcommand{\cftloantitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftloantitlefont}{\hfill\large\bfseries}
 \renewcommand{\cftafterloantitle}{\hfill}
 \renewcommand{\cftfigpresnum}{Figura }
 \renewcommand{\cfttabpresnum}{Tabla }
@@ -103,31 +115,46 @@
 \setlength{\cftequationsnumwidth}{3em}
 \setlength{\cftalgorithmsnumwidth}{3em}
 \setlength{\cftanexosnumwidth}{3em}
-\renewcommand{\thechapter}{\Roman{chapter}}
-\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{3}
-\renewcommand{\cftchappresnum}{Capítulo }
-\setlength{\cftchapnumwidth}{5.5em}
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+\renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+\renewcommand{\cftchappresnum}{}
+\setlength{\cftchapnumwidth}{2em}
+\setlength{\cftsecnumwidth}{2.8em}
+\setlength{\cftsubsecnumwidth}{3.8em}
+\setlength{\cftsubsubsecnumwidth}{4.8em}
+\setlength{\cftparanumwidth}{5.8em}
+\setlength{\cftsubparanumwidth}{6.8em}
 
-% --- Formato de títulos (negro, estilo APA/UNSAAC) ---
+% Numbered thesis headings with APA-style typography and sentence case.
 \titleformat{\chapter}[display]
-  {\normalfont\large\bfseries\centering}
-  {\MakeUppercase{\chaptertitlename}\ \thechapter}{0.3em}{\MakeUppercase}
-\titlespacing*{\chapter}{0pt}{-10pt}{1.2\baselineskip}
+  {\normalfont\normalsize\bfseries\centering}{Capítulo \thechapter}{0.3\baselineskip}{}
+\titlespacing*{\chapter}{0pt}{0pt}{\baselineskip}
 \titleformat{name=\chapter,numberless}[block]
-  {\normalfont\large\bfseries\centering}{}{0pt}{\MakeUppercase}
+  {\normalfont\normalsize\bfseries\centering}{}{0pt}{}
 \titleformat{\section}
-  {\normalfont\normalsize\bfseries}{\thesection.}{0.5em}{}
+  {\normalfont\normalsize\bfseries}{\thesection}{0.7em}{}
 \titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
-\titleformat{\subsubsection}
-  {\normalfont\normalsize\bfseries\itshape}{\thesubsubsection.}{0.5em}{}
+  {\normalfont\normalsize\bfseries\itshape}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{0.7em}{}[.]
+\titlespacing*{\subsubsection}{0.5in}{\baselineskip}{0.5em}
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries}{\theparagraph}{0.7em}{}[.]
+\titlespacing*{\paragraph}{0.5in}{\baselineskip}{0.5em}
+\titleformat{\subparagraph}[runin]
+  {\normalfont\normalsize\bfseries\itshape}{\thesubparagraph}{0.7em}{}[.]
+\titlespacing*{\subparagraph}{0.5in}{\baselineskip}{0.5em}
 
 % --- Tablas y figuras ---
-\captionsetup{justification=centering,labelfont=bf,textfont=it,labelsep=period}
+\captionsetup{justification=raggedright,singlelinecheck=false,labelfont=bf,textfont=it,labelsep=newline}
 \captionsetup[table]{position=top}
-\newcommand{\fuente}[1]{\par\vspace{2pt}{\singlespacing\footnotesize\textit{Nota.} #1\par}}
+\newcommand{\fuente}[1]{\par\textit{Nota.} #1\par}
 
 \doublespacing
 \emergencystretch=3em
@@ -136,24 +163,23 @@
 \setlength{\parindent}{1.27cm}
 \setlength{\parskip}{0pt}
 \setlist{nosep}
+\AtBeginDocument{\RaggedRight}
 
 \begin{document}
 
-\frontmatter
+\pagenumbering{arabic}
 \include{frontmatter/portada}
 \include{frontmatter/resumen}
 \include{frontmatter/agradecimientos}
 \include{frontmatter/indices}
 \include{frontmatter/introduccion}
 
-\mainmatter
 \include{chapters/01-generalidades}
 \include{chapters/02-marco-teorico}
 \include{chapters/03-metodologia}
 \include{chapters/04-factibilidad}
 \include{chapters/05-administrativos}
 
-\backmatter
 \clearpage
 \phantomsection
 \addcontentsline{toc}{chapter}{Referencias}

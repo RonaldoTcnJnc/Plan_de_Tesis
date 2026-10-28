@@ -10,15 +10,15 @@
 \toprule
 \textbf{Problema} & \textbf{Objetivo} & \textbf{Hipótesis} & \textbf{Técnica} \\
 \midrule
-General: ¿cómo debe estructurarse y evaluarse una arquitectura basada en clústeres espaciales para caracterizar los incidentes registrados en SIPCOP-M? & Desarrollar y evaluar una arquitectura analítica mediante una prueba de concepto reproducible & H\textsubscript{G} (sección~\ref{sec:hipotesis}) & Especificación arquitectónica, pruebas funcionales y evaluación del caso \\
+General: ¿cómo caracterizar los incidentes registrados en SIPCOP-M en San Sebastián, Cusco, mediante una arquitectura basada en clústeres espaciales? & Caracterizar los incidentes mediante el desarrollo y evaluación de una arquitectura analítica implementada como prueba de concepto reproducible & H\textsubscript{G}: la arquitectura permitirá caracterizarlos de forma trazable y reproducible, de acuerdo con los requisitos y criterios de aceptación & Especificación arquitectónica, pruebas funcionales y evaluación del caso \\
 \addlinespace
 PE1: requisitos funcionales, de datos y calidad requeridos por el extracto SIPCOP-M & OE1: analizar las características y calidad del extracto y especificar requisitos de arquitectura & H\textsubscript{1} & Perfilado de datos y trazabilidad de requisitos \\
 \addlinespace
 PE2: componentes, interfaces y flujo para integrar procesamiento espacial y temporal & OE2: diseñar arquitectura, componentes, interfaces, flujo de datos y trazabilidad & H\textsubscript{2} & Modelado arquitectónico y matriz requisito-componente \\
 \addlinespace
-PE3: implementación reproducible del flujo arquitectónico y resultados generados & OE3: implementar una prueba de concepto con preparación de datos, DBSCAN/HDBSCAN, análisis y cartografía & H\textsubscript{3} & Casos de prueba y ejecución repetida \\
+PE3: implementación reproducible del flujo arquitectónico y resultados generados & OE3: implementar una prueba de concepto con preparación de datos, DBSCAN/HDBSCAN, análisis y cartografía & H\textsubscript{3}: resultados de caracterización espacial y temporal reproducibles & Casos de prueba y ejecución repetida \\
 \addlinespace
-PE4: cumplimiento de requisitos y criterios de calidad definidos & OE4: evaluar la arquitectura y la prueba de concepto & H\textsubscript{4} & Matriz de aceptación, pruebas funcionales, consistencia de salidas y tiempo de procesamiento \\
+PE4: cumplimiento de requisitos y criterios de calidad definidos & OE4: evaluar la arquitectura y la prueba de concepto & H\textsubscript{4}: criterios cumplidos, filas procesadas o excluidas con motivo y parámetros documentados & Matriz de aceptación, pruebas funcionales, consistencia de salidas y tiempo de procesamiento \\
 \bottomrule
 \end{tabular}
 \endgroup
@@ -84,5 +84,5 @@ Con CRS validado y ubicación dentro del distrito & Por completar & Por completa
 \bottomrule
 \end{tabular}
 \endgroup
-\fuente{Conteos del diagnóstico preliminar. Los 70 registros con igual fecha, turno y coordenadas no se excluyen (ver sección~3.3.2). Falta verificar la ubicación frente al polígono distrital.}
+\fuente{Conteos del diagnóstico preliminar. Los 70 registros con igual fecha, turno y coordenadas no se excluyen (ver el diagnóstico preliminar del extracto en metodología). Falta verificar la ubicación frente al polígono distrital.}
 \end{table}

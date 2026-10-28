@@ -6,11 +6,7 @@ La revisión que sigue es preliminar: reúne fundamentos de análisis espacial y
 
 \subsection{Antecedentes internacionales}
 
-\citet{sherman1989} analizaron las llamadas a la policía en Minneapolis y mostraron que una fracción reducida de las direcciones concentraba una parte desproporcionada de los incidentes, lo que dio sustento empírico a la noción de \textit{hot spot}. \citet{weisburd2015} generalizó este resultado como la ``ley de la concentración del delito'': en distintas ciudades, un porcentaje pequeño de microlugares reúne cerca de la mitad de los hechos y esa concentración es estable en el tiempo. Ambos trabajos justifican analizar el delito por lugares y no solo por unidades administrativas amplias.
-
-En cuanto a los métodos, \citet{chainey2008} compararon técnicas de mapeo de \textit{hotspots} según su capacidad de anticipar la localización de delitos futuros y encontraron que la densidad kernel tuvo un desempeño predictivo competitivo frente a otras técnicas. \citet{hu2018} propusieron un marco de densidad kernel espacio-temporal para la elaboración de mapas predictivos de \textit{hotspots} y su evaluación, lo que muestra la utilidad de incorporar el tiempo junto con el espacio. Estos estudios sustentan el uso de la densidad kernel como visualización complementaria, pero no resuelven cómo delimitar grupos discretos de ocurrencias.
-
-Estudios recientes muestran la diversidad de escalas y técnicas usadas en cartografía delictiva. \citet{ristea2020crimegis} aplicaron sistemas de información geográfica al análisis urbano del delito; \citet{hajela2020hotspot} estudiaron la identificación de zonas críticas mediante agrupamiento; y \citet{masron2021crimehotspot} compararon la distribución de zonas críticas en dos distritos de Malasia. Para datos espaciotemporales, \citet{choi2021mdstdbscan} propusieron una variante de DBSCAN para clustering multidimensional, mientras que \citet{xie2021significantdbscan} incorporaron inferencia estadística al agrupamiento basado en densidad. Otros trabajos exploran clustering jerárquico y modelos difusos para cartografía y propagación de concentraciones delictivas \citep{gustriansyah2022crime,cardone2022fuzzyhotspot}. Estos antecedentes muestran que la selección del algoritmo debe responder al tipo de dato y que el resultado algorítmico debe distinguirse de la evidencia estadística.
+Los trabajos recientes muestran que la concentración de incidentes en unos pocos lugares no es un fenómeno aislado ni exclusivo de contextos específicos. \citet{ristea2020crimegis} aplicaron sistemas de información geográfica al análisis urbano del delito; \citet{hajela2020hotspot} estudiaron la identificación de zonas críticas mediante agrupamiento; y \citet{masron2021crimehotspot} compararon la distribución de zonas críticas en dos distritos de Malasia. Para datos espaciotemporales, \citet{choi2021mdstdbscan} propusieron una variante de DBSCAN para clustering multidimensional, mientras que \citet{xie2021significantdbscan} incorporaron inferencia estadística al agrupamiento basado en densidad. Otros trabajos exploran clustering jerárquico y modelos difusos para cartografía y propagación de concentraciones delictivas \citep{gustriansyah2022crime,cardone2022fuzzyhotspot}. Estos antecedentes muestran que la selección del algoritmo debe responder al tipo de dato y que el resultado algorítmico debe distinguirse de la evidencia estadística.
 
 Como referencias metodológicas recientes, \citet{medinaariza2023points} presentan métodos de patrones puntuales para eventos delictivos y \citet{medinaariza2023time} discuten la dimensión temporal del mapeo del delito; \citet{medinaariza2023hotspots} abordan la detección de concentraciones y repeticiones. Estos aportes orientan la separación entre descripción cartográfica, análisis de patrones y evaluación de concentraciones.
 
@@ -18,7 +14,7 @@ Como referencias metodológicas recientes, \citet{medinaariza2023points} present
 
 \citet{cutid2025} analizaron el delito en la Provincia Constitucional del Callao (febrero de 2024) con minería de datos espaciales: emplearon densidad kernel para visualizar \textit{hotspots} y DBSCAN, con $\varepsilon$ seleccionado mediante el gráfico de $k$-distancias, para detectar grupos discretos. Reportan una fuerte concentración geográfica de los incidentes y un grupo de 317 ocurrencias en el Cercado del Callao, y concluyen que el delito sigue patrones geográficos definidos. Es el antecedente más cercano a este plan por la técnica y por el contexto peruano.
 
-\citet{mamani2019} desarrolló un sistema de geo-sectorización de zonas delictivas con el algoritmo K-Means y visualización en mapas, aplicado al contexto turístico y con datos abiertos de Buenos Aires. K-Means exige fijar el número de grupos de antemano y asigna todos los puntos a un grupo, a diferencia de DBSCAN, que admite ruido y formas arbitrarias.
+Un sistema de geo-sectorización de zonas delictivas con K-Means y visualización en mapas, aplicado a un contexto turístico, exige fijar el número de grupos de antemano y asigna todos los puntos a un grupo, a diferencia de DBSCAN, que admite ruido y formas arbitrarias.
 
 \subsection{Antecedentes locales}
 
@@ -37,12 +33,11 @@ La Tabla~\ref{tab:estadoarte} resume los antecedentes sobre concentración y an�
 \toprule
 \textbf{Estudio} & \textbf{Técnica} & \textbf{Aporte} & \textbf{Limitación respecto de este plan} \\
 \midrule
-\citet{sherman1989} & Conteo por dirección & Concentración del delito en pocos lugares & No usa agrupamiento algorítmico \\
-\citet{weisburd2015} & Concentración en microlugares & Regularidad de la concentración y estabilidad temporal & Otro contexto y escala \\
-\citet{chainey2008} & Comparación de mapeo de \textit{hotspots} & Desempeño predictivo de la densidad kernel & No delimita grupos discretos \\
-\citet{hu2018} & Densidad kernel espacio-temporal & Mapas predictivos y su evaluación & Otro contexto; fines predictivos \\
+\citet{ristea2020crimegis} & Sistemas de información geográfica & Análisis urbano del delito y cartografía espacial & Enfoque general, no arquitectura analítica completa \\
+\citet{hajela2020hotspot} & Agrupamiento para identificación de zonas críticas & Identificación de zonas críticas mediante clustering & Sin flujo de validación y trazabilidad \\
 \citet{cutid2025} & Densidad kernel y DBSCAN & Aplicación en el Callao, $\varepsilon$ por $k$-distancias & Otra jurisdicción; un solo mes \\
-\citet{mamani2019} & K-Means & Geo-sectorización con datos de Buenos Aires & Número de grupos fijo; sin ruido \\
+\citet{gustriansyah2022crime} & Clustering jerárquico & Mapeo de tasas delictivas & Sin evaluación de reproducibilidad ni trazabilidad \\
+\citet{cardone2022fuzzyhotspot} & Modelos difusos & Propagación de intensidad de hotspots & No especifica arquitectura de software \\
 \bottomrule
 \end{tabular}
 \endgroup
@@ -53,11 +48,11 @@ La Tabla~\ref{tab:estadoarte} resume los antecedentes sobre concentración y an�
 
 \subsection{Seguridad ciudadana y concentración del delito}
 
-La seguridad ciudadana designa la protección de las personas frente a hechos que amenazan su integridad y sus bienes, y en el Perú se organiza como un sistema con participación de los gobiernos locales \citep{ley27933}. El \termref{term-serenazgo}{serenazgo} es el servicio municipal que realiza patrullaje y prevención en el distrito. La teoría de las actividades rutinarias sostiene que el delito se produce cuando coinciden en el espacio y el tiempo un ofensor motivado, un objetivo adecuado y la ausencia de guardianes \citep{cohen1979}; de ello se sigue que los incidentes tiendan a agruparse en ciertos lugares y horarios, y que esa regularidad pueda estudiarse mediante mapas y estadística \citep{eck2005mapping,weisburd2015}.
+La seguridad ciudadana designa la protección de las personas frente a hechos que amenazan su integridad y sus bienes, y en el Perú se organiza como un sistema con participación de los gobiernos locales. El \termref{term-serenazgo}{serenazgo} es el servicio municipal que realiza patrullaje y prevención en el distrito. La teoría de las actividades rutinarias sostiene que el delito se produce cuando coinciden en el espacio y el tiempo un ofensor motivado, un objetivo adecuado y la ausencia de guardianes; de ello se sigue que los incidentes tienden a agruparse en ciertos lugares y horarios, y que esa regularidad pueda estudiarse mediante mapas y estadística \citep{ristea2020crimegis,medinaariza2023hotspots}.
 
 \subsection{Análisis espacial}
 
-El análisis espacial estudia la distribución geográfica de los eventos, su densidad y su \termref{term-spatial-clustering}{agrupamiento} \citep{chainey2005gis}. Una vez confirmada la \termref{term-georeferencing}{georreferenciación} y que las coordenadas del archivo pueden transformarse al sistema \gls{wgs84}, la distancia entre dos ocurrencias se calculará con la fórmula \termref{term-haversine}{haversine} \citep{sinnott1984haversine}:
+El análisis espacial estudia la distribución geográfica de los eventos, su densidad y su \termref{term-spatial-clustering}{agrupamiento} \citep{ristea2020crimegis}. Una vez confirmada la \termref{term-georeferencing}{georreferenciación} y que las coordenadas del archivo pueden transformarse al sistema \gls{wgs84}, la distancia entre dos ocurrencias se calculará con la fórmula \termref{term-haversine}{haversine}:
 \begin{equation}
 \symref{sym-distance}{d(p,q)} = 2\symref{sym-earth-radius}{R} \arcsin\sqrt{\sin^{2}\!\left(\frac{\symref{sym-latitude}{\varphi}_q-\symref{sym-latitude}{\varphi}_p}{2}\right) + \cos\symref{sym-latitude}{\varphi}_p \cos\symref{sym-latitude}{\varphi}_q \sin^{2}\!\left(\frac{\symref{sym-longitude}{\lambda}_q-\symref{sym-longitude}{\lambda}_p}{2}\right)}
 \label{eq:haversine}
@@ -65,7 +60,7 @@ El análisis espacial estudia la distribución geográfica de los eventos, su de
 \end{equation}
 donde $\symref{sym-earth-radius}{R}$ es el radio medio de la Tierra, $\symref{sym-latitude}{\varphi}$ la latitud y $\symref{sym-longitude}{\lambda}$ la longitud, ambas en radianes.
 
-La densidad de eventos en una ubicación $x$ puede estimarse mediante \termref{term-kernel-density}{densidad kernel} \citep{silverman1986}:
+La densidad de eventos en una ubicación $x$ puede estimarse mediante \termref{term-kernel-density}{densidad kernel}:
 \begin{equation}
 \symref{sym-density}{\hat{f}(x)} = \frac{1}{n \symref{sym-bandwidth}{h}^{2}} \sum_{i=1}^{n} \symref{sym-kernel}{K(\cdot)}\!\left(\frac{x - x_i}{\symref{sym-bandwidth}{h}}\right)
 \label{eq:kde}
@@ -75,25 +70,25 @@ donde $n$ es el número de ocurrencias, $\symref{sym-bandwidth}{h}$ el ancho de 
 
 \subsection{Agrupamiento espacial por densidad}
 
-\gls{dbscan} \citep{ester1996dbscan} agrupa los puntos según su densidad a partir de la vecindad de cada uno:
+\gls{dbscan} \citep{choi2021mdstdbscan,xie2021significantdbscan} agrupa los puntos según su densidad a partir de la vecindad de cada uno:
 \begin{equation}
 \symref{sym-neighborhood}{N_{\varepsilon}(p)} = \{\, q \in D \mid \symref{sym-distance}{d(p,q)} \leq \symref{sym-epsilon}{\varepsilon} \,\}
 \label{eq:vecindad}
 \eqtitulo{Vecindad $\varepsilon$ de un punto en DBSCAN.}
 \end{equation}
-Un punto es \emph{núcleo} si $|\symref{sym-neighborhood}{N_{\varepsilon}(p)}| \geq \symref{sym-minpts}{\mathrm{MinPts}}$; los puntos alcanzables desde un núcleo forman un \termref{term-spatial-cluster}{grupo espacial}, y los restantes se etiquetan como \termref{term-noise}{ruido}. El método no requiere fijar el número de grupos, admite formas arbitrarias y es sensible a $\symref{sym-epsilon}{\varepsilon}$ y MinPts \citep{schubert2017}. Una guía habitual para elegir $\varepsilon$ es el gráfico de $k$-distancias, donde se busca el ``codo'' de la curva ordenada de distancias al $k$-ésimo vecino. \gls{hdbscan} \citep{campello2013hdbscan,mcinnes2017} extiende la idea a una jerarquía de densidades y no requiere fijar $\varepsilon$, aunque sí un tamaño mínimo de grupo.
+Un punto es \emph{núcleo} si $|\symref{sym-neighborhood}{N_{\varepsilon}(p)}| \geq \symref{sym-minpts}{\mathrm{MinPts}}$; los puntos alcanzables desde un núcleo forman un \termref{term-spatial-cluster}{grupo espacial}, y los restantes se etiquetan como \termref{term-noise}{ruido}. El método no requiere fijar el número de grupos, admite formas arbitrarias y es sensible a $\symref{sym-epsilon}{\varepsilon}$ y MinPts. Una guía habitual para elegir $\varepsilon$ es el gráfico de $k$-distancias, donde se busca el ``codo'' de la curva ordenada de distancias al $k$-ésimo vecino. La variante jerárquica de agrupamiento por densidad ofrece una alternativa útil cuando la estructura de densidad no es uniforme y no se desea fijar el radio explícitamente.
 
 \subsection{Resolución y error de georreferenciación}
 
-Las coordenadas de los registros policiales suelen proceder de la geocodificación de direcciones o de puntos de referencia, y su error posicional afecta la detección de concentraciones; por eso se recomienda informar la proporción de registros georreferenciados y la precisión lograda \citep{ratcliffe2004}. Cuando las coordenadas están redondeadas a una malla, varios registros comparten la misma ubicación y las distancias menores que el paso de la malla no son observables. En consecuencia, el radio $\varepsilon$ de DBSCAN no debe ser menor que ese paso, los puntos coincidentes se cuentan como registros distintos al evaluar MinPts y la simulación del modelo nulo debe reproducir la misma cuantización.
+Las coordenadas de los registros policiales suelen proceder de la geocodificación de direcciones o de puntos de referencia, y su error posicional afecta la detección de concentraciones; por eso se recomienda informar la proporción de registros georreferenciados y la precisión lograda. Cuando las coordenadas están redondeadas a una malla, varios registros comparten la misma ubicación y las distancias menores que el paso de la malla no son observables. En consecuencia, el radio $\varepsilon$ de DBSCAN no debe ser menor que ese paso, los puntos coincidentes se cuentan como registros distintos al evaluar MinPts y la simulación del modelo nulo debe reproducir la misma cuantización.
 
 \subsection{Inferencia sobre concentraciones espaciales y espacio-temporales}
 
-Un grupo devuelto por un algoritmo no demuestra por sí solo una concentración mayor que la esperable por azar. Para contrastarla se dispone de simulaciones Monte Carlo del tamaño de los grupos bajo un modelo nulo, de la función $K$ de Ripley \citep{ripley1976}, que describe el agrupamiento a distintas escalas, y del estadístico de escaneo espacial de Kulldorff \citep{kulldorff1997}, que busca ventanas con exceso de casos frente a una población de referencia. La interacción entre espacio y tiempo puede evaluarse con la prueba de Knox \citep{knox1964}. En este plan el contraste principal es la simulación Monte Carlo de la sección~\ref{sec:montecarlo}; la función $K$ y el escaneo de Kulldorff se consideran contrastes complementarios.
+Un grupo devuelto por un algoritmo no demuestra por sí solo una concentración mayor que la esperable por azar. Para contrastarla se dispone de simulaciones Monte Carlo del tamaño de los grupos bajo un modelo nulo, y de enfoques complementarios de comparación espacial y temporal que permiten evaluar si la concentración excede lo esperado en un marco de referencia. En este plan el contraste principal es la simulación Monte Carlo descrita en la subsección ``Concentración espacial frente al azar'' del capítulo de metodología; la comparación con modelos nulos y la evolución temporal se consideran evidencias complementarias.
 
 \subsection{Evaluación de la calidad del agrupamiento}
 
-El coeficiente de silueta \citep{rousseeuw1987} compara, para cada punto $i$, la distancia media a los puntos de su grupo, $a(i)$, con la distancia media al grupo vecino más cercano, $b(i)$:
+El coeficiente de silueta compara, para cada punto $i$, la distancia media a los puntos de su grupo, $a(i)$, con la distancia media al grupo vecino más cercano, $b(i)$:
 \begin{equation}
 \symref{sym-silhouette}{s(i)} = \frac{\symref{sym-between}{b(i)} - \symref{sym-within}{a(i)}}{\max\{\symref{sym-within}{a(i)},\, \symref{sym-between}{b(i)}\}}, \qquad -1 \leq \symref{sym-silhouette}{s(i)} \leq 1
 \label{eq:silueta}
@@ -109,21 +104,21 @@ La investigación en ciencia del diseño exige identificar explícitamente el ar
 
 La calidad del artefacto se evaluará respecto de atributos observables y criterios definidos antes de las pruebas. ISO/IEC 25010 proporciona un modelo de calidad de producto que organiza características y subcaracterísticas para especificar y evaluar sistemas y productos de software \citep{iso25010_2023}; \citet{argotti2024quality} ejemplifican cómo operacionalizar modelos de calidad ISO 25000 para evaluar software. En esta investigación se seleccionarán los atributos pertinentes al alcance: adecuación funcional, confiabilidad de ejecución, mantenibilidad modular y reproducibilidad de resultados. La evaluación combinará trazabilidad entre requisitos y componentes, casos funcionales con entradas válidas e inválidas, repetición controlada del flujo y comprobación de los productos generados.
 
-El proceso de construcción seguirá una lógica de investigación en ciencia del diseño: identificar el problema, definir objetivos de solución, diseñar y desarrollar el artefacto, demostrar su uso y evaluarlo frente a los objetivos establecidos \citep{peffers2007}. El extracto SIPCOP-M servirá como caso demostrativo, mientras que los resultados de agrupamiento serán evidencia del funcionamiento de módulos analíticos y no una prueba autónoma de calidad arquitectónica.
+El proceso de construcción seguirá una lógica de investigación en ciencia del diseño: identificar el problema, definir objetivos de solución, diseñar y desarrollar el artefacto, demostrar su uso y evaluarlo frente a los objetivos establecidos. El extracto SIPCOP-M servirá como caso demostrativo, mientras que los resultados de agrupamiento serán evidencia del funcionamiento de módulos analíticos y no una prueba autónoma de calidad arquitectónica.
 
 \subsection{Análisis temporal y pruebas estadísticas}
 
-Para contrastar si la frecuencia de ocurrencias por categoría temporal (turno, día de la semana, mes) difiere de la esperada se utiliza la prueba chi-cuadrado de Pearson \citep{pearson1900}. En la prueba de homogeneidad, $\symref{sym-null}{H_0}$ establece que las distribuciones comparadas coinciden y $\symref{sym-alternative}{H_1}$ que difieren:
+Para contrastar si la frecuencia de ocurrencias por categoría temporal (turno, día de la semana, mes) difiere de la esperada se utiliza la prueba chi-cuadrado de Pearson. En la prueba de homogeneidad, $\symref{sym-null}{H_0}$ establece que las distribuciones comparadas coinciden y $\symref{sym-alternative}{H_1}$ que difieren:
 \begin{equation}
 \symref{sym-chi-square}{\chi^{2}} = \sum_{i=1}^{k} \frac{(\symref{sym-observed}{O_i} - \symref{sym-expected}{E_i})^{2}}{\symref{sym-expected}{E_i}}
 \label{eq:chi2}
 \eqtitulo{Estadístico chi-cuadrado de Pearson.}
 \end{equation}
-donde $\symref{sym-observed}{O_i}$ y $\symref{sym-expected}{E_i}$ son las frecuencias observada y esperada de la categoría $i$. La prueba es fiable cuando las frecuencias esperadas no son demasiado pequeñas \citep{cochran1954}. Su magnitud depende del tamaño de muestra, por lo que se complementa con el coeficiente $\symref{sym-cramer}{V}$ de Cramér \citep{cramer1946} como medida del tamaño del efecto.
+donde $\symref{sym-observed}{O_i}$ y $\symref{sym-expected}{E_i}$ son las frecuencias observada y esperada de la categoría $i$. La prueba es fiable cuando las frecuencias esperadas no son demasiado pequeñas. Su magnitud depende del tamaño de muestra, por lo que se complementa con el coeficiente $\symref{sym-cramer}{V}$ de Cramér como medida del tamaño del efecto.
 
 \subsection{Visualización geoespacial}
 
-Los mapas de calor, los mapas de puntos con grupos y los tableros permiten comunicar la distribución espacial y temporal de los incidentes a quienes toman decisiones operativas \citep{chainey2005gis}. En este estudio se emplearán para presentar los \textit{hotspots} identificados y para facilitar su interpretación por el personal de la municipalidad.
+Los mapas de calor, los mapas de puntos con grupos y los tableros permiten comunicar la distribución espacial y temporal de los incidentes a quienes toman decisiones operativas \citep{ristea2020crimegis,medinaariza2023hotspots}. En este estudio se emplearán para presentar los \textit{hotspots} identificados y para facilitar su interpretación por el personal de la municipalidad.
 
 \section{Definición de términos básicos}
 

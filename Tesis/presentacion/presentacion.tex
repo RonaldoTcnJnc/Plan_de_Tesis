@@ -71,7 +71,7 @@
   }%
 }
 
-\title[Arquitectura de clústeres espaciales]{Arquitectura de clústeres espaciales para la caracterización de incidentes de seguridad ciudadana en San Sebastián, Cusco}
+\title[Caracterización de incidentes en San Sebastián]{Caracterización mediante una arquitectura de clústeres espaciales de los incidentes de seguridad ciudadana en San Sebastián, Cusco}
 \subtitle{Prueba de concepto con registros SIPCOP Municipal}
 \author{Br. Ronaldo Ticona Jancco}
 \institute{Universidad Nacional de San Antonio Abad del Cusco\\Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica\\Escuela Profesional de Ingeniería Informática y de Sistemas}
@@ -97,9 +97,9 @@
   \vspace{.9cm}
   {\color{TesisDorado}\small PLAN DE TESIS}\par
   \vspace{.15cm}
-  {\color{TesisVerde}\LARGE\bfseries Arquitectura de clústeres espaciales}\par
-  {\color{TesisVerde}\Large\bfseries para la caracterización de incidentes de seguridad ciudadana}\par
-  {\color{TesisVerde}\Large\bfseries en San Sebastián, Cusco}\par
+  {\color[HTML]{9A7420}\LARGE\bfseries Caracterización}\par
+  {\Large\bfseries mediante una \color[HTML]{426B8A}arquitectura de clústeres espaciales}\par
+  {\color[HTML]{A34F3F}\Large\bfseries de los incidentes de seguridad ciudadana en San Sebastián, Cusco}\par
   \vfill
   \begin{columns}[b,onlytextwidth]
     \column{.55\textwidth}
@@ -152,7 +152,7 @@
       \end{tarjeta}
   \end{columns}
   \vspace{.2cm}
-  {\scriptsize\color{TesisGrisTexto} Fuentes citadas en el plan: PNP (2024); INEI--ENAPRES (2023); Sherman et al. (1989); Weisburd (2015).}
+  {\scriptsize\color{TesisGrisTexto} Fuentes citadas en el plan: PNP (2024); INEI--ENAPRES (2023); Ristea y Leitner (2020); Medina Ariza y Solymosi (2023).}
 \end{frame}
 
 % 4
@@ -192,7 +192,7 @@
   \vspace{.45cm}
   \begin{block}{Pregunta general}
     \centering\large
-    ¿Cómo debe estructurarse y evaluarse una arquitectura basada en clústeres espaciales para caracterizar los incidentes registrados en SIPCOP-M?
+    ¿Cómo caracterizar los incidentes de seguridad ciudadana registrados en SIPCOP-M en San Sebastián, Cusco, mediante el desarrollo y evaluación de una arquitectura basada en clústeres espaciales?
   \end{block}
   \vspace{.3cm}
   \begin{itemize}
@@ -207,7 +207,7 @@
   \begin{columns}[T,onlytextwidth]
     \column{.52\textwidth}
       \begin{block}{Objetivo general}
-        Desarrollar y evaluar una arquitectura analítica basada en clústeres espaciales mediante una prueba de concepto reproducible.
+        Caracterizar los incidentes registrados en SIPCOP-M en San Sebastián, Cusco, mediante el desarrollo y evaluación de una arquitectura analítica basada en clústeres espaciales y una prueba de concepto reproducible.
       \end{block}
       \textbf{Objetivos específicos}
       \begin{enumerate}
@@ -218,10 +218,10 @@
       \end{enumerate}
     \column{.44\textwidth}
       \begin{block}{Hipótesis de trabajo}
-        \textbf{HG:} la arquitectura permitirá ejecutar un flujo trazable y reproducible conforme a requisitos y criterios de aceptación.
+        \textbf{HG:} la arquitectura permitirá caracterizar de forma trazable y reproducible los incidentes del caso, conforme a requisitos y criterios de aceptación.
 
         \medskip
-        \textbf{H1--H4:} requisitos trazables, componentes completos, ejecución reproducible y cumplimiento de criterios.
+        \textbf{H1--H4:} requisitos trazables, componentes completos, resultados espaciales y temporales reproducibles, y criterios cumplidos con exclusiones justificadas y parámetros documentados.
       \end{block}
       \footnotesize Las concentraciones significativas son resultados del caso, no condición de éxito de la arquitectura.
   \end{columns}
@@ -256,8 +256,8 @@
     \column{.49\textwidth}
       \begin{block}{Antecedentes}
         \begin{itemize}
-          \item Sherman et al. (1989): concentración de hechos en pocos lugares.
-          \item Weisburd (2015): regularidad de la concentración en microlugares.
+          \item Ristea y Leitner (2020): mapeo geoespacial y análisis urbano del delito.
+          \item Medina Ariza y Solymosi (2023): detección de hotspots y repeticiones.
           \item Cutid-Aguero et al. (2025): aplicación peruana de densidad kernel y DBSCAN.
         \end{itemize}
       \end{block}
@@ -313,7 +313,7 @@
       \end{block}
   \end{columns}
   \vspace{.2cm}
-  \footnotesize La densidad kernel se empleará solo como visualización complementaria, no como prueba de significancia. (Ester et al., 1996; Campello et al., 2013; McInnes et al., 2017.)
+  \footnotesize La densidad kernel se empleará solo como visualización complementaria, no como prueba de significancia. (Ristea y Leitner, 2020; Choi y Hong, 2021; Xie et al., 2021.)
 \end{frame}
 
 % 11
@@ -560,12 +560,12 @@
     \column{.58\textwidth}
       \footnotesize
       \begin{itemize}
-        \item Campello, R. et al. (2013). Density-based clustering based on hierarchical density estimates.
-        \item Chapman, P. et al. (2000). \textit{CRISP-DM 1.0: Step-by-step data mining guide}.
-        \item Ester, M. et al. (1996). A density-based algorithm for discovering clusters in large spatial databases with noise.
-        \item McInnes, L. et al. (2017). \textit{hdbscan: Hierarchical density based clustering}.
-        \item Sherman, L. et al. (1989). Hot spots of predatory crime.
-        \item Weisburd, D. (2015). The law of crime concentration and the criminology of place.
+        \item Ristea, A. y Leitner, M. (2020). Urban crime mapping and analysis using GIS.
+        \item Hajela, G. et al. (2020). A clustering-based hotspot identification approach for crime prediction.
+        \item Choi, C. y Hong, S.-Y. (2021). MDST-DBSCAN: A density-based spatial clustering method for multidimensional spatiotemporal data clustering.
+        \item Xie, Y. et al. (2021). Significant DBSCAN+: Statistically robust density-based clustering.
+        \item Medina Ariza, J. y Solymosi, R. (2023). Detecting hot spots and repeats.
+        \item Cutid-Aguero, J. et al. (2025). Spatial-temporal analysis and characterization of crime in the Constitutional Province of Callao.
       \end{itemize}
       \vspace{.1cm}
       \scriptsize También se consultarán PNP, INEI--ENAPRES, MININTER--OBNASEC y la normativa peruana citada en el plan.

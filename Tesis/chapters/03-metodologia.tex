@@ -4,18 +4,28 @@
 
 \subsection{Enfoque de investigación}
 
-La investigación tiene un enfoque cuantitativo y tecnológico: especifica una arquitectura analítica y la evalúa mediante una \termref{term-proof-of-concept}{prueba de concepto} que procesa datos numéricos de ocurrencias (coordenadas, fecha, turno) con procedimientos computacionales y pruebas estadísticas \citep{hernandez2018}.
+La investigación se desarrolla bajo un enfoque cuantitativo y tecnológico. Se especifica una arquitectura analítica y se evalúa mediante una \termref{term-proof-of-concept}{prueba de concepto} que procesa datos numéricos de ocurrencias (coordenadas, fecha y turno) con procedimientos computacionales y pruebas estadísticas. La evidencia proviene de indicadores, métricas, comparación de algoritmos y contrastes de concentración, en lugar de percepciones subjetivas o registros cualitativos. En ese sentido, la validez del estudio se apoya en datos observacionales, tablas, mapas y mediciones reproducibles.
 
-\subsection{Tipo y alcance de la investigación}
+\subsection{Tipo de investigación}
 
-Es de tipo aplicado y de alcance tecnológico-descriptivo. El artefacto es una arquitectura analítica basada en clústeres espaciales, especificada mediante componentes, interfaces, flujo de datos y criterios de aceptación, junto con una prueba de concepto reproducible. El extracto SIPCOP-M funciona como caso de aplicación para verificar el flujo y caracterizar sus resultados; los contrastes estadísticos son parte de la arquitectura, no el único producto de la investigación. No se busca explicar causas ni desplegar un sistema institucional.
+La investigación es de tipo aplicada porque su finalidad principal no es generar teoría general sobre el delito ni construir un modelo abstracto de criminología, sino resolver un problema práctico de gestión local de seguridad ciudadana. El estudio diseña y evalúa un artefacto analítico que transforma datos administrativos SIPCOP-M en información útil para identificar zonas y momentos de mayor recurrencia, con potencial aplicación en la planificación del patrullaje y la prevención local. Esta clasificación se distingue del tipo básico, que busca ampliar el conocimiento científico sin orientar directamente una solución a una necesidad concreta.
+
+\subsection{Nivel o alcance de la investigación}
+
+El estudio se ubica en un nivel aplicativo y descriptivo. Es aplicativo porque construye una arquitectura y una prueba de concepto que convierten un conjunto de registros en resultados operativos y trazables. Es descriptivo porque inicia con la caracterización del extracto, la validación de sus condiciones y la identificación del estado actual del problema antes de la intervención analítica. El nivel no es explicativo causal ni predictivo de tipo inferencial avanzado, porque no se manipulan variables ni se estiman efectos causales; lo que se obtiene es un diagnóstico técnico del comportamiento espacial y temporal de los registros disponibles.
 
 \subsection{Diseño de investigación}
 
-El trabajo adopta un proceso de construcción y evaluación de un artefacto tecnológico, con un caso de aplicación retrospectivo y no experimental: se procesan registros fechados entre el 1 de enero y el 29 de agosto de 2025 sin manipular las variables del fenómeno. El proceso combina las fases de comprensión del problema y los datos, especificación de requisitos, diseño de la arquitectura, implementación de la prueba de concepto, evaluación y comunicación de resultados; el flujo analítico se apoya en las fases de \gls{crispdm} \citep{chapman2000} (Figura~\ref{fig:flujo}).
+El trabajo adopta un diseño no experimental, retrospectivo y de caso de aplicación. Se analizan registros históricos del distrito de San Sebastián entre el 1 de enero y el 29 de agosto de 2025 sin manipular las variables del fenómeno, ni intervenir la realidad institucional. El estudio corresponde a un caso único de uso del extracto SIPCOP-M y se organiza como un proceso de construcción y evaluación de un artefacto tecnológico: comprensión del problema y los datos, especificación de requisitos, diseño de la arquitectura, implementación de la prueba de concepto, evaluación y comunicación de resultados. Este flujo se apoya en una secuencia de trabajo basada en la comprensión del problema, diseño del artefacto y validación del caso de uso, y se presenta en la Figura~\ref{fig:flujo}.
+
+\subsection{Matriz de desambiguación metodológica}
+
+La clasificación del estudio puede resumirse de la siguiente manera: \textbf{tipo} aplicado, \textbf{nivel} aplicativo-descriptivo, \textbf{enfoque} cuantitativo y \textbf{diseño} no experimental, retrospectivo y de caso de aplicación. Esta combinación es coherente con el problema planteado, los objetivos formulados y la naturaleza del artefacto propuesto. La investigación no pretende explicar la causalidad del delito ni generalizar resultados a otros distritos; su propósito es documentar, construir y evaluar una arquitectura analítica reproducible para un caso específico y, desde allí, producir evidencia útil para la toma de decisiones locales.
 
 \begin{figure}[H]
 \centering
+\caption{Componentes y flujo de datos de la arquitectura analítica propuesta.}
+\label{fig:flujo}
 \begin{tikzpicture}[node distance=0.25cm, every node/.style={font=\scriptsize},
   caja/.style={draw, rounded corners, align=center, text width=2.15cm, minimum height=1.15cm},
   flecha/.style={-{Stealth}, thick}]
@@ -28,16 +38,14 @@ El trabajo adopta un proceso de construcción y evaluación de un artefacto tecn
   \draw[flecha] (a)--(b); \draw[flecha] (b)--(c); \draw[flecha] (c)--(d);
   \draw[flecha] (d)--(e); \draw[flecha] (e)--(f);
 \end{tikzpicture}
-\caption{Componentes y flujo de datos de la arquitectura analítica propuesta.}
-\label{fig:flujo}
-\fuente{Elaboración propia, con base en el flujo analítico de CRISP-DM \citep{chapman2000}.}
+\fuente{Elaboración propia, con base en el flujo analítico de minería de datos y validación de artefactos.}
 \end{figure}
 
 \section{Definiciones y variables}
 
 \subsection{Artefacto de investigación}
 
-El artefacto será una \termref{term-architecture}{arquitectura analítica} lógica, independiente de una plataforma institucional específica, que describirá: (i) fuentes y recepción de datos; (ii) validación, normalización y registro de incidencias de calidad; (iii) almacenamiento de datos preparados y parámetros de ejecución; (iv) procesamiento espacial y temporal, con DBSCAN, comparación HDBSCAN y contrastes; y (v) presentación de tablas, indicadores y mapas. Para cada componente se documentarán propósito, entradas, salidas, dependencias, errores controlados y mecanismos de \termref{term-traceability}{trazabilidad}. La prueba de concepto implementará el flujo con archivos locales y herramientas de código abierto; no incluirá despliegue, autenticación multiusuario ni integración en producción con SIPCOP-M.
+El artefacto será una \parteTecnologia{\termref{term-architecture}{arquitectura analítica basada en clústeres espaciales}} lógica, independiente de una plataforma institucional específica, que describirá: (i) fuentes y recepción de datos; (ii) validación, normalización y registro de incidencias de calidad; (iii) almacenamiento de datos preparados y parámetros de ejecución; (iv) procesamiento espacial y temporal, con DBSCAN, comparación HDBSCAN y contrastes; y (v) presentación de tablas, indicadores y mapas. Permitirá \parteProceso{caracterizar} \parteContexto{incidentes registrados en SIPCOP-M para San Sebastián} mediante componentes con propósito, entradas, salidas, dependencias, errores controlados y mecanismos de \termref{term-traceability}{trazabilidad}. La prueba de concepto implementará el flujo con archivos locales y herramientas de código abierto; no incluirá despliegue, autenticación multiusuario ni integración en producción con SIPCOP-M.
 
 La Figura~\ref{fig:flujo} representa el flujo principal y los límites de los componentes. La arquitectura conservará los datos originales sin modificación, generará una versión preparada y registrará parámetros y exclusiones junto con cada ejecución. El componente de análisis recibirá únicamente datos validados; sus resultados alimentarán los contrastes estadísticos y, finalmente, las salidas cartográficas y tabulares.
 
@@ -48,7 +56,7 @@ La evaluación considerará una matriz de trazabilidad requisito-componente-prue
 \begin{description}[leftmargin=0pt,labelindent=0pt,font=\bfseries]
 \item[\termref{term-incident}{Incidente de seguridad ciudadana}:] término del título que, para esta investigación, se operacionaliza como una ocurrencia atendida y registrada por el patrullaje municipal e integrado (serenazgo y Patrullaje Local Integrado) en SIPCOP-M. Incluye hechos de distinta naturaleza; no todos son delitos: el 34\,\% de los registros es ``exposición a peligro o abandono de personas'', que probablemente corresponde a asistencia. Se definen dos conjuntos de análisis: el \textbf{principal}, con todo el extracto depurado, y el de \textbf{presuntos delitos}, que excluye esa modalidad y conserva las ocurrencias presuntamente contra el patrimonio y contra la vida, el cuerpo y la salud (unos 430 de 996 registros). La clasificación de cada modalidad se confirmará con la municipalidad.
 \item[\termref{term-spatial-cluster}{Grupo espacial (clúster)}:] conjunto de ocurrencias que DBSCAN o HDBSCAN agrupan por densidad. Es un resultado del algoritmo y, por sí solo, no implica que la concentración sea significativa.
-\item[\termref{term-hotspot}{Hotspot}:] grupo espacial cuyo número de ocurrencias supera lo esperado bajo aleatoriedad espacial completa, según el contraste de la sección~\ref{sec:montecarlo}.
+\item[\termref{term-hotspot}{Hotspot}:] grupo espacial cuyo número de ocurrencias supera lo esperado bajo aleatoriedad espacial completa, según el contraste de la subsección ``Concentración espacial frente al azar''.
 \end{description}
 
 \subsection{Variables y operacionalización}
@@ -131,17 +139,17 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\textwidth]{diag_ubicaciones.pdf}
 \caption{Ubicaciones distintas del extracto SIPCOP Municipal (San Sebastián, 2025).}
 \label{fig:ubicaciones}
+\includegraphics[width=0.72\textwidth]{diag_ubicaciones.pdf}
 \fuente{Elaboración propia a partir del CSV SIPCOP Municipal. El tamaño del círculo es proporcional al número de registros con esa coordenada; $n = 996$ registros en 412 ubicaciones. Generada con \texttt{datos/figuras\_diagnostico.py}.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{diag_mensual.pdf}
 \caption{Volumen de registro y modalidad de exposición a peligro o abandono por mes.}
 \label{fig:mensual}
+\includegraphics[width=0.95\textwidth]{diag_mensual.pdf}
 \fuente{Elaboración propia a partir del CSV SIPCOP Municipal. (*) Agosto incluye solo hasta el 29. En (a), la tasa es el número de registros dividido entre los días del mes observados; en (b), el porcentaje se calcula sobre los registros de cada mes.}
 \end{figure}
 
@@ -151,7 +159,7 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
     \item \textbf{Análisis documental:} revisión del archivo CSV público de la capa SIPCOP Municipal para el distrito \texttt{080105}; se conservarán la URL de origen, fecha de descarga y archivo original para trazabilidad. Se solicitará a la municipalidad o al responsable de la capa la definición de los campos y del sistema de referencia espacial.
     \item \textbf{Instrumento:} ficha de estructura de datos (Anexo~\ref{anx:ficha}), que documenta las 19 columnas del archivo. Los campos analíticos son \texttt{fechaalerta}, \texttt{turno}, \texttt{especifico}, \texttt{modalidad}, \texttt{x} e \texttt{y}; se usan además \texttt{origen}, \texttt{naturalezadelpersonal}, \texttt{lugarocurrencia}, \texttt{consecuencia}, \texttt{formapatrullaje}, \texttt{direccion} y \texttt{tipovia} para la calidad de datos y los análisis de sensibilidad. El archivo no contiene una hora individual del hecho.
     \item \textbf{Cartografía:} polígono oficial del distrito y, si está disponible, la capa de manzanas o vías, para delimitar el área de simulación.
-    \item \textbf{Herramientas de análisis:} Python con las bibliotecas \textit{pandas}, \textit{scikit-learn} \citep{pedregosa2011}, \textit{hdbscan} \citep{mcinnes2017} y \textit{SciPy}; un sistema de información geográfica para los mapas.
+    \item \textbf{Herramientas de análisis:} Python con bibliotecas de procesamiento, análisis espacial y visualización geográfica; un sistema de información geográfica para los mapas.
 \end{itemize}
 
 \section{Procedimiento metodológico}
@@ -162,7 +170,7 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
   \item \textbf{Perfilado y validación de datos.} Revisión de duplicados, fechas, turnos, categorías y coordenadas; comprobación de que \texttt{x} sea longitud y \texttt{y} latitud, de la cuantización a 0,001°, del contraste entre \texttt{direccion} y coordenadas, y de la superposición con el polígono distrital. Se registrará cada fila procesada o excluida y su motivo. Si no se confirma la referencia espacial, no se interpretarán distancias ni agrupamientos métricos.
   \item \textbf{Diseño de la arquitectura.} Especificación de componentes, responsabilidades, interfaces, formatos de entrada y salida, dependencias, errores controlados y \termref{term-traceability}{trazabilidad}, representados en vistas y en una matriz requisito-componente-prueba.
   \item \textbf{Implementación de la prueba de concepto.} Construcción local de los módulos de ingesta, validación, preparación, análisis espacial y temporal y generación de productos. Se conservarán separados el archivo original, los datos preparados y los resultados de cada ejecución.
-  \item \textbf{Ejecución del caso.} Análisis exploratorio; aplicación de DBSCAN con distancia haversine (Algoritmo~\ref{alg:dbscan}) y comparación con HDBSCAN; evaluación estadística de las concentraciones (sección~\ref{sec:montecarlo}); análisis temporal por turno, día de la semana y mes (sección~\ref{sec:temporal}); generación de tablas y mapas.
+  \item \textbf{Ejecución del caso.} Análisis exploratorio; aplicación de DBSCAN con distancia haversine (Algoritmo~\ref{alg:dbscan}) y comparación con HDBSCAN; evaluación estadística de las concentraciones (subsección ``Concentración espacial frente al azar''); análisis temporal por turno, día de la semana y mes (subsección ``Distribución temporal de los hotspots''); generación de tablas y mapas.
   \item \textbf{Evaluación del artefacto.} Ejecución de casos de prueba válidos e inválidos, comprobación contra resultados de control, verificación de que ninguna fila quede sin estado documentado y repetición con datos, parámetros y semilla constantes. Los resultados se contrastarán con los criterios de aceptación fijados para la arquitectura.
   \item \textbf{Revisión y comunicación.} Revisión de la interpretación de resultados con personal municipal si se obtiene su colaboración, documentación de limitaciones y presentación de la arquitectura, pruebas y resultados agregados.
 \end{enumerate}
@@ -185,7 +193,7 @@ La Figura~\ref{fig:ubicaciones} muestra las 412 ubicaciones distintas: se concen
 En DBSCAN, \termref{term-epsilon}{épsilon} define el radio de vecindad y \termref{term-minpts}{MinPts} el mínimo de puntos requerido para formar una región densa.
 La estabilidad de las particiones se compara mediante el \gls{ari}.
 
-La regla de selección se fija antes de ver los resultados de los contrastes. Las coordenadas tienen resolución de 0,001° (unos 108--111 m): dos puntos de celdas distintas distan al menos ese paso, de modo que con $\varepsilon \leq 100$ m solo se agrupan registros con coordenada idéntica, y $\varepsilon = 50$ y $100$ m producen la misma partición (diagnóstico preliminar). Por ello se explora una rejilla de $\varepsilon \in \{150, 200, 250, 300\}$ m y $\mathrm{MinPts} \in \{10, 20, 30\}$, y el gráfico de $k$-distancias orienta el rango de $\varepsilon$. Los registros con coordenadas idénticas cuentan como puntos separados al evaluar MinPts. Para cada configuración se calculan el número de grupos, el porcentaje de ruido y la silueta media (ecuación~\ref{eq:silueta}) sobre los puntos asignados. Se elige la configuración con mayor estabilidad, medida como el índice de Rand ajustado promedio (ARI) \citep{hubert1985} entre sus asignaciones y las de las configuraciones vecinas de la rejilla, entre las que tengan al menos dos grupos, menos de 60\,\% de ruido y ningún grupo que reúna más de 25\,\% de los registros depurados o supere 1 km de diámetro, para que no domine un grupo único formado por encadenamiento. La silueta no decide la elección y se interpreta con cautela, porque los puntos coincidentes (distancia cero) y la malla de coordenadas la distorsionan. Se presentará además el análisis de sensibilidad con las demás configuraciones.
+La regla de selección se fija antes de ver los resultados de los contrastes. Las coordenadas tienen resolución de 0,001° (unos 108--111 m): dos puntos de celdas distintas distan al menos ese paso, de modo que con $\varepsilon \leq 100$ m solo se agrupan registros con coordenada idéntica, y $\varepsilon = 50$ y $100$ m producen la misma partición (diagnóstico preliminar). Por ello se explora una rejilla de $\varepsilon \in \{150, 200, 250, 300\}$ m y $\mathrm{MinPts} \in \{10, 20, 30\}$, y el gráfico de $k$-distancias orienta el rango de $\varepsilon$. Los registros con coordenadas idénticas cuentan como puntos separados al evaluar MinPts. Para cada configuración se calculan el número de grupos, el porcentaje de ruido y la silueta media (ecuación~\ref{eq:silueta}) sobre los puntos asignados. Se elige la configuración con mayor estabilidad, medida mediante comparación de particiones y de la estructura de agrupamiento, entre las que tengan al menos dos grupos, menos de 60\,\% de ruido y ningún grupo que reúna más de 25\,\% de los registros depurados o supere 1 km de diámetro, para que no domine un grupo único formado por encadenamiento. La silueta no decide la elección y se interpreta con cautela, porque los puntos coincidentes (distancia cero) y la malla de coordenadas la distorsionan. Se presentará además el análisis de sensibilidad con las demás configuraciones.
 
 \subsection{Comparación entre DBSCAN y HDBSCAN}
 
@@ -207,7 +215,7 @@ Un grupo con $\symref{sym-pvalue}{p_j} < \symref{sym-alpha}{\alpha}$ se consider
 \subsection{Distribución temporal de los \textit{hotspots}}
 \label{sec:temporal}
 
-Para cada \textit{hotspot} se compara la distribución de sus ocurrencias según fecha de alerta (día de la semana y mes) y turno con la del resto del distrito, es decir, con las ocurrencias que no pertenecen a ese \textit{hotspot}. La referencia principal es la prueba chi-cuadrado de homogeneidad (ecuación~\ref{eq:chi2}) sobre la tabla de contingencia \textit{hotspot} frente a resto por categoría temporal; cuando más del 20\,\% de las frecuencias esperadas sea menor que 5 se usa una prueba de permutación \citep{cochran1954}. Esta referencia absorbe la variación del volumen de registro entre meses, que es grande en el extracto (de 2,0 registros diarios en junio a 7,5 en agosto) y que no se debe a ningún \textit{hotspot} en particular.
+Para cada \textit{hotspot} se compara la distribución de sus ocurrencias según fecha de alerta (día de la semana y mes) y turno con la del resto del distrito, es decir, con las ocurrencias que no pertenecen a ese \textit{hotspot}. La referencia principal es la prueba chi-cuadrado de homogeneidad (ecuación~\ref{eq:chi2}) sobre la tabla de contingencia \textit{hotspot} frente a resto por categoría temporal; cuando más del 20\,\% de las frecuencias esperadas sea menor que 5 se usa una prueba de permutación. Esta referencia absorbe la variación del volumen de registro entre meses, que es grande en el extracto (de 2,0 registros diarios en junio a 7,5 en agosto) y que no se debe a ningún \textit{hotspot} en particular.
 
 Como \textbf{análisis secundario} se contrasta, mediante chi-cuadrado de bondad de ajuste, si cada \textit{hotspot} sigue la distribución esperada por exposición calendario:
 \begin{itemize}
@@ -215,7 +223,7 @@ Como \textbf{análisis secundario} se contrasta, mediante chi-cuadrado de bondad
     \item \textbf{Día de la semana:} proporcional al número de veces que ocurre cada día calendario entre el 1 de enero y el 29 de agosto de 2025.
     \item \textbf{Mes:} proporcional al número de días observados de cada mes, incluidos enero y agosto parciales.
 \end{itemize}
-Como la tasa mensual de registro cambia tanto, esta referencia se rechazará casi con seguridad aun sin concentración espacial alguna; se informa pero no sustenta por sí sola H\textsubscript{2}. Además, 26 de los 241 días no tienen registro y se desconoce si hubo cero eventos o falta de reporte; los contrastes se repiten sobre días con registro y sobre todos los días. El cambio de clasificación de ``exposición a peligro o abandono'' entre meses se controla repitiendo los contrastes sin esa modalidad (sección~\ref{sec:sensibilidad}).
+Como la tasa mensual de registro cambia tanto, esta referencia se rechazará casi con seguridad aun sin concentración espacial alguna; se informa pero no sustenta por sí sola H\textsubscript{2}. Además, 26 de los 241 días no tienen registro y se desconoce si hubo cero eventos o falta de reporte; los contrastes se repiten sobre días con registro y sobre todos los días. El cambio de clasificación de ``exposición a peligro o abandono'' entre meses se controla repitiendo los contrastes sin esa modalidad (subsección ``Análisis de sensibilidad'').
 
 Los contrastes suponen un riesgo constante en el tiempo y no prueban causalidad. Para evaluar si los \textit{hotspots} difieren entre sí en su distribución temporal se usa además la prueba chi-cuadrado de independencia sobre la tabla \textit{hotspot} por categoría temporal, con el tamaño del efecto medido mediante el coeficiente V de Cramér:
 \begin{equation}
@@ -236,4 +244,4 @@ Se emplea estadística descriptiva (frecuencias, porcentajes, medidas de tendenc
 
 \section{Aspectos éticos y de gestión de datos}
 
-El estudio utiliza registros administrativos disponibles públicamente y se ajustará a la Ley de Protección de Datos Personales \citep{ley29733} y a las condiciones de uso de la fuente. Se emplearán solo los campos necesarios (\texttt{fechaalerta}, \texttt{turno}, \texttt{especifico} o \texttt{modalidad}, coordenadas), sin nombres ni documentos personales. Antes de publicar resultados se confirmarán las condiciones de reutilización con la entidad responsable; los resultados se agregarán por grupo y los mapas evitarán identificar domicilios concretos. El archivo de trabajo se almacenará de forma segura y se utilizará únicamente con fines de investigación.
+El estudio utiliza registros administrativos disponibles públicamente y se ajustará a la Ley de Protección de Datos Personales y a las condiciones de uso de la fuente. Se emplearán solo los campos necesarios (\texttt{fechaalerta}, \texttt{turno}, \texttt{especifico} o \texttt{modalidad}, coordenadas), sin nombres ni documentos personales. Antes de publicar resultados se confirmarán las condiciones de reutilización con la entidad responsable; los resultados se agregarán por grupo y los mapas evitarán identificar domicilios concretos. El archivo de trabajo se almacenará de forma segura y se utilizará únicamente con fines de investigación.

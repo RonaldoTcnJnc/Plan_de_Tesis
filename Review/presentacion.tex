@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 
@@ -12,6 +13,9 @@
 \definecolor{ReviewVerde}{RGB}{20,76,70}
 \definecolor{ReviewTurquesa}{RGB}{0,126,120}
 \definecolor{ReviewDorado}{RGB}{204,145,48}
+\definecolor{ReviewCoral}{RGB}{180,82,58}
+\definecolor{ReviewAzul}{RGB}{55,103,124}
+\definecolor{ReviewOliva}{RGB}{126,123,54}
 \definecolor{ReviewTinta}{RGB}{38,49,48}
 \definecolor{ReviewClaro}{RGB}{239,245,243}
 \definecolor{ReviewGris}{RGB}{112,122,120}
@@ -22,12 +26,24 @@
 \setbeamercolor{block title}{fg=white,bg=ReviewVerde}
 \setbeamercolor{block body}{fg=ReviewTinta,bg=ReviewClaro}
 \setbeamercolor{alerted text}{fg=ReviewDorado}
+\setbeamertemplate{blocks}[default]
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block body}{size=\small}
+\newenvironment{reviewblock}[2]{%
+  \begingroup
+  \setbeamercolor{block title}{fg=white,bg=#1}%
+  \begin{block}{#2}%
+}{%
+  \end{block}%
+  \endgroup
+}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize item}{\color{ReviewDorado}\small$\blacktriangleright$}
 \setbeamertemplate{footline}{%
   \leavevmode\hbox{%
     \begin{beamercolorbox}[wd=.84\paperwidth,ht=2.6ex,dp=1ex,leftskip=.4cm]{author in head/foot}%
-      \fontsize{8}{9}\selectfont Revisión de literatura | Incidentes de seguridad y SIPCOP-M
+      \fontsize{8}{9}\selectfont Revisión sistemática | Hotspots de incidentes de seguridad
     \end{beamercolorbox}%
     \begin{beamercolorbox}[wd=.16\paperwidth,ht=2.6ex,dp=1ex,rightskip=.4cm plus1fil]{date in head/foot}%
       \fontsize{8}{9}\selectfont\hfill\insertframenumber/5
@@ -35,8 +51,8 @@
   }%
 }
 
-\title[Revisión de literatura]{Análisis espacial y arquitectura analítica para caracterizar incidentes de seguridad}
-\subtitle{Síntesis de literatura actual y aplicación al caso SIPCOP-M}
+\title[Revisión de literatura]{Agrupamiento espacial y análisis espacio-temporal}
+\subtitle{Revisión sistemática sobre hotspots de incidentes de seguridad}
 \author{Ronaldo Ticona Jancco}
 \institute{Universidad Nacional de San Antonio Abad del Cusco}
 \date{Exposición breve | 5 minutos}
@@ -46,150 +62,140 @@
 % 1
 \begin{frame}[plain]
   \begin{tikzpicture}[remember picture,overlay]
-    \fill[ReviewVerde] (current page.north west) rectangle ([yshift=-.24\paperheight]current page.north east);
-    \fill[ReviewDorado] ([yshift=-.24\paperheight]current page.north west) rectangle ([yshift=-.255\paperheight]current page.north east);
+    \fill[ReviewVerde] (current page.north west) rectangle ([xshift=.34\paperwidth]current page.south west);
+    \fill[ReviewDorado] ([xshift=.34\paperwidth]current page.north west) rectangle ([xshift=.355\paperwidth]current page.south west);
+    \node[anchor=north west,text=white,font=\small\bfseries,align=left,text width=3.1cm]
+      at ([xshift=.6cm,yshift=-1cm]current page.north west) {REVISIÓN\\DE LITERATURA};
+    \node at ([xshift=.17\paperwidth]current page.west)
+      {\includegraphics[height=3cm,keepaspectratio]{figures/Escudo_UNSAAC.png}};
+    \node[anchor=south west,text=white,font=\small,align=left,text width=3.6cm]
+      at ([xshift=.6cm,yshift=1cm]current page.south west) {Ronaldo Ticona Jancco\\UNSAAC | 2026};
   \end{tikzpicture}
-  \vspace{.55cm}
-  {\color{white}\small\bfseries REVISIÓN DE LITERATURA}\par
-  \vspace{.65cm}
-  {\color{ReviewVerde}\LARGE\bfseries Análisis espacial de incidentes}\par
-  \vspace{.15cm}
-  {\large Arquitectura analítica y caracterización espaciotemporal}\par
-  \vspace{.5cm}
-  \begin{columns}[T,onlytextwidth]
-    \column{.62\textwidth}
-      \begin{block}{Pregunta guía}
-        ¿Cómo convertir registros administrativos georreferenciados en una caracterización espacial y temporal trazable, sin confundir agrupaciones con evidencia de concentración?
-      \end{block}
-    \column{.34\textwidth}
-      \vspace{.15cm}
-      {\color{ReviewDorado}\bfseries CASO DE APLICACIÓN}\par
-      \vspace{.1cm}
-      San Sebastián, Cusco\\
-      Registros SIPCOP Municipal
-  \end{columns}
-  \vfill
-  {\small Ronaldo Ticona Jancco \hfill UNSAAC | 2026}
+  \vspace*{.75cm}
+  \hspace*{.38\paperwidth}\begin{minipage}[t]{.57\paperwidth}
+    \raggedright
+    {\color{ReviewCoral}\small\bfseries INVESTIGACIÓN APLICADA}\par
+    \vspace{.35cm}
+    {\color{ReviewVerde}\LARGE\bfseries Hotspots de incidentes\\de seguridad}\par
+    \vspace{.2cm}
+    {\large Agrupamiento espacial y análisis espacio-temporal}\par
+    \vspace{.7cm}
+    {\color{ReviewAzul}\bfseries PROPÓSITO DE LA REVISIÓN}\par
+    \vspace{.12cm}
+    Revisar las técnicas empleadas, sus decisiones críticas y los criterios para evaluar la reproducibilidad del análisis de hotspots.\par
+    \vspace{.65cm}
+    {\color{ReviewOliva}\bfseries CASO QUE MOTIVA EL ESTUDIO}\par
+    San Sebastián, Cusco\\
+    Registros SIPCOP Municipal
+  \end{minipage}
 \end{frame}
 
 % 2
-\begin{frame}{La literatura aporta métodos complementarios}
-  \vspace{.12cm}
-  \begin{columns}[T,onlytextwidth]
-    \column{.32\textwidth}
-      \begin{block}{Describir}
-        Patrones puntuales y densidad permiten examinar concentración, dispersión y repetición espacial.
-        \vspace{.15cm}
-
-        \footnotesize Medina Ariza y Solymosi (2023)
-      \end{block}
-    \column{.32\textwidth}
-      \begin{block}{Agrupar}
-        DBSCAN delimita grupos por densidad; KDE produce superficies continuas. Responden preguntas distintas.
-        \vspace{.15cm}
-
-        \footnotesize Cutid-Aguero et al. (2025); Changalasetty et al. (2023)
-      \end{block}
-    \column{.32\textwidth}
-      \begin{block}{Seguir en el tiempo}
-        La dimensión temporal puede expresarse como intensidad, propagación o recurrencia.
-        \vspace{.15cm}
-
-        \footnotesize Cardone y Di Martino (2022); Medina Ariza y Solymosi (2023)
-      \end{block}
-  \end{columns}
-  \vspace{.25cm}
+\begin{frame}{Qué se revisó y cómo se seleccionó la literatura}
+  \setbeamercolor{frametitle}{fg=white,bg=ReviewAzul}
   \begin{center}
-    \color{ReviewVerde}\bfseries El método debe elegirse según la unidad de análisis, la escala y la pregunta.
+  \begin{tikzpicture}[
+    etapa/.style={draw=none,fill=ReviewClaro,rounded corners=1pt,minimum width=2.55cm,minimum height=1.05cm,align=center,font=\small\bfseries,text=ReviewTinta},
+    paso/.style={-{Stealth[length=2mm]},thick,draw=ReviewCoral}]
+    \node[etapa] (buscar) {1\\Buscar};
+    \node[etapa,right=.55cm of buscar] (seleccionar) {2\\Seleccionar};
+    \node[etapa,right=.55cm of seleccionar] (extraer) {3\\Extraer};
+    \node[etapa,right=.55cm of extraer] (sintetizar) {4\\Sintetizar};
+    \draw[paso] (buscar)--(seleccionar);
+    \draw[paso] (seleccionar)--(extraer);
+    \draw[paso] (extraer)--(sintetizar);
+    \fill[ReviewCoral] (buscar.north west) rectangle ([xshift=.06cm]buscar.south west);
+    \fill[ReviewAzul] (seleccionar.north west) rectangle ([xshift=.06cm]seleccionar.south west);
+    \fill[ReviewTurquesa] (extraer.north west) rectangle ([xshift=.06cm]extraer.south west);
+    \fill[ReviewOliva] (sintetizar.north west) rectangle ([xshift=.06cm]sintetizar.south west);
+  \end{tikzpicture}
   \end{center}
+  \vspace{.35cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{.48\textwidth}
+      \begin{reviewblock}{ReviewAzul}{Fuentes y temas}
+        Búsquedas en IEEE Xplore, ScienceDirect y Scopus. Se abordaron patrones puntuales, hotspots, agrupamiento, análisis temporal y evaluación de artefactos.
+      \end{reviewblock}
+    \column{.48\textwidth}
+      \begin{reviewblock}{ReviewTurquesa}{Selección y alcance}
+        Se revisaron títulos, resúmenes y textos disponibles; se extrajeron métodos, datos, resultados y limitaciones. La síntesis es cualitativa: no se conservaron consultas literales ni conteos por etapa.
+      \end{reviewblock}
+  \end{columns}
 \end{frame}
 
 % 3
-\begin{frame}{Un clúster no equivale automáticamente a un hotspot}
+\begin{frame}{Cómo se organizó la evidencia encontrada}
+  \setbeamercolor{frametitle}{fg=white,bg=ReviewCoral}
+  \footnotesize
   \begin{columns}[T,onlytextwidth]
-    \column{.56\textwidth}
-      \begin{enumerate}
-        \item \textbf{Calidad de entrada:} validar coordenadas, fechas, categorías, duplicados y cobertura.
-        \item \textbf{Parámetros:} justificar $\varepsilon$ y MinPts frente a la resolución espacial.
-        \item \textbf{Estabilidad:} comparar particiones y reportar ruido, tamaño de grupos y sensibilidad.
-        \item \textbf{Significancia:} contrastar la concentración con una referencia de azar apropiada.
-      \end{enumerate}
-    \column{.40\textwidth}
-      \begin{block}{Precaución temporal}
-        La granularidad del análisis no debe superar la del registro: fecha y turno no permiten inferir hora exacta.
-      \end{block}
-      \vspace{.1cm}
-      {\footnotesize Medina Ariza y Solymosi (2023); León Alarcón (2026)}
+    \column{.48\textwidth}
+      \begin{reviewblock}{ReviewCoral}{1. Patrones puntuales y hotspots}
+        Densidad, kernel y proximidad describen concentración y recurrencia; dependen de la escala y del ancho de banda.
+      \end{reviewblock}
+      \begin{reviewblock}{ReviewAzul}{2. Agrupamiento espacial}
+        DBSCAN identifica grupos y ruido; los métodos territoriales comparan unidades agregadas. No responden a la misma unidad de análisis.
+      \end{reviewblock}
+      \begin{reviewblock}{ReviewTurquesa}{3. Dimensión temporal}
+        Ventanas, series y propagación representan aspectos distintos; la resolución disponible limita la interpretación.
+      \end{reviewblock}
+    \column{.48\textwidth}
+      \begin{reviewblock}{ReviewOliva}{4. Calidad y trazabilidad}
+        Coordenadas, duplicados, categorías y cobertura pueden alterar la forma y el tamaño de las concentraciones observadas.
+      \end{reviewblock}
+      \begin{reviewblock}{ReviewVerde}{5. Arquitectura y evaluación}
+        La literatura orienta a describir componentes y responsabilidades, y a definir criterios observables de calidad y reproducibilidad.
+      \end{reviewblock}
   \end{columns}
-  \vspace{.25cm}
   \begin{center}
-    \color{ReviewDorado}\bfseries La comparación de algoritmos complementa, pero no sustituye, la evaluación estadística.
+    \color{ReviewDorado}\bfseries Esta clasificación comparativa es el principal producto de síntesis de la revisión.
   \end{center}
 \end{frame}
 
 % 4
-\begin{frame}{La solución también necesita una arquitectura evaluable}
-  \vspace{.25cm}
-  \begin{center}
-  \begin{tikzpicture}[
-    node distance=.38cm,
-    etapa/.style={draw=ReviewVerde,fill=ReviewClaro,rounded corners=2pt,minimum width=2.55cm,minimum height=1.1cm,align=center,font=\small\bfseries,text=ReviewTinta},
-    flecha/.style={-{Stealth[length=2.2mm]},thick,draw=ReviewTurquesa}]
-    \node[etapa] (datos) {Perfilado\\y validación};
-    \node[etapa,right=of datos] (arquitectura) {Componentes\\e interfaces};
-    \node[etapa,right=of arquitectura] (analisis) {Análisis\\espacial-temporal};
-    \node[etapa,right=of analisis] (pruebas) {Pruebas y\\productos};
-    \draw[flecha] (datos)--(arquitectura);
-    \draw[flecha] (arquitectura)--(analisis);
-    \draw[flecha] (analisis)--(pruebas);
-  \end{tikzpicture}
-  \end{center}
-  \vspace{.3cm}
+\begin{frame}{Hallazgos: qué condiciona la detección de hotspots}
+  \setbeamercolor{frametitle}{fg=white,bg=ReviewTurquesa}
   \begin{columns}[T,onlytextwidth]
-    \column{.48\textwidth}
-      \begin{block}{Describir el artefacto}
-        ISO/IEC/IEEE 42010 y la investigación en ciencia del diseño orientan la descripción de componentes, responsabilidades y relaciones.
-        \vspace{.1cm}
-
-        \footnotesize ISO/IEC/IEEE (2022); Weigand y Johannesson (2023)
-      \end{block}
-    \column{.48\textwidth}
-      \begin{block}{Evaluar con criterios}
-        Requisitos trazables, casos funcionales, repetición controlada y calidad observable; no basta con mostrar un mapa.
-        \vspace{.1cm}
-
-        \footnotesize ISO/IEC (2023); Argotti et al. (2024); Schaeffer y Leyh (2025)
-      \end{block}
+    \column{.52\textwidth}
+      \begin{reviewblock}{ReviewCoral}{Los métodos son complementarios}
+        KDE estima una superficie continua; DBSCAN forma grupos por densidad. La elección depende de la pregunta y la unidad de análisis.
+      \end{reviewblock}
+      \begin{reviewblock}{ReviewAzul}{Los resultados son sensibles}
+        Escala, resolución de coordenadas, ancho de banda y parámetros $\varepsilon$ y MinPts pueden cambiar la concentración observada.
+      \end{reviewblock}
+    \column{.44\textwidth}
+      \begin{reviewblock}{ReviewOliva}{La temporalidad tiene límites}
+        Ventanas y series deben corresponder a la precisión temporal del registro; no se debe inferir una granularidad no disponible.
+      \end{reviewblock}
+      \begin{reviewblock}{ReviewVerde}{Grupo no significa significancia}
+        Detectar un clúster no demuestra por sí solo un hotspot. Se requieren sensibilidad, referencia estadística y trazabilidad.
+      \end{reviewblock}
   \end{columns}
+  \vspace{.15cm}
+  \begin{center}
+    {\footnotesize Síntesis basada en Medina Ariza y Solymosi (2023), Cardone y Di Martino (2022), Cutid-Aguero et al. (2025), Changalasetty et al. (2023) y León Alarcón (2026).}
+  \end{center}
 \end{frame}
 
 % 5
-\begin{frame}{Síntesis: brecha y aporte para el caso SIPCOP-M}
+\begin{frame}{Qué obtuvo la revisión y qué aporta al caso local}
+  \setbeamercolor{frametitle}{fg=white,bg=ReviewVerde}
   \begin{columns}[T,onlytextwidth]
-    \column{.57\textwidth}
-      \begin{block}{Brecha identificada en la revisión}
-        La literatura revisada ofrece técnicas de análisis espacial y temporal, pero no se identificó una arquitectura documentada y evaluada para integrar esas técnicas con los registros SIPCOP-M de San Sebastián y sus restricciones de calidad.
-      \end{block}
+    \column{.54\textwidth}
+      \begin{reviewblock}{ReviewCoral}{Resultado de la revisión}
+        Una síntesis de métodos, decisiones críticas y criterios de evaluación. No se identificó una arquitectura documentada y evaluada para integrar estas técnicas con los registros SIPCOP-M de San Sebastián.
+      \end{reviewblock}
       \vspace{.15cm}
-      \textbf{Caso de aplicación}\par
-      996 registros; 1 ene.--29 ago. 2025; coordenadas con tres decimales; sin hora individual.
-    \column{.39\textwidth}
-      \begin{block}{Aporte: arquitectura analítica}
-        Un flujo especificado, implementado y evaluado mediante una prueba de concepto reproducible.
-        \vspace{.1cm}
-        \begin{enumerate}
-          \item Caracterizar los datos y derivar requisitos.
-          \item Diseñar la arquitectura y sus componentes.
-          \item Implementar y evaluar la prueba de concepto.
-        \end{enumerate}
-      \end{block}
+      \begin{reviewblock}{ReviewAzul}{Aplicación al caso}
+        La revisión fundamenta un flujo que empieza con perfilado y validación de datos, selecciona técnicas según escala y pregunta, y termina con evaluación reproducible.
+      \end{reviewblock}
+    \column{.42\textwidth}
+      \begin{reviewblock}{ReviewOliva}{Alcance y límite}
+        La síntesis es cualitativa: no hubo metaanálisis ni conteos consolidados de selección. Sus resultados orientan el diseño local, no generalizaciones sobre todos los contextos urbanos.
+      \end{reviewblock}
+      \vspace{.15cm}
+      \textbf{En una frase}\par
+      El aporte no es un algoritmo nuevo, sino criterios para diseñar y evaluar un análisis adecuado a los datos disponibles.
   \end{columns}
-  \vfill
-  \begin{center}
-    {\color{ReviewVerde}\Large\bfseries No se propone un algoritmo nuevo: se evalúa una arquitectura adecuada al caso local.}
-  \end{center}
-  \vspace{.1cm}
-  {\scriptsize Fuentes clave: Medina Ariza y Solymosi (2023); Cutid-Aguero et al. (2025); ISO/IEC/IEEE 42010:2022; ISO/IEC 25010:2023.}
 \end{frame}
 
 \end{document}

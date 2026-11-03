@@ -164,27 +164,29 @@
 \end{frame}
 
 % 5
-\begin{frame}{Síntesis: del estado del arte al caso SIPCOP-M}
+\begin{frame}{Síntesis: brecha y aporte para el caso SIPCOP-M}
   \begin{columns}[T,onlytextwidth]
     \column{.57\textwidth}
-      \begin{block}{Brecha aplicada}
-        Las fuentes ofrecen métodos, pero el caso requiere integrar calidad del registro, análisis espacial y temporal, trazabilidad y evaluación reproducible en un mismo flujo.
+      \begin{block}{Brecha identificada en la revisión}
+        La literatura revisada ofrece técnicas de análisis espacial y temporal, pero no se identificó una arquitectura documentada y evaluada para integrar esas técnicas con los registros SIPCOP-M de San Sebastián y sus restricciones de calidad.
       \end{block}
       \vspace{.15cm}
-      \textbf{Caso de tesis}\
+      \textbf{Caso de aplicación}\par
       996 registros; 1 ene.--29 ago. 2025; coordenadas con tres decimales; sin hora individual.
     \column{.39\textwidth}
-      \begin{block}{Tres pasos de investigación}
+      \begin{block}{Aporte: arquitectura analítica}
+        Un flujo especificado, implementado y evaluado mediante una prueba de concepto reproducible.
+        \vspace{.1cm}
         \begin{enumerate}
-          \item Caracterizar los registros y derivar requisitos.
-          \item Diseñar la arquitectura analítica.
-          \item Implementar y evaluar una prueba de concepto.
+          \item Caracterizar los datos y derivar requisitos.
+          \item Diseñar la arquitectura y sus componentes.
+          \item Implementar y evaluar la prueba de concepto.
         \end{enumerate}
       \end{block}
   \end{columns}
   \vfill
   \begin{center}
-    {\color{ReviewVerde}\Large\bfseries Resultado esperado: evidencia local, trazable y limitada a lo que los datos permiten afirmar.}
+    {\color{ReviewVerde}\Large\bfseries No se propone un algoritmo nuevo: se evalúa una arquitectura adecuada al caso local.}
   \end{center}
   \vspace{.1cm}
   {\scriptsize Fuentes clave: Medina Ariza y Solymosi (2023); Cutid-Aguero et al. (2025); ISO/IEC/IEEE 42010:2022; ISO/IEC 25010:2023.}
